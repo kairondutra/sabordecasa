@@ -23,3 +23,7 @@ node_modules/
 # Arquivos temporários
 *.tmp
 *.temp
+
+# compilados e arquivo do banco de dados
+dist/
+*.db
