@@ -15,6 +15,9 @@
 /* personalizacao da página de nova_categoria */
 @import url("estilos/nova_categoria.css");
 
+/* personalizacao das páginas de editar_prato e novo_prato */
+@import url("estilos/editar_prato.css");
+
 :root {
   /* Cores Principais / Tema */
   --cor-tomate: #D9480F;

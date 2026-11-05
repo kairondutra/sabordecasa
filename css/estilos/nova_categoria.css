@@ -182,7 +182,7 @@ input:checked + .slider:before {
 .form-divisor {
     border: none;
     border-top: 1px solid #F5EBE1;
-    margin: 24px 0;
+    margin: 43px 0;
 }
 
 .form-acoes {
