@@ -12,6 +12,9 @@
 @import url("estilos/cabecalho_filtros.css");
 @import url("estilos/tabela_categoria_pratos.css");
 
+/* personalizacao da página de nova_categoria */
+@import url("estilos/nova_categoria.css");
+
 :root {
   /* Cores Principais / Tema */
   --cor-tomate: #D9480F;
