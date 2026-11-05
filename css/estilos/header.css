@@ -1,0 +1,140 @@
+header{
+    background-color: white
+}
+
+.header_container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0px 120px;
+    padding: 14px 0px 14px 0px;
+}
+
+.header_cabecalho{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.header_cabecalho_logo_img{
+    width: 40px;
+} 
+
+.cabecalho_titulo h1{
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: normal;
+    letter-spacing: 0;
+}
+
+.cabecalho_titulo p{
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: normal;
+    letter-spacing: 0.12em;
+}
+
+
+.header_navegacao ul{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;           
+}
+
+
+
+/*  */
+
+/* Contentor principal da barra de navegação */
+.menu-navegacao {
+  background-color: #ffffff;
+  padding: 6px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  width: fit-content;
+}
+
+/* Remove os marcadores padrão da lista e organiza em linha */
+.menu-navegacao ul {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Estilo base para cada link do menu dentro do <li> */
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #555555;
+  transition: all 0.2s ease-in-out;
+}
+
+/* Efeito ao passar o mouse (hover) */
+.menu-item:hover {
+  background-color: #f7f7f7;
+  color: var(--cor-cafe);
+}
+
+/* Estado Ativo (utilizando as variáveis do projeto) */
+.menu-item.ativo {
+  background-color: var(--cor-creme);
+  color: var(--cor-tomate-escuro);
+  font-weight: 600;
+}
+
+/* Ícones */
+.menu-item .icone {
+  font-size: 16px;
+  fill: red; 
+  width: 18px;
+  height: 18px;
+}
+
+/*  */
+
+.header_usuario {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header_usuario .usuario_foto {
+    width: 40px;
+    height: 40px;
+    background-color: #F3D9C2;
+    color: var(--cor-tomate-escuro);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center; /* Centraliza na horizontal */
+    align-items: center;
+}
+
+.usuario_nome {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700; /* Bold */
+    color: #2A1A12;
+    margin: 0; /* Para remover margens padrão da tag <p> ou <span> se necessário */
+}
+
+.usuario_cargo {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 400; /* Regular */
+    color: #8C7868;
+    margin: 0; /* Para evitar espaçamentos indesejados da tag <p> ou <span> */
+}

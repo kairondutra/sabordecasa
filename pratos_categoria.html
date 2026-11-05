@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabor de casa</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+    <header>
+        <div class="header_container">
+            <div class="header_cabecalho">
+                <div class="header_cabecalho_logo">
+                    <img class="header_cabecalho_logo_img" src="assets/images/logo.svg" alt="">
+                </div>
+                <div class="cabecalho_titulo">
+                    <h1>Sabor de casa</h1>
+                    <p>Painel do cardápio</p>
+                </div>
+            </div>
+
+            <div class="header_navegacao">
+                <nav>
+                    <ul>
+                        <!-- Item: Categorias-->
+                        <li>
+                            <a href="#" class="menu-item ativo">
+                                <span class="icone"><img src="assets/icon/categorias_icon_color.png" alt=""></span>
+                                <span class="texto">Categorias</span>
+                            </a>
+                        </li>
+
+                        <!-- Item: Pratos-->
+                        <li>
+                            <a href="#" class="menu-item">
+                                <span class="icone"><img src="assets/icon/pratos_icon.svg" alt=""></span>
+                                <span class="texto">Pratos</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="header_usuario">
+                <div>
+                    <p class="usuario_nome">Márcia Souza</p>
+                    <p class="usuario_cargo">Proprietária</p>
+                </div>
+                <p class="usuario_foto">MS</p>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="breadcrumb">
+            <p class="breadcrumb_item_inativo"><a href="#">Painel</a></p>
+            <p class="breadcrumb_divisor">></p>
+            <p class="breadcrumb_item_inativo"><a href="index.html">Categorias</a></p>
+            <p class="breadcrumb_divisor">></p>
+            <p class="breadcrumb_item_ativo">Executivos</p>
+        </div>
+
+        <!-- barra verde de sucesso -->
+        <div id="toastSucesso" class="toast-sucesso">
+            <div class="toast-pratos-categoria-conteudo">
+                <svg class="toast-icone" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 6L9 17L4 12" stroke="#2D6A4F" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span class="toast-mensagem">
+                    <strong>"Peixe grelhado com legumes"</strong> foi atualizado com sucesso.
+                </span>
+            </div>
+
+            <button class="toast-fechar" id="fecharToast" aria-label="Fechar notificação">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="#2D6A4F" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+        </div>
+        <!-- fim da barra verde de sucesso -->
+
+        <!-- inicio do cabecalho da categoria -->
+        <div class="cabecalho-categoria">
+            <!-- Lado Esquerdo: Voltar, Foto, Título e Badges -->
+            <div class="categoria-info-wrapper">
+
+                <div class="categoria-detalhes">
+                    <img src="assets/images/categoria_pratos_executivos.jpg" alt="Executivos" class="categoria-foto">
+
+                    <div class="categoria-textos">
+                        <a href="index.html" class="link-voltar">&larr; Voltar para categorias</a>
+                        <h1>Executivos</h1>
+                        <div class="categoria-badges">
+                            <span class="badge badge-quantidade">6 pratos</span>
+                            <span class="badge badge-visibilidade">Visível no cardápio</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lado Direito: Botões de Ação ("Editar categoria" e "+ Novo prato") -->
+            <div class="categoria-acoes">
+                <!-- <button class="btn btn-editar">
+                    <img src="assets/icon/icon_edit_pencil.png" alt="" class="btn-icone">
+                    Editar categoria
+                </button> -->
+
+                <a href="editar_categoria.html" class="btn btn-editar">
+                    <img src="assets/icon/icon_edit_pencil.png" alt="" class="btn-icone">
+                    Editar categoria
+                </a>
+
+                <!-- <button class="btn btn-novo-prato">
+                    <img src="img/icon_plus.png" alt="" class="btn-icone">
+                    Novo prato
+                </button> -->
+                <a href="novo_prato.html" class="btn btn-novo-prato">
+                    <img src="assets/icon/icon_plus.png" alt="" class="btn-icone">
+                    Novo prato
+                </a>
+            </div>
+        </div>
+        <!-- fim do cabecalho da categoria -->
+
+        <!-- inicio do container de filtros  -->
+        <div class="filtros-container">
+            <!-- Lado Esquerdo: Abas de Filtro (Todos, Disponíveis, Esgotados) -->
+            <div class="filtros-abas">
+                <button class="filtro-tab ativo">Todos (6)</button>
+                <button class="filtro-tab">Disponíveis (5)</button>
+                <button class="filtro-tab">Esgotados (1)</button>
+            </div>
+
+            <!-- Lado Direito: Barra de Busca de Pratos -->
+            <div class="filtro-busca-box">
+                <svg class="icone-lupa" viewBox="0 0 24 24" fill="none">
+                    <circle cx="11" cy="11" r="8" stroke="#8C7868" stroke-width="2" />
+                    <path d="M21 21L16.65 16.65" stroke="#8C7868" stroke-width="2" stroke-linecap="round" />
+                </svg>
+                <input type="text" placeholder="Buscar prato..." class="input-busca-prato">
+            </div>
+        </div>
+        <!-- fim do container de filtros  -->
+
+        <!-- inicio da tabela de pratos -->
+        <div class="tabela-pratos-container">
+            <!-- Cabeçalho da Tabela -->
+            <div class="tabela-header">
+                <span class="col-prato">PRATO</span>
+                <span class="col-preco" id="col-preco-header">PREÇO</span>
+                <span class="col-status">STATUS</span>
+                <span class="col-acoes">AÇÕES</span>
+            </div>
+
+            <!-- Item 1: Prato Disponível -->
+            <div class="prato-item">
+                <div class="col-prato prato-info">
+                    <img src="assets/images/foto_prato_arroz_picadinho.png" alt="Arroz com picadinho de carne"
+                        class="prato-foto">
+                    <div class="prato-textos">
+                        <h4>Arroz com picadinho de carne</h4>
+                        <p>Picadinho ao molho, arroz branco, feijão e farofa.</p>
+                    </div>
+                </div>
+                <div class="col-preco">R$ 21,90</div>
+                <div class="col-status">
+                    <span class="status-badge disponivel">
+                        <span class="status-dot"></span> Disponível
+                    </span>
+                </div>
+
+
+                <!-- <div class="col-acoes">
+                    <button class="btn-acao btn-editar" title="Editar"><img src="img/icon_edit_pencil.png" alt="Editar"></button>
+                    <button class="btn-acao btn-excluir" title="Excluir"><img src="img/icon_trash.png" alt="Excluir"></button>
+                </div> -->
+
+                <div class="col-acoes">
+                    <!-- Botão de Editar transformado em Link (<a>) estilizado como botão -->
+                    <a href="editar_prato.html" class="btn-acao btn-editar" title="Editar">
+                        <img src="assets/icon/icon_edit_pencil.png" alt="Editar">
+                    </a>
+
+                    <!-- Botão de Excluir mantido como <button> para disparar a ação -->
+                    <button type="button" class="btn-acao btn-excluir" title="Excluir" onclick="abrirModalExclusao(1)">
+                        <img src="assets/icon/icon_trash.png" alt="Excluir">
+                    </button>
+                </div>
+            </div>
+
+            <!-- Item 2: Prato Esgotado -->
+            <div class="prato-item">
+                <div class="col-prato prato-info">
+                    <img src="assets/images/foto_prato_espetinho.png" alt="Espetinho misto com farofa"
+                        class="prato-foto">
+                    <div class="prato-textos">
+                        <h4>Espetinho misto com farofa</h4>
+                        <p>Carne e frango, farofa de manteiga e vinagrete.</p>
+                    </div>
+                </div>
+                <div class="col-preco">R$ 24,90</div>
+                <div class="col-status">
+                    <span class="status-badge esgotado">
+                        <span class="status-dot"></span> Esgotado
+                    </span>
+                </div>
+                <div class="col-acoes">
+                    <!-- Botão de Editar transformado em Link (<a>) estilizado como botão -->
+                    <a href="#" class="btn-acao btn-editar" title="Editar">
+                        <img src="assets/icon/icon_edit_pencil.png" alt="Editar">
+                    </a>
+
+                    <button type="button" class="btn-acao btn-excluir" title="Excluir" onclick="abrirModalExclusao(1)">
+                        <img src="assets/icon/icon_trash.png" alt="Excluir">
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- fim da tabela de precos -->
+
+    </main>
+</body>

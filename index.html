@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabor de casa</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+        rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="header_container">
+            <div class="header_cabecalho">
+                <div class="header_cabecalho_logo">
+                    <img class="header_cabecalho_logo_img" src="assets/images/logo.svg" alt="">
+                </div>
+                <div class="cabecalho_titulo">
+                    <h1>Sabor de casa</h1>
+                    <p>Painel do cardápio</p>
+                </div>
+            </div>
+
+            <div class="header_navegacao">
+                <nav>
+                    <ul>
+                        <!-- Item: Categorias-->
+                        <li>
+                            <a href="#" class="menu-item ativo">
+                                <span class="icone"><img src="assets/icon/categorias_icon_color.png" alt=""></span>
+                                <span class="texto">Categorias</span>
+                            </a>
+                        </li>
+
+                        <!-- Item: Pratos-->
+                        <li>
+                            <a href="#" class="menu-item">
+                                <span class="icone"><img src="assets/icon/pratos_icon.svg" alt=""></span>
+                                <span class="texto">Pratos</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="header_usuario">
+                <div>
+                    <p class="usuario_nome">Márcia Souza</p>
+                    <p class="usuario_cargo">Proprietária</p>
+                </div>
+                <p class="usuario_foto">MS</p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="breadcrumb">
+            <p class="breadcrumb_item_inativo"><a href="#">Painel</a></p>
+            <p class="breadcrumb_divisor">></p>
+            <p class="breadcrumb_item_ativo">Categorias</p>
+        </div>
+
+        <div class="cabecalho">
+            <div class="cabecalho_texto">
+                <h1 class="cabecalho_titulo_pagina">Categorias do cardápio</h1>
+                <p class="cabecalho_descricao_pagina">Organize os pratos por categoria. O que você muda aqui aparece na
+                    hora no cardápio público.</p>
+            </div>
+            <a href="nova_categoria.html" class="cabecalho_adicionar_categoria_botao">+ Adicionar categoria</a>
+        </div>
+
+        <div class="indicadores">
+            <!-- indicador da quantidade de categorias e pratos cadastrados no sistema -->
+            <div class="indicadores_item">
+                <div class="indicadores_item_imagem_container">
+                    <img class="indicadores_item_imagem" src="assets/images/indicador_categoria.png" alt="">
+                </div>
+                <div class="indicadores_item_texto">
+                    <p class="indicadores_item_numero">5</p>
+                    <p class="indicadores_item_descricao">Categorias</p>
+                </div>
+            </div>
+            <!-- indicador da quantidade de categorias e pratos cadastrados no sistema -->
+            <div class="indicadores_item">
+                <div class="indicadores_item_imagem_container">
+                    <img class="indicadores_item_imagem" src="assets/images/indicador_pratos.png" alt="">
+                </div>
+                <div class="indicadores_item_texto">
+                    <p class="indicadores_item_numero">21</p>
+                    <p class="indicadores_item_descricao">Pratos</p>
+                </div>
+            </div>
+            <!--  indicador da quantidade de pratos esgotados no sistema -->
+            <div class="indicadores_item">
+                <div class="indicadores_item_imagem_container">
+                    <img class="indicadores_item_imagem" src="assets/images/indicador_esgotados.png" alt="">
+                </div>
+                <div class="indicadores_item_texto">
+                    <p class="indicadores_item_numero">2</p>
+                    <p class="indicadores_item_descricao">Esgotados hoje</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="busca_container">
+            <!-- 1. Campo de Busca (Separado) -->
+            <div class="busca_box">
+                <svg class="icone_lupa" viewBox="0 0 24 24" fill="none">
+                    <circle cx="11" cy="11" r="8" stroke="#8C7868" stroke-width="2" />
+                    <path d="M21 21L16.65 16.65" stroke="#8C7868" stroke-width="2" stroke-linecap="round" />
+                </svg>
+                <input type="text" placeholder="Buscar categoria..." class="input_busca">
+            </div>
+
+            <!-- 2. Botão de Filtro/Ordenação (Separado) -->
+            <div class="filtro_box">
+                <svg class="icone_filtro" viewBox="0 0 24 24" fill="none">
+                    <path d="M4 6H20M7 12H17M10 18H14" stroke="#8C7868" stroke-width="2" stroke-linecap="round" />
+                </svg>
+
+                <select class="select_filtro">
+                    <option value="" disabled selected>Ordem do cardápio</option>
+                    <option value="recente">Mais recentes</option>
+                    <option value="alfabetica">Alfabética</option>
+                </select>
+
+                <svg class="icone_chevron" viewBox="0 0 24 24" fill="none">
+                    <path d="M6 9L12 15L18 9" stroke="#8C7868" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </div>
+        </div>
+
+        <!--  -->
+        <section class="categorias_container">
+            <!-- Card de Exemplo (Repetido dinamicamente para cada nova categoria) -->
+            <div class="card-categoria">
+                <div class="card-capa">
+                    <img src="assets/images/categoria_pratos_executivos.jpg" alt="Executivos">
+                </div>
+                <div class="card-conteudo">
+                    <div class="card-header">
+                        <h3>Executivos</h3>
+                        <span class="badge-pratos">6 pratos</span>
+                    </div>
+                    <p class="card-descricao">Arroz, feijão, salada e a proteína do dia.</p>
+                    <div class="card-footer">
+                        <a href="pratos_categoria.html" class="btn-ver-pratos">Ver pratos &rarr;</a>
+                        <div class="card-acoes">
+                            <!-- <button class="btn-acao" title="Editar"><img src="assets/icon/icon_edit_pencil.png" alt="Editar"></button> -->
+                            <a href="editar_categoria.html" class="btn-acao" title="Editar">
+                                <img src="assets/icon/icon_edit_pencil.png" alt="Editar">
+                            </a> 
+                            <button class="btn-acao" title="Excluir"><img src="assets/icon/icon_trash.png" alt="Excluir"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Novos cards adicionados pelo cadastro aparecerão aqui -->
+             
+
+        </section>
+        <!--  -->
+
+    </main>
+
+    <!-- <footer>
+        <div class="">
+            <p>© 2024 Sabor de casa. Todos os direitos reservados.</p>
+        </div>
+    </footer> -->
+    
+    <script src="script.js"></script>
+</body>
+</html>

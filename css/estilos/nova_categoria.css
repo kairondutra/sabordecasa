@@ -1,0 +1,321 @@
+.subtitulo-pagina {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--cor-fonte-descricao);   
+}
+
+/* Layout Principal em Grid (Esquerda: Formulário | Direita: Regras) */
+.categoria-layout-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Proporção ideal para o formulário e o painel de regras */
+    gap: 24px;
+    width: 100%;
+    align-items: start;
+    box-sizing: border-box;
+}
+
+/* Estilo comum dos Cards */
+.card-formulario, .card-regras {
+    background-color: #FFFFFF;
+    border: 1px solid var(--cor-linha);
+    border-radius: 16px;
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+/* --- FORMULÁRIO --- */
+.card-formulario h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--cor-cafe);
+    margin: 0 0 20px 0;
+}
+
+.form-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 20px;
+}
+
+.form-grupo label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--cor-cafe);
+}
+
+.form-grupo label span {
+    color: var(--cor-fonte-badge);
+    font-weight: 700;
+}
+
+/* Inputs e Textarea Padronizados */
+.form-grupo input[type="text"],
+.form-grupo input[type="number"],
+.form-grupo textarea {
+    width: 100%;
+    padding: 12px 14px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    color: var(--cor-cafe);
+    background-color: #FFFFFF;
+    border: 1px solid var(--cor-linha);
+    border-radius: 12px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.form-grupo input:focus, .form-grupo textarea:focus {
+    border-color: var(--cor-fonte-badge);
+}
+
+/* Estado de Erro do Input */
+.input-erro-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-erro {
+    border-color: var(--cor-fonte-erro) !important;
+    background-color: var(--cor-erro-fundo);
+    padding-right: 40px !important;
+}
+
+.icone-input-erro {
+    position: absolute;
+    right: 14px;
+    width: 18px;
+    height: 18px;
+    color: var(--cor-fonte-erro);
+    pointer-events: none;
+}
+
+.mensagem-erro {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--cor-fonte-erro);
+    margin-top: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.form-ajuda {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12px;
+    color: var(--cor-fonte-breadcumb-inativo);
+    margin-top: 2px;
+}
+
+/* Linha Dupla (Ordem e Visibilidade) */
+.form-linha-dupla {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+/* Toggle Switch de Visibilidade */
+.toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 44px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #D9C3B0;
+    transition: 0.3s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--cor-fonte-verde-escuro); /* Verde de sucesso */
+}
+
+input:checked + .slider:before {
+    transform: translateX(20px);
+}
+
+.toggle-label {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    color: var(--cor-cafe);
+    font-weight: 500;
+}
+
+/* Divisor e Botões do Formulário */
+.form-divisor {
+    border: none;
+    border-top: 1px solid #F5EBE1;
+    margin: 43px 0;
+}
+
+.form-acoes {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.btn-cancelar {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    border: 1px solid var(--cor-linha);
+    color: var(--cor-cafe);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-cancelar:hover {
+    background-color: #FAF5F0;
+}
+
+.btn-salvar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 12px;
+    background-color: var(--cor-fonte-badge);
+    border: 1px solid var(--cor-fonte-badge);
+    color: #FFFFFF;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-salvar:hover {
+    background-color: var(--cor-tomate-escuro);
+}
+
+/* Ícone de Check dentro do botão */
+.btn-icone-check {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+/* --- COLUNA DIREITA: REGRAS DA TELA --- */
+.regras-titulo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.regras-titulo img {
+    width: 20px;
+    height: 20px;
+}
+
+.regras-titulo h3 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--cor-cafe);
+    margin: 0;
+}
+
+.regras-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.regra-item {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.regra-icone {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+/* Cores dos ícones de status das regras */
+.regra-item.valido {
+    color: var(--cor-cafe);
+}
+
+.regra-item.valido .regra-icone {
+    background-color: var(--cor-sucesso);
+    color: var(--cor-fonte-verde-escuro);
+}
+
+.regra-item.invalido {
+    color: var(--cor-fonte-erro);
+}
+
+.regra-item.invalido .regra-icone {
+    background-color: var(--cor-erro-fundo);
+    color: var(--cor-fonte-erro);
+}
+
+/* Tamanho do ícone de alerta ao lado da mensagem */
+.icone-mensagem-erro {
+    width: 14px;
+    height: 14px;
+    object-fit: contain;
+    flex-shrink: 0;      
+}
+
+/* --- Responsividade para Telas Menores --- */
+@media (max-width: 900px) {
+    .categoria-layout-container {
+        grid-template-columns: 1fr; 
+    }
+}
