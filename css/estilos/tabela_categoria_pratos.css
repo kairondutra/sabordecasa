@@ -1,0 +1,201 @@
+/* Container Principal da Tabela */
+.tabela-pratos-container {
+    width: 100%;
+    background-color: #FFFFFF;
+    border: 1px solid #EEDFCF;
+    border-radius: 16px;
+    overflow: hidden;
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Alinhamento usando Grid para manter todas as linhas padronizadas */
+.tabela-header, .prato-item {
+    display: grid;
+    grid-template-columns: 2fr 110px 130px 90px; /* Proporção exata das colunas */
+    align-items: center;
+    padding: 16px 24px;
+    gap: 16px;
+}
+
+/* Cabeçalho */
+.tabela-header {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    border-bottom: 1px solid #EEDFCF;
+    font-size: 11px;
+    font-weight: 700;
+    color: #8C7868;
+    letter-spacing: 10%;
+}
+
+/* Linha de cada Prato */
+.prato-item {
+    border-bottom: 1px solid #F5EBE1;
+    transition: background-color 0.2s ease;
+}
+
+.prato-item:last-child {
+    border-bottom: none; /* Remove a linha da última linha */
+}
+
+.prato-item:hover {
+    background-color: #FAF5F0; /* Efeito sutil ao passar o mouse */
+}
+
+/* Informações do Prato (Foto + Textos) */
+.prato-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.prato-foto {
+    width: 64px;
+    height: 64px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.prato-textos {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 4px;
+}
+
+.prato-textos h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #2A1A12;
+    margin: 0 0 2px 0;
+}
+
+.prato-textos p {
+    font-size: 12px;
+    color: var(--cor-fonte-breadcumpb-inativo);
+    margin: 0;
+}
+
+/* Cabeçalho da Coluna de Preço */
+#col-preco-header{
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--cor-fonte-breadcumpb-inativo);
+    letter-spacing: 10%;
+}
+
+/* Preço */
+.col-preco {
+    font-family: Frances, serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #2A1A12;
+}
+
+/* Badges de Status (Disponível / Esgotado) */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+.status-badge.disponivel {
+    background-color: var(--cor-sucesso);
+    color: var(--cor-fonte-verde-escuro);
+}
+
+.status-badge.disponivel .status-dot {
+    background-color: var(--cor-fonte-verde-escuro);
+}
+
+.status-badge.esgotado {
+    background-color: var(--cor-erro-fundo);
+    color: var(--cor-fonte-erro);
+}
+
+.status-badge.esgotado .status-dot {
+    background-color: #C53030;
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+/* Botões de Ação (Editar e Excluir) */
+.col-acoes {
+    display: flex;
+    gap: 12px;
+}
+
+/* .btn-acao {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+} */
+
+/* .btn-acao:hover {
+    opacity: 1;
+} */
+
+/* .btn-acao img {
+    width: 16px;
+    height: 16px;
+} */
+
+/*  */
+/* Configuração Base para ambos os botões */
+.btn-acao {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;        /* W 34 do Figma */
+    height: 34px;       /* H 34 do Figma */
+    padding: 8px;       /* Padding de 8px */
+    border-radius: 8px; /* Corner radius de 8px */
+    border: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: opacity 0.2s ease;
+}
+
+.btn-acao img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
+/* .btn-acao:hover {
+    opacity: 0.8;
+} */
+
+/* --- Botão Editar (Primeira imagem) --- */
+.btn-editar {
+    background-color: var(--cor-button-editar); /* Tom bege suave extraído do Figma */
+}
+
+.btn-editar:hover {
+    background-color: #F2E1CB; /* Exemplo: um tom um pouco mais escuro do bege, ou a cor que preferir */
+    opacity: 0.9;
+}
+
+/* --- Botão Excluir (Segunda imagem) --- */
+.btn-excluir {
+    background-color:var(--cor-erro-fundo) /* Tom avermelhado suave extraído do Figma */
+}
+
+.btn-excluir:hover {
+    background-color: #F8D7D7; /* Um tom um pouco mais escuro/intenso de vermelho suave para indicar a interação */
+    opacity: 0.9;
+}
+/*  */

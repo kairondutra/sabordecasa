@@ -6,6 +6,12 @@
 @import url("estilos/busca.css");
 @import url("estilos/grade_categorias.css");
 
+/* personalizacao da página pratos_categoria */
+@import url("estilos/toast.css");
+@import url("estilos/cabecalho_categoria.css");
+@import url("estilos/cabecalho_filtros.css");
+@import url("estilos/tabela_categoria_pratos.css");
+
 :root {
   /* Cores Principais / Tema */
   --cor-tomate: #D9480F;
@@ -30,8 +36,6 @@
   --cor-fonte-verde-escuro: #2B8A3E;
   --cor-fonte-erro: #C92A2A;
 }
-
-
 
 body {
   background-color: var(--cor-creme);

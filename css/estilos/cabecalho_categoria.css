@@ -1,0 +1,153 @@
+/* Container principal do cabeçalho */
+.cabecalho-categoria {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end; /* Alinha os itens pela base */
+    width: 100%;
+    margin-bottom: 28px;
+    box-sizing: border-box;
+}
+
+/* --- lado esquerdo --- */
+.categoria-info-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.link-voltar {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--cor-tomate);
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.link-voltar:hover {
+    opacity: 0.8;
+}
+
+.categoria-detalhes {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.categoria-foto {
+    width: 96px;
+    height: 96px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.categoria-textos h1 {
+    font-family: 'Fraunces', serif;
+    font-size: 40px;
+    font-weight: 600;
+    color: var(--cor-cafe);
+    margin: 0 0 6px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Empurra o título para cima e as badges para baixo */
+    height: 64px; /* Altura exata da foto (.categoria-foto) para ocupar o espaço vertical correto */
+}
+
+.categoria-badges {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Badges (Contador e Status) */
+.badge {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+.badge-quantidade {
+    background-color: #FFE8D6;
+    color: var(--cor-tomate-escuro);
+}
+
+.badge-visibilidade {
+    background-color: var(--cor-sucesso);
+    color: var(--cor-fonte-verde-escuro);
+}
+
+/* --- LADO DIREITO (Botões de Ação) --- */
+.categoria-acoes {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.btn-icone {
+    width: 16px;
+    height: 16px;
+}
+
+/* Botão Secundário (Editar Categoria) */
+.btn-editar {
+    background-color: #FFFFFF;
+    border: 1px solid var(--cor-linha);
+    color: var(--cor-cafe);
+}
+
+.btn-editar:hover {
+    background-color: #FAF5F0;
+}
+
+/* Botão Primário (Novo Prato - Fundo Laranja) */
+.btn-novo-prato {
+    background-color: var(--cor-tomate);
+    border: none;   
+    color: #FFFFFF;
+    outline: none;  
+    box-shadow: none; 
+}
+
+.btn-novo-prato:hover {
+    background-color: #B24E2B;
+}
+
+.categoria-acoes a {
+padding: 12px 20px;
+background-color: var(--cor-tomate);
+color: white;
+text-decoration: none;
+border-radius: 10px;
+font-family: 'Plus Jakarta Sans', sans-serif;
+font-size: 15px;
+font-weight: 600;
+}
+
+/* --- Responsividade para Telas Menores --- */
+@media (max-width: 768px) {
+    .cabecalho-categoria {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+    
+    .categoria-acoes {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}
