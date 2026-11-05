@@ -1,5 +1,42 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+/* personalizacao do index */
+@import url("estilos/header.css");
+@import url("estilos/breadcumpb.css");
+@import url("estilos/cabecalho.css");
+@import url("estilos/indicadores.css");
+@import url("estilos/busca.css");
+@import url("estilos/grade_categorias.css");
+
+:root {
+  /* Cores Principais / Tema */
+  --cor-tomate: #D9480F;
+  --cor-tomate-escuro: #B23A0B;
+  --cor-cafe: #2A1A12;
+  --cor-creme: #FFF8EF;
+  --cor-erva: #2B8A3E;
+  /*  */
+  --cor-button-editar: #FBEFDF;
+
+  /* Estados e Elementos */
+
+  --cor-atencao: #F59F00;
+  --cor-linha: #EEDFCF;
+  --cor-sucesso: #E3F5E6;
+  --cor-erro-fundo: #FFF0F0;
+
+  /* cor da fonte */
+  --cor-fonte-breadcumpb-inativo: #8C7868;
+  --cor-fonte-descricao: #5C4A3E;
+  --cor-fonte-badge: #C85A32;
+  --cor-fonte-verde-escuro: #2B8A3E;
+  --cor-fonte-erro: #C92A2A;
+}
+
+
+
+body {
+  background-color: var(--cor-creme);
+}
+
+main {
+  padding: 36px 120px 72px 120px;
 }

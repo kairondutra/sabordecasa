@@ -1,0 +1,80 @@
+/* Container que engloba os dois blocos lado a lado */
+.busca_container {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Espaçamento entre a busca e o filtro */
+    width: 100%;
+    margin-bottom: 28px;
+}
+
+/* --- 1. Bloco de Busca --- */
+.busca_box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1; /* Ocupa todo o espaço restante da esquerda */
+    height: 48px;
+    background-color: #FFFFFF;
+    border: 1px solid #EEDFCF; 
+    border-radius: 12px;
+    padding: 0 16px;
+    box-sizing: border-box;
+}
+
+.icone_lupa {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.input_busca {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    color: #2A1A12;
+    background: transparent;
+}
+
+.input_busca::placeholder {
+    color: #8C7868;
+}
+
+/* --- 2. Bloco de Filtro --- */
+.filtro_box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 48px;
+    background-color: #FFFFFF;
+    border: 1px solid #EEDFCF; 
+    padding: 0 16px;
+    box-sizing: border-box;
+    cursor: pointer;
+    flex-shrink: 0; /* Impede que o botão encolha */
+}
+
+.icone_filtro {
+    width: 16px;
+    height: 16px;
+}
+
+.select_filtro {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #2A1A12;
+    cursor: pointer;
+    appearance: none; /* Remove seta padrão do navegador */
+    padding-right: 4px;
+}
+
+.icone_chevron {
+    width: 14px;
+    height: 14px;
+    pointer-events: none;
+}

@@ -1,0 +1,27 @@
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 28px;
+}
+
+.breadcrumb_item_inativo a{
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500; 
+    color: var(--cor-fonte-breadcumpb-inativo);
+    text-decoration: none; 
+}
+
+.breadcrumb_divisor {
+    font-size: 14px;
+    color: var(--cor-fonte-breadcumpb-inativo);
+}
+
+
+.breadcrumb_item_ativo {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 700; /* Bold */
+    color: var(--cor-cafe);
+}

@@ -1,0 +1,43 @@
+.cabecalho {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; 
+    align-items: flex-end;
+    margin-bottom: 28px;
+}
+
+.cabecalho_texto {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.cabecalho_titulo_pagina {
+    font-family: 'Fraunces', serif;
+    font-size: 44px;
+    font-weight: 600; /* SemiBold */
+    letter-spacing: -0.01em; /* -1% */
+    color: #2A1A12;
+    margin: 0; /* Para controlar o espaçamento externo conforme necessário */
+}
+
+.cabecalho_descricao_pagina {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 400; /* Regular */
+    line-height: 24px;
+    color: var(--cor-fonte-descricao);
+    margin: 0;
+    width: 620px;
+}
+
+.cabecalho a{
+    padding: 12px 20px;
+    background-color: var(--cor-tomate);
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+}
