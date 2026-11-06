@@ -183,22 +183,44 @@
             </div>
 
             <!-- COLUNA DIREITA: Caixa de Regras desta Tela -->
-            <div class="card-regras">
-                <div class="regras-titulo">
-                    <img src="assets/icon/icon_alert.png" alt="Ícone de informação">
-                    <h3>Regras desta tela</h3>
+            <div class="coluna-lateral">
+
+                <!-- Card: Foto -->
+                <div class="card-foto">
+                    <h3>Foto do prato</h3>
+                    <div class="preview-foto-container">
+                        <img src="assets/images/upload_image.jpeg" alt="Foto do prato" class="foto-prato-img">
+                    </div>
+                    <button type="button" class="btn-trocar-foto">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            style="width:16px;height:16px;">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                        Trocar foto (JPG ou PNG, até 2 MB)
+                    </button>
                 </div>
-                <ul class="regras-lista">
-                    <li class="regra-item valido">
-                        <span class="regra-icone">✓</span> Nome é obrigatório.
-                    </li>
-                    <li class="regra-item invalido">
-                        <span class="regra-icone">✕</span> O nome não pode repetir outra categoria.
-                    </li>
-                    <li class="regra-item valido">
-                        <span class="regra-icone">✓</span> Uma categoria com pratos não pode ser excluída.
-                    </li>
-                </ul>
+
+                <!-- Card: Regras desta tela -->
+                <div class="card-regras">
+                    <div class="regras-titulo">
+                        <img src="assets/icon/icon_alert.png" alt="Ícone de informação">
+                        <h3>Regras desta tela</h3>
+                    </div>
+                    <ul class="regras-lista">
+                        <li class="regra-item valido">
+                            <span class="regra-icone">✓</span> Nome é obrigatório.
+                        </li>
+                        <li class="regra-item invalido">
+                            <span class="regra-icone">✕</span> O nome não pode repetir outra categoria.
+                        </li>
+                        <li class="regra-item valido">
+                            <span class="regra-icone">✓</span> Uma categoria com pratos não pode ser excluída.
+                        </li>
+                    </ul>
+                </div>
+
             </div>
 
         </div>
