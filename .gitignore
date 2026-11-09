@@ -1,7 +1,10 @@
 # Arquivos de sistema
 .DS_Store
-Thumbs.db
 desktop.ini
+
+# Banco de dados
+*.db
+*.db-*
 
 # Logs
 *.log
@@ -9,6 +12,9 @@ npm-debug.log*
 
 # Dependências
 node_modules/
+
+# Código compilado
+dist/
 
 # Arquivos de ambiente
 .env
