@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabor de casa</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+    <header>
+        <div class="header_container">
+            <div class="header_cabecalho">
+                <div class="header_cabecalho_logo">
+                    <img class="header_cabecalho_logo_img" src="assets/images/logo.svg" alt="">
+                </div>
+                <div class="cabecalho_titulo">
+                    <h1>Sabor de casa</h1>
+                    <p>Painel do cardápio</p>
+                </div>
+            </div>
+
+            <div class="header_navegacao">
+                <nav>
+                    <ul>
+                        <!-- Item: Categorias-->
+                        <li>
+                            <a href="#" class="menu-item ativo">
+                                <span class="icone"><img src="assets/icon/categorias_icon_color.png" alt=""></span>
+                                <span class="texto">Categorias</span>
+                            </a>
+                        </li>
+
+                        <!-- Item: Pratos-->
+                        <li>
+                            <a href="#" class="menu-item">
+                                <span class="icone"><img src="assets/icon/pratos_icon.svg" alt=""></span>
+                                <span class="texto">Pratos</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+            <div class="header_usuario">
+                <div>
+                    <p class="usuario_nome">Márcia Souza</p>
+                    <p class="usuario_cargo">Proprietária</p>
+                </div>
+                <p class="usuario_foto">MS</p>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="breadcrumb">
+            <p class="breadcrumb_item_inativo"><a href="#">Painel</a></p>
+            <p class="breadcrumb_divisor">></p>
+            <p class="breadcrumb_item_inativo"><a href="index.html">Categorias</a></p>
+            <p class="breadcrumb_divisor">></p>
+            <p class="breadcrumb_item_inativo"><a href="pratos_categoria.html">Executivos</a></p>
+            <p class="breadcrumb_divisor">></p>
+            <p class="breadcrumb_item_ativo">Editar prato</p>
+        </div>
+
+
+        <!-- inicio do cabecalho da categoria -->
+        <div class="cabecalho-categoria">
+            <!-- Lado Esquerdo: Voltar, Foto, Título e Badges -->
+            <div class="categoria-info-wrapper">
+                <div class="categoria-detalhes">
+                    <div class="categoria-textos">
+                        <a href="pratos_categoria.html" class="link-voltar">&larr; Voltar para Executivos</a>
+                        <h1>Editar prato</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- fim do cabecalho da categoria -->
+
+        
+
+        <!-- Formulário para criar/editar prato  -->
+        <div class="prato-layout-container">
+
+            <!-- COLUNA ESQUERDA: Formulário de Dados do Prato -->
+            <div class="card-formulario">
+                <h2>Dados do prato</h2>
+
+                <form>
+                    <!-- Campo: Nome do prato -->
+                    <div class="form-grupo">
+                        <label for="nome-prato">Nome do prato <span>*</span></label>
+                        <div class="input-erro-wrapper">
+                            <!-- Alterado de value para placeholder -->
+                            <input type="text" id="nome-prato" placeholder="Ex.: Peixe grelhado com legumes"
+                                 value="Arroz com picadinho de carne">
+                            <svg class="icone-input-erro" style="display: none;" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="12"></line>
+                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                            </svg>
+                        </div>
+                        <span class="mensagem-erro" style="display: none;">
+                            <img src="img/icon_alert.png" alt="Alerta" class="icone-mensagem-erro">
+                            Informe o nome do prato.
+                        </span>
+                    </div>
+
+                    <!-- Campo: Descrição -->
+                    <div class="form-grupo">
+                        <label for="descricao-prato">Descrição <span>(opcional)</span></label>
+                        <textarea id="descricao-prato" rows="3"
+                            placeholder="Ex.: Filé de peixe, legumes salteados e arroz de coco.">Picadinho ao molho, arroz branco, feijão e farofa.</textarea>
+                    </div>
+
+                    <!-- Linha Dupla: Preço e Categoria -->
+                    <div class="form-linha-dupla">
+                        <!-- Campo: Preço -->
+                        <div class="form-grupo">
+                            <label for="preco-prato">Preço <span>*</span></label>
+                            <div class="input-erro-wrapper">
+                                <!-- Alterado de value para placeholder -->
+                                <input type="text" id="preco-prato"
+                                    value="R$ 21,90">
+                                <svg class="icone-input-erro" style="display: none;"  viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                </svg>
+                            </div>
+                            <span class="mensagem-erro" style="display: none;">
+                                <img src="img/icon_alert.png" alt="Alerta" class="icone-mensagem-erro">
+                                O preço deve ser maior que zero.
+                            </span>
+                        </div>
+
+                        <!-- Campo: Categoria -->
+                        <div class="form-grupo">
+                            <label for="categoria-prato">Categoria <span>*</span></label>
+                            <div class="select-wrapper">
+                                <select id="categoria-prato">
+                                    <option value="" disabled>Selecione uma categoria</option>
+                                    <option value="executivos" selected>Executivos</option>
+                                    <option value="massas">Massas</option>
+                                    <option value="sobremesas">Sobremesas</option>
+                                </select>
+                                <svg class="select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Campo: Disponível hoje -->
+                    <!-- <div class="form-grupo">
+            <label>Disponível hoje</label>
+            <div class="toggle-container-prato">
+                <label class="switch">
+                    <input type="checkbox" checked>
+                    <span class="slider round"></span>
+                </label>
+                <span class="toggle-label-sub">Desligue quando o prato acabar: ele aparece como “Esgotado”.</span>
+            </div>
+        </div> -->
+
+                    <hr class="form-divisor">
+
+                    <!-- Botões de Ação -->
+                    <div class="form-acoes">
+                        <button type="button" class="btn-cancelar">Cancelar</button>
+                        <button type="submit" class="btn-salvar">
+                            <svg class="btn-icone-check" viewBox="0 0 20 20" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M16.6666 5L7.50001 14.1667L3.33334 10" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            Salvar prato
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- COLUNA DIREITA: Foto do Prato e Regras -->
+            <div class="coluna-lateral">
+
+                <!-- Card: Foto do Prato -->
+                <div class="card-foto">
+                    <h3>Foto do prato</h3>
+                    <div class="preview-foto-container">
+                        <img src="assets/images/foto_prato_arroz_G.png" alt="Foto do prato" class="foto-prato-img">
+                    </div>
+                    <button type="button" class="btn-trocar-foto">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            style="width:16px;height:16px;">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                        Trocar foto (JPG ou PNG, até 2 MB)
+                    </button>
+                </div>
+
+                <!-- Card: Regras desta tela -->
+                <div class="card-regras">
+                    <div class="regras-titulo">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            style="width:20px;height:20px;color:var(--cor-fonte-badge);">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                        <h3>Regras desta tela</h3>
+                    </div>
+                    <ul class="regras-lista">
+                        <li class="regra-item valido">
+                            <span class="regra-icone">✓</span> Nome, preço e categoria são obrigatórios.
+                        </li>
+                        <li class="regra-item valido">
+                            <span class="regra-icone">✓</span> O preço precisa ser maior que zero.
+                        </li>
+                        <li class="regra-item valido">
+                            <span class="regra-icone">✓</span> Todo prato pertence a uma categoria.
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- fim do formulário -->
+
+
+
+
+    </main>
+</body>

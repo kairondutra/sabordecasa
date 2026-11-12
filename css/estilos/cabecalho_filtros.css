@@ -1,0 +1,90 @@
+/* Container Principal da Barra de Filtros */
+.filtros-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 28px;
+    box-sizing: border-box;
+    gap: 16px;
+}
+
+/* --- LADO ESQUERDO: ABAS DE FILTRO --- */
+.filtros-abas {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filtro-tab {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 20px; /* Formato de pílula */
+    border: 1px solid transparent;
+    background-color: white;
+    border: 1px solid var(--cor-linha);
+    color: #8C7868; /* Cor padrão inativa */
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.filtro-tab:hover {
+    color: #2A1A12;
+    background-color: #FAF5F0;
+}
+
+/* Estado Ativo da Aba (ex: "Todos") */
+.filtro-tab.ativo {
+    background-color: #2A1A12; /* Tom escuro principal */
+    color: #FFFFFF;
+}
+
+/* --- LADO DIREITO: CAIXA DE BUSCA --- */
+.filtro-busca-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    /* max-width: 320px; Tamanho proporcional para a busca de pratos */
+    height: 40px;
+    background-color: #FFFFFF;
+    border: 1px solid #EEDFCF;
+    border-radius: 12px;
+    padding: 0 14px;
+    box-sizing: border-box;
+}
+
+.icone-lupa {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+.input-busca-prato {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    color: #2A1A12;
+    background: transparent;
+}
+
+.input-busca-prato::placeholder {
+    color: #8C7868;
+}
+
+/* --- Responsividade para Telas Menores --- */
+@media (max-width: 768px) {
+    .filtros-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .filtro-busca-box {
+        max-width: 100%;
+    }
+}
