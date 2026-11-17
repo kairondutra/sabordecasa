@@ -19,22 +19,22 @@
 @import url("estilos/editar_prato.css");
 
 :root {
-  --cor-tomate: #c84b2f;
-  --cor-tomate-escuro: #98351f;
-  --cor-cafe: #2b211d;
-  --cor-creme: #fbf8f3;
-  --cor-erva: #287353;
-  --cor-button-editar: #f5eee6;
-  --cor-atencao: #e2962f;
-  --cor-linha: #eadfd4;
-  --cor-sucesso: #e4f3e8;
-  --cor-erro-fundo: #fff0ef;
-  --cor-fonte-breadcumpb-inativo: #8b7b70;
-  --cor-fonte-descricao: #685950;
-  --cor-fonte-badge: #a94a32;
-  --cor-fonte-verde-escuro: #216346;
-  --cor-fonte-erro: #b83b36;
-  --sombra-suave: 0 12px 30px rgba(43, 33, 29, 0.06);
+  --cor-tomate: #e8792f;
+  --cor-tomate-escuro: #bd5120;
+  --cor-cafe: #f7f1e9;
+  --cor-creme: #0c0c0c;
+  --cor-erva: #7bc49b;
+  --cor-button-editar: #201d1b;
+  --cor-atencao: #f1b34b;
+  --cor-linha: #3a302a;
+  --cor-sucesso: #173328;
+  --cor-erro-fundo: #351e1c;
+  --cor-fonte-breadcumpb-inativo: #a79a90;
+  --cor-fonte-descricao: #c8bdb3;
+  --cor-fonte-badge: #f09a52;
+  --cor-fonte-verde-escuro: #8cd0aa;
+  --cor-fonte-erro: #f28a7f;
+  --sombra-suave: 0 18px 45px rgba(0, 0, 0, 0.28);
 }
 
 * {
@@ -50,6 +50,17 @@ body {
   background-color: var(--cor-creme);
   font-family: 'Plus Jakarta Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 8% 0%, rgba(232, 121, 47, 0.1), transparent 28rem),
+    radial-gradient(circle at 92% 18%, rgba(123, 196, 155, 0.05), transparent 24rem);
+  content: '';
+  pointer-events: none;
 }
 
 main {
@@ -69,5 +80,116 @@ textarea {
   main {
     width: min(100% - 32px, 1240px);
     padding-top: 28px;
+  }
+
+  /* Ajustes comuns para manter o painel limpo e com contraste premium. */
+  header {
+    background: rgba(12, 12, 12, 0.88);
+    border-color: var(--cor-linha);
+  }
+
+  .cabecalho_titulo h1,
+  .cabecalho_titulo_pagina,
+  .card-header h3,
+  .indicadores_item_numero,
+  .categoria-textos h1,
+  .card-formulario h2,
+  .card-foto h3,
+  .regras-titulo h3,
+  .prato-textos h4,
+  .col-preco {
+    color: var(--cor-cafe);
+  }
+
+  .cabecalho a,
+  .btn-novo-prato,
+  .btn-salvar {
+    background: var(--cor-tomate);
+  }
+
+  .indicadores_item,
+  .card-categoria,
+  .tabela-pratos-container,
+  .card-formulario,
+  .card-foto,
+  .card-regras,
+  .filtro_box,
+  .busca_box,
+  .filtro-busca-box {
+    background-color: #151413;
+    border-color: var(--cor-linha);
+    box-shadow: var(--sombra-suave);
+  }
+
+  .card-categoria:hover {
+    border-color: rgba(232, 121, 47, 0.65);
+  }
+
+  .badge-pratos,
+  .badge-quantidade {
+    background-color: rgba(232, 121, 47, 0.14);
+    color: #f2a061;
+  }
+
+  .btn-editar,
+  .btn-acao.btn-editar {
+    background-color: var(--cor-button-editar);
+    color: var(--cor-cafe);
+    border-color: var(--cor-linha);
+  }
+
+  .input_busca,
+  .select_filtro,
+  .input-busca-prato,
+  .form-grupo input[type="text"],
+  .form-grupo input[type="number"],
+  .form-grupo textarea,
+  .select-wrapper select {
+    color: var(--cor-cafe);
+    background-color: #1b1918;
+    border-color: var(--cor-linha);
+  }
+
+  .input_busca::placeholder,
+  .input-busca-prato::placeholder {
+    color: var(--cor-fonte-breadcumpb-inativo);
+  }
+
+  .tabela-header,
+  .prato-item {
+    border-color: var(--cor-linha);
+  }
+
+  .prato-item:hover {
+    background-color: #1b1918;
+  }
+
+  .filtro-tab {
+    background-color: #151413;
+    border-color: var(--cor-linha);
+    color: var(--cor-fonte-breadcumpb-inativo);
+  }
+
+  .filtro-tab.ativo {
+    background-color: var(--cor-tomate);
+    color: #fff;
+  }
+
+  .btn-cancelar,
+  .btn-trocar-foto {
+    background-color: #1b1918;
+    color: var(--cor-cafe);
+    border-color: var(--cor-linha);
+  }
+
+  .form-divisor,
+  .card-footer {
+    border-color: var(--cor-linha);
+  }
+
+  @media (max-width: 760px) {
+    .header_container {
+      background: transparent;
+    }
   }
 }

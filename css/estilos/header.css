@@ -69,8 +69,8 @@ header {
 }
 
 .menu-item.ativo {
-    background-color: #f7ebe2;
-    color: var(--cor-tomate-escuro);
+    background-color: rgba(232, 121, 47, 0.15);
+    color: #f3a05d;
     font-weight: 700;
 }
 
@@ -84,6 +84,10 @@ header {
     width: 100%;
     height: 100%;
     object-fit: contain;
+}
+
+.menu-item .icone img {
+    filter: saturate(0.8) brightness(1.25);
 }
 
 .header_usuario {
