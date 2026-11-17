@@ -4,180 +4,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sabor de Casa | Restaurante</title>
+    <title>Painel | Sabor de Casa</title>
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/landing.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
         rel="stylesheet">
 </head>
 
 <body>
-    <div class="barra-superior">
-        <div class="container barra-superior-conteudo">
-            <span>📍 Rua das Flores, 123, Fortaleza - CE</span>
-            <span>◷ Seg - Dom: 10:00 - 23:00</span>
-            <span>☎ (85) 99999-0000</span>
-        </div>
-    </div>
-
-    <header class="cabecalho-site">
-        <div class="container cabecalho-conteudo">
-            <a class="marca" href="index.html" aria-label="Sabor de Casa início">
+    <div class="painel">
+        <aside class="barra-lateral">
+            <a class="marca" href="index.html">
                 <span class="marca-simbolo">♨</span>
-                <span>
-                    <strong>Sabor de Casa</strong>
-                    <small>RESTAURANTE</small>
-                </span>
+                <span><strong>Sabor de Casa</strong><small>Painel administrativo</small></span>
             </a>
 
-            <input class="menu-controle" type="checkbox" id="menu-controle">
-            <label class="menu-botao" for="menu-controle" aria-label="Abrir menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </label>
-
-            <nav class="navegacao-principal" aria-label="Navegação principal">
-                <a class="ativo" href="#inicio">Início</a>
-                <a href="#sobre">Sobre nós</a>
-                <a href="#cardapio">Cardápio</a>
-                <a href="#contato">Contato</a>
-                <a class="botao botao-contorno" href="#cardapio">Ver cardápio</a>
+            <nav class="menu-painel" aria-label="Menu administrativo">
+                <a class="menu-painel-item ativo" href="#visao-geral"><span>▦</span> Visão geral</a>
+                <a class="menu-painel-item" href="#cardapio"><span>☷</span> Cardápio</a>
+                <a class="menu-painel-item" href="#estoque"><span>◉</span> Disponibilidade</a>
             </nav>
-        </div>
-    </header>
 
-    <main>
-        <section class="hero" id="inicio">
-            <div class="container hero-conteudo">
-                <div class="hero-texto">
-                    <p class="eyebrow">Boa comida | bom humor</p>
-                    <h1>Comida deliciosa<br>para <em>cada momento</em></h1>
-                    <p class="hero-descricao">
-                        Uma experiência especial de sabor, qualidade e carinho.
-                        Cada prato é preparado com ingredientes frescos para
-                        transformar sua refeição em uma memória deliciosa.
-                    </p>
-                    <div class="hero-acoes">
-                        <a class="botao botao-principal" href="#cardapio">Ver nosso cardápio <span>→</span></a>
-                        <a class="botao botao-secundario" href="#cardapio">Conhecer os pratos <span>→</span></a>
-                    </div>
-                    <div class="hero-destaques" aria-label="Diferenciais do restaurante">
-                        <div class="destaque">
-                            <span class="destaque-icone">✦</span>
-                            <span>Ingredientes<br><strong>frescos</strong></span>
-                        </div>
-                        <div class="destaque">
-                            <span class="destaque-icone">♨</span>
-                            <span>Chefs<br><strong>experientes</strong></span>
-                        </div>
-                        <div class="destaque">
-                            <span class="destaque-icone">♥</span>
-                            <span>Feito com<br><strong>carinho</strong></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="hero-imagem">
-                    <div class="hero-brilho"></div>
-                    <img src="assets/images/categoria_pratos_executivos.jpg"
-                        alt="Prato colorido preparado pelo restaurante">
-                    <div class="hero-selo">
-                        <strong>10+</strong>
-                        <span>anos de<br>experiência</span>
-                    </div>
-                </div>
+            <div class="ajuda-painel">
+                <span class="ajuda-icone">?</span>
+                <strong>Precisa de ajuda?</strong>
+                <p>Consulte o suporte do seu painel.</p>
+                <a href="#suporte">Falar com suporte</a>
             </div>
-        </section>
 
-        <section class="pratos-destaque" id="cardapio">
-            <div class="container">
+            <div class="perfil-painel">
+                <span class="avatar">MS</span>
+                <span><strong>Márcia Souza</strong><small>Proprietária</small></span>
+                <span class="perfil-menu">•••</span>
+            </div>
+        </aside>
+
+        <main class="conteudo-painel">
+            <header class="topo-painel">
+                <div class="topo-titulo">
+                    <p class="data-painel">TERÇA-FEIRA, 17 DE NOVEMBRO</p>
+                    <h1>Bom dia, Márcia <span>👋</span></h1>
+                    <p>Acompanhe o cardápio e atualize a disponibilidade dos pratos.</p>
+                </div>
+                <div class="topo-acoes">
+                    <button class="icone-botao" aria-label="Notificações">♢<i></i></button>
+                    <a class="botao botao-principal" href="novo_prato.html">+ Novo prato</a>
+                </div>
+            </header>
+
+            <section class="indicadores-painel" id="visao-geral" aria-label="Resumo do cardápio">
+                <article class="indicador-painel">
+                    <span class="indicador-icone laranja">▦</span>
+                    <span><small>Total de pratos</small><strong>15</strong><em>+2 este mês</em></span>
+                </article>
+                <article class="indicador-painel">
+                    <span class="indicador-icone verde">✓</span>
+                    <span><small>Disponíveis agora</small><strong>12</strong><em>80% do cardápio</em></span>
+                </article>
+                <article class="indicador-painel">
+                    <span class="indicador-icone amarelo">!</span>
+                    <span><small>Esgotados</small><strong>3</strong><em class="alerta">Precisam de atenção</em></span>
+                </article>
+                <article class="indicador-painel">
+                    <span class="indicador-icone azul">◷</span>
+                    <span><small>Última atualização</small><strong>08:42</strong><em>Hoje</em></span>
+                </article>
+            </section>
+
+            <section class="painel-secao" id="cardapio">
                 <div class="secao-cabecalho">
-                    <div>
-                        <p class="eyebrow">Sabores da casa</p>
-                        <h2>Pratos que conquistam<br><em>em cada garfada</em></h2>
+                    <div><h2>Pratos do cardápio</h2><p>Gerencie o que aparece para seus clientes.</p></div>
+                    <a class="link-ver-tudo" href="pratos_categoria.html">Ver todos <span>→</span></a>
+                </div>
+                <div class="filtros-painel" id="estoque">
+                    <div class="abas-status">
+                        <a class="aba-status ativa" href="#todos">Todos <b>15</b></a>
+                        <a class="aba-status" href="#disponiveis">Disponíveis <b>12</b></a>
+                        <a class="aba-status" href="#esgotados">Esgotados <b>3</b></a>
                     </div>
-                    <a class="link-secao" href="pratos_categoria.html">Ver cardápio completo <span>→</span></a>
+                    <label class="busca-painel">
+                        <span>⌕</span>
+                        <input type="search" placeholder="Buscar prato...">
+                    </label>
+                    <select class="filtro-categoria" aria-label="Filtrar por categoria">
+                        <option>Todos os tipos</option>
+                        <option>Carnes grelhadas</option>
+                        <option>Frangos</option>
+                        <option>Pratos executivos</option>
+                    </select>
                 </div>
 
-                <nav class="categorias-cardapio" aria-label="Categorias do cardápio">
-                    <a class="categoria-ativa" href="#carnes">Carnes grelhadas</a>
-                    <a href="#frangos">Frangos</a>
-                    <a href="#executivos">Pratos executivos</a>
-                </nav>
-
-                <div class="categoria-bloco" id="carnes">
-                    <div class="categoria-titulo">
-                        <span class="categoria-marcador"></span>
-                        <h3>Carnes grelhadas</h3>
-                    </div>
-                    <div class="pratos-grade">
-                        <article class="prato-card">
-                            <div class="prato-imagem"><img src="assets/images/bife.jpg" alt="Bife grelhado com acompanhamentos"></div>
-                            <div class="prato-conteudo"><h3>Bife grelhado</h3><p>Carne macia, legumes frescos e tempero especial da casa.</p><strong>R$ 29,90</strong></div>
-                        </article>
-                        <article class="prato-card">
-                            <div class="prato-imagem"><img src="assets/images/prato2.jpg" alt="Bife acebolado com arroz, feijão e brócolis"></div>
-                            <div class="prato-conteudo"><h3>Bife acebolado</h3><p>Filé grelhado com cebolas douradas e acompanhamentos.</p><strong>R$ 31,90</strong></div>
-                        </article>
-                        <article class="prato-card">
-                            <div class="prato-imagem"><img src="assets/images/prato3.jpg" alt="Tiras de carne com arroz e salada"></div>
-                            <div class="prato-conteudo"><h3>Tiras de carne</h3><p>Carne em tiras, arroz soltinho e salada fresca.</p><strong>R$ 28,90</strong></div>
-                        </article>
-                        <article class="prato-card">
-                            <div class="prato-imagem"><img src="assets/images/prato4.jpg" alt="Cubos de carne com arroz e legumes"></div>
-                            <div class="prato-conteudo"><h3>Carne com legumes</h3><p>Cubos de carne dourados com arroz e legumes salteados.</p><strong>R$ 27,90</strong></div>
-                        </article>
-                    </div>
+                <div class="pratos-admin">
+                    <article class="prato-admin-card">
+                        <div class="prato-admin-imagem"><img src="assets/images/bife.jpg" alt="Bife grelhado"></div>
+                        <div class="prato-admin-info"><div><span class="tag-categoria">Carnes grelhadas</span><h3>Bife grelhado</h3></div><strong>R$ 29,90</strong></div>
+                        <div class="prato-admin-rodape"><span class="status disponivel"><i></i> Disponível</span><label class="alternador"><input type="checkbox" checked><span></span></label></div>
+                    </article>
+                    <article class="prato-admin-card">
+                        <div class="prato-admin-imagem"><img src="assets/images/prato2.jpg" alt="Bife acebolado"></div>
+                        <div class="prato-admin-info"><div><span class="tag-categoria">Carnes grelhadas</span><h3>Bife acebolado</h3></div><strong>R$ 31,90</strong></div>
+                        <div class="prato-admin-rodape"><span class="status disponivel"><i></i> Disponível</span><label class="alternador"><input type="checkbox" checked><span></span></label></div>
+                    </article>
+                    <article class="prato-admin-card">
+                        <div class="prato-admin-imagem"><img src="assets/images/prato3.jpg" alt="Tiras de carne"></div>
+                        <div class="prato-admin-info"><div><span class="tag-categoria">Carnes grelhadas</span><h3>Tiras de carne</h3></div><strong>R$ 28,90</strong></div>
+                        <div class="prato-admin-rodape"><span class="status esgotado"><i></i> Esgotado</span><label class="alternador"><input type="checkbox"><span></span></label></div>
+                    </article>
+                    <article class="prato-admin-card">
+                        <div class="prato-admin-imagem"><img src="assets/images/prato4.jpg" alt="Carne com legumes"></div>
+                        <div class="prato-admin-info"><div><span class="tag-categoria">Carnes grelhadas</span><h3>Carne com legumes</h3></div><strong>R$ 27,90</strong></div>
+                        <div class="prato-admin-rodape"><span class="status disponivel"><i></i> Disponível</span><label class="alternador"><input type="checkbox" checked><span></span></label></div>
+                    </article>
+                    <article class="prato-admin-card">
+                        <div class="prato-admin-imagem"><img src="assets/images/frango.jpg" alt="Frango especial"></div>
+                        <div class="prato-admin-info"><div><span class="tag-categoria">Frangos</span><h3>Frango especial</h3></div><strong>R$ 24,90</strong></div>
+                        <div class="prato-admin-rodape"><span class="status disponivel"><i></i> Disponível</span><label class="alternador"><input type="checkbox" checked><span></span></label></div>
+                    </article>
+                    <article class="prato-admin-card">
+                        <div class="prato-admin-imagem"><img src="assets/images/prato5.jpg" alt="Frango crocante"></div>
+                        <div class="prato-admin-info"><div><span class="tag-categoria">Frangos</span><h3>Frango crocante</h3></div><strong>R$ 26,90</strong></div>
+                        <div class="prato-admin-rodape"><span class="status disponivel"><i></i> Disponível</span><label class="alternador"><input type="checkbox" checked><span></span></label></div>
+                    </article>
                 </div>
-
-                <div class="categoria-bloco" id="frangos">
-                    <div class="categoria-titulo">
-                        <span class="categoria-marcador"></span>
-                        <h3>Frangos</h3>
-                    </div>
-                    <div class="pratos-grade">
-                        <article class="prato-card">
-                            <div class="prato-imagem"><img src="assets/images/frango.jpg" alt="Frango grelhado com salada"></div>
-                            <div class="prato-conteudo"><h3>Frango especial</h3><p>Frango suculento acompanhado de salada e ervas aromáticas.</p><strong>R$ 24,90</strong></div>
-                        </article>
-                        <article class="prato-card">
-                            <div class="prato-imagem"><img src="assets/images/prato5.jpg" alt="Frango crocante com arroz, milho e salada"></div>
-                            <div class="prato-conteudo"><h3>Frango crocante</h3><p>Filé crocante, arroz, milho e salada colorida.</p><strong>R$ 26,90</strong></div>
-                        </article>
-                    </div>
-                </div>
-
-                <div class="categoria-bloco" id="executivos">
-                    <div class="categoria-titulo">
-                        <span class="categoria-marcador"></span>
-                        <h3>Pratos executivos</h3>
-                    </div>
-                    <div class="pratos-grade">
-                        <article class="prato-card">
-                            <div class="prato-imagem"><img src="assets/images/prato-feito.jpg" alt="Prato feito com arroz, feijão e acompanhamentos"></div>
-                            <div class="prato-conteudo"><h3>Prato feito da casa</h3><p>Arroz, feijão, proteína e acompanhamentos preparados na hora.</p><strong>R$ 21,90</strong></div>
-                        </article>
-                        <article class="prato-card">
-                            <div class="prato-imagem"><img src="assets/images/foto_prato_arroz_G.png" alt="Arroz servido com acompanhamentos"></div>
-                            <div class="prato-conteudo"><h3>Arroz da casa</h3><p>Uma combinação generosa, caseira e cheia de sabor.</p><strong>R$ 22,90</strong></div>
-                        </article>
-                        <article class="prato-card">
-                            <div class="prato-imagem"><img src="assets/images/foto_prato_arroz_picadinho.png" alt="Arroz com picadinho de carne"></div>
-                            <div class="prato-conteudo"><h3>Arroz com picadinho</h3><p>Picadinho ao molho, arroz branco, feijão e farofa.</p><strong>R$ 21,90</strong></div>
-                        </article>
-                        <article class="prato-card">
-                            <div class="prato-imagem"><img src="assets/images/foto_prato_espetinho.png" alt="Espetinho misto com farofa"></div>
-                            <div class="prato-conteudo"><h3>Espetinho misto</h3><p>Carne e frango, farofa de manteiga e vinagrete.</p><strong>R$ 24,90</strong></div>
-                        </article>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+            </section>
+        </main>
+    </div>
 </body>
 
 </html>
