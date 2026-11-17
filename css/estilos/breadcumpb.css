@@ -1,8 +1,8 @@
 .breadcrumb {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 28px;
+    gap: 10px;
+    margin-bottom: 32px;
 }
 
 .breadcrumb_item_inativo a{
@@ -14,7 +14,7 @@
 }
 
 .breadcrumb_divisor {
-    font-size: 14px;
+    font-size: 12px;
     color: var(--cor-fonte-breadcumpb-inativo);
 }
 
