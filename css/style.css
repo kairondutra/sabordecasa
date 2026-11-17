@@ -52,6 +52,18 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+body,
+body * {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.card-formulario h2,
+.card-foto h3,
+.regras-titulo h3,
+.categoria-textos h1 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
 body::before {
   position: fixed;
   inset: 0;
@@ -80,6 +92,29 @@ textarea {
   main {
     width: min(100% - 32px, 1240px);
     padding-top: 28px;
+  }
+
+  .disponibilidade-formulario {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 44px;
+    color: var(--cor-cafe);
+    font-size: 13px;
+    cursor: pointer;
+  }
+
+  .disponibilidade-formulario input {
+    width: 17px;
+    height: 17px;
+    accent-color: var(--cor-erva);
+  }
+
+  .arquivo-selecionado {
+    display: block;
+    margin-top: 8px;
+    color: var(--cor-fonte-breadcumpb-inativo);
+    font-size: 11px;
   }
 
   /* Ajustes comuns para manter o painel limpo e com contraste premium. */

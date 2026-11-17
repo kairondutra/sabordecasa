@@ -152,6 +152,9 @@
 
     function configurarFormularios() {
         document.querySelectorAll('form').forEach((formulario) => {
+            if (formulario.id === 'novo-prato-form') {
+                return;
+            }
             formulario.addEventListener('submit', (evento) => {
                 evento.preventDefault();
                 mostrarNotificacao('Alterações salvas com sucesso.', 'sucesso');
@@ -165,10 +168,147 @@
         });
     }
 
+    function configurarMenuPerfil() {
+        const botao = document.querySelector('.perfil-menu');
+        const menu = document.querySelector('#menu-perfil');
+        if (!botao || !menu) {
+            return;
+        }
+
+        botao.addEventListener('click', (evento) => {
+            evento.stopPropagation();
+            const aberto = !menu.hidden;
+            menu.hidden = aberto;
+            botao.setAttribute('aria-expanded', String(!aberto));
+        });
+
+        document.addEventListener('click', () => {
+            menu.hidden = true;
+            botao.setAttribute('aria-expanded', 'false');
+        });
+    }
+
+    function atualizarStatusCartao(cartao, disponivel) {
+        const status = cartao.querySelector('.status');
+        if (!status) {
+            return;
+        }
+
+        status.classList.toggle('disponivel', disponivel);
+        status.classList.toggle('esgotado', !disponivel);
+        status.innerHTML = `<i></i> ${disponivel ? 'Disponível' : 'Esgotado'}`;
+    }
+
+    function configurarDisponibilidade() {
+        document.querySelectorAll('.prato-admin-card .alternador input').forEach((controle) => {
+            controle.addEventListener('change', () => {
+                atualizarStatusCartao(controle.closest('.prato-admin-card'), controle.checked);
+            });
+        });
+    }
+
+    function lerImagem(input) {
+        return new Promise((resolve, reject) => {
+            const arquivo = input.files[0];
+            if (!arquivo) {
+                resolve('');
+                return;
+            }
+            const leitor = new FileReader();
+            leitor.addEventListener('load', () => resolve(leitor.result));
+            leitor.addEventListener('error', () => reject(new Error('Não foi possível ler a imagem.')));
+            leitor.readAsDataURL(arquivo);
+        });
+    }
+
+    function configurarPreviewImagem() {
+        const input = document.querySelector('#imagem-prato');
+        const preview = document.querySelector('#preview-prato');
+        const nomeArquivo = document.querySelector('#arquivo-selecionado');
+        if (!input || !preview || !nomeArquivo) {
+            return;
+        }
+
+        input.addEventListener('change', () => {
+            const arquivo = input.files[0];
+            if (!arquivo) {
+                return;
+            }
+            if (!['image/jpeg', 'image/png'].includes(arquivo.type) || arquivo.size > 2 * 1024 * 1024) {
+                input.value = '';
+                nomeArquivo.textContent = 'Escolha uma imagem JPG ou PNG de até 2 MB.';
+                return;
+            }
+            preview.src = URL.createObjectURL(arquivo);
+            nomeArquivo.textContent = arquivo.name;
+        });
+    }
+
+    function configurarNovoPrato() {
+        const formulario = document.querySelector('#novo-prato-form');
+        if (!formulario) {
+            return;
+        }
+
+        formulario.addEventListener('submit', async (evento) => {
+            evento.preventDefault();
+            const nome = document.querySelector('#nome-prato').value.trim();
+            const preco = document.querySelector('#preco-prato').value.trim();
+            const categoria = document.querySelector('#categoria-prato').value;
+            const quantidade = Number(document.querySelector('#quantidade-prato').value);
+            const imagem = document.querySelector('#imagem-prato');
+
+            if (!nome || !preco || !categoria || !Number.isInteger(quantidade) || quantidade < 0 || !imagem.files.length) {
+                mostrarNotificacao('Preencha nome, preço, categoria, quantidade e imagem.', 'erro');
+                return;
+            }
+
+            try {
+                const imagemBase64 = await lerImagem(imagem);
+                const pratos = JSON.parse(localStorage.getItem('sabor-de-casa-pratos') || '[]');
+                pratos.push({
+                    nome,
+                    preco,
+                    categoria,
+                    quantidade,
+                    imagem: imagemBase64,
+                    disponivel: document.querySelector('#disponivel-prato').checked
+                });
+                localStorage.setItem('sabor-de-casa-pratos', JSON.stringify(pratos));
+                window.location.href = 'index.html';
+            } catch (erro) {
+                mostrarNotificacao(erro.message, 'erro');
+            }
+        });
+    }
+
+    function carregarPratosNovos() {
+        const grade = document.querySelector('.pratos-admin');
+        if (!grade) {
+            return;
+        }
+        const pratos = JSON.parse(localStorage.getItem('sabor-de-casa-pratos') || '[]');
+        pratos.forEach((prato) => {
+            const cartao = document.createElement('article');
+            cartao.className = 'prato-admin-card';
+            cartao.innerHTML = `
+                <div class="prato-admin-imagem"><img src="${prato.imagem}" alt="${prato.nome}"></div>
+                <div class="prato-admin-info"><div><span class="tag-categoria">${prato.categoria}</span><h3>${prato.nome}</h3></div><strong>${prato.preco}</strong></div>
+                <div class="prato-admin-rodape"><span class="status ${prato.disponivel ? 'disponivel' : 'esgotado'}"><i></i> ${prato.disponivel ? 'Disponível' : 'Esgotado'}</span><label class="alternador"><input type="checkbox" ${prato.disponivel ? 'checked' : ''}><span></span></label></div>
+            `;
+            grade.append(cartao);
+        });
+    }
+
     configurarNavegacao();
     configurarBuscaDeCategorias();
     configurarOrdenacao();
     configurarFiltrosDePratos();
     configurarFormularios();
     configurarToasts();
+    configurarMenuPerfil();
+    configurarPreviewImagem();
+    configurarNovoPrato();
+    carregarPratosNovos();
+    configurarDisponibilidade();
 })();
