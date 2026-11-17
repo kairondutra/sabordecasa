@@ -81,6 +81,135 @@ main {
   padding: 40px 0 80px;
 }
 
+.lista-categorias-gerenciamento {
+  margin-bottom: 28px;
+  padding: 18px;
+  border: 1px solid var(--cor-linha);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: var(--sombra-suave);
+}
+
+.lista-categorias-cabecalho {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--cor-linha);
+}
+
+.lista-categorias-cabecalho h3 {
+  color: var(--cor-cafe);
+  font-size: 15px;
+}
+
+.lista-categorias-cabecalho span {
+  max-width: 220px;
+  color: var(--cor-fonte-breadcumpb-inativo);
+  font-size: 11px;
+  line-height: 1.5;
+  text-align: right;
+}
+
+#lista-categorias {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+  padding: 0;
+  list-style: none;
+}
+
+#lista-categorias li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-height: 58px;
+  padding: 10px 12px;
+  border: 1px solid #eef0f3;
+  border-radius: 10px;
+  background: #fbfcfd;
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+
+#lista-categorias li:hover {
+  border-color: rgba(230, 108, 58, .35);
+  box-shadow: 0 6px 16px rgba(40, 47, 60, .06);
+  transform: translateY(-1px);
+}
+
+.categoria-lista-dados {
+  display: grid;
+  gap: 5px;
+}
+
+.categoria-lista-dados strong {
+  color: var(--cor-cafe);
+  font-size: 13px;
+}
+
+.categoria-lista-dados small {
+  color: var(--cor-fonte-breadcumpb-inativo);
+  font-size: 10px;
+}
+
+.acoes-categoria {
+  display: flex;
+  flex-shrink: 0;
+  gap: 7px;
+}
+
+.acoes-categoria button {
+  min-width: 58px;
+  padding: 7px 9px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: var(--cor-button-editar);
+  color: var(--cor-tomate-escuro);
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.acoes-categoria button:hover {
+  border-color: rgba(230, 108, 58, .3);
+}
+
+.acoes-categoria button:last-child {
+  background: var(--cor-erro-fundo);
+  color: var(--cor-fonte-erro);
+}
+
+.acoes-categoria button:disabled {
+  cursor: not-allowed;
+  opacity: .45;
+}
+
+@media (max-width: 600px) {
+  .lista-categorias-cabecalho {
+    display: grid;
+  }
+
+  .lista-categorias-cabecalho span {
+    max-width: none;
+    text-align: left;
+  }
+
+  #lista-categorias li {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .acoes-categoria {
+    width: 100%;
+  }
+
+  .acoes-categoria button {
+    flex: 1;
+  }
+}
+
 button,
 input,
 select,

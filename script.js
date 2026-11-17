@@ -361,11 +361,15 @@
             return;
         }
         const categoriaInput = document.querySelector('#categoria-prato');
+        const categoriasBase = ['Pratos executivos', 'Carnes grelhadas', 'Frangos'];
         const categoriasSalvas = lerArmazenamento(chaveCategorias, []);
-        if (categoriaInput && categoriasSalvas.length) {
+        const mapeamentos = lerArmazenamento(chaveMapeamentoCategorias, {});
+        const categoriasDisponiveis = [...new Set([...categoriasBase, ...categoriasSalvas])]
+            .map((categoria) => mapeamentos[normalizarTexto(categoria)] || categoria);
+        if (categoriaInput) {
             categoriaInput.replaceChildren(
                 new Option('Selecione uma categoria', '', true, true),
-                ...categoriasSalvas.map((categoria) => new Option(categoria, categoria))
+                ...categoriasDisponiveis.map((categoria) => new Option(categoria, categoria))
             );
         }
 
@@ -481,27 +485,28 @@
 
         const categoriasBase = ['Pratos executivos', 'Carnes grelhadas', 'Frangos'];
         const categoriasSalvas = lerArmazenamento(chaveCategorias, []);
-        const categorias = categoriasSalvas.length
-        ? [...new Set(categoriasSalvas)]
-        : [...categoriasBase];
+        const mapeamentos = lerArmazenamento(chaveMapeamentoCategorias, {});
+        const categorias = [...new Set([...categoriasBase, ...categoriasSalvas])];
         const renderizar = () => {
             lista.replaceChildren();
             categorias.forEach((categoria) => {
                 const item = document.createElement('li');
+                const nomeExibido = mapeamentos[normalizarTexto(categoria)] || categoria;
                 const possuiPratos = [...document.querySelectorAll('.prato-admin-card .tag-categoria')]
-                    .some((tag) => normalizarTexto(tag.textContent) === normalizarTexto(categoria))
+                    .some((tag) => normalizarTexto(tag.textContent) === normalizarTexto(nomeExibido))
                     || lerArmazenamento(chavePratos, []).some((prato) =>
                         normalizarTexto(prato.categoria) === normalizarTexto(categoria)
                     )
                     || categoriasComPratosBase.includes(normalizarTexto(categoria));
-                item.innerHTML = `<span>${categoria}</span><span class="acoes-categoria"></span>`;
+                item.innerHTML = `<div class="categoria-lista-dados"><strong>${nomeExibido}</strong><small>${possuiPratos ? 'Possui pratos vinculados' : 'Sem pratos vinculados'}</small></div><span class="acoes-categoria"></span>`;
                 const acoes = item.querySelector('.acoes-categoria');
                 const editar = document.createElement('button');
                 editar.type = 'button';
                 editar.textContent = 'Editar';
                 editar.addEventListener('click', () => {
-                    campoNome.value = categoria;
+                    campoNome.value = nomeExibido;
                     campoNome.dataset.categoriaOriginal = categoria;
+                    document.querySelector('#descricao-categoria').value = '';
                     campoNome.focus();
                 });
                 acoes.append(editar);
@@ -515,7 +520,8 @@
                 excluir.addEventListener('click', () => {
                     const indice = categorias.findIndex((item) => item === categoria);
                     categorias.splice(indice, 1);
-                    localStorage.setItem(chaveCategorias, JSON.stringify(categorias));
+                    const categoriasPersonalizadas = categorias.filter((item) => !categoriasBase.includes(item));
+                    localStorage.setItem(chaveCategorias, JSON.stringify(categoriasPersonalizadas));
                     renderizar();
                     mostrarNotificacao('Categoria excluída com sucesso.', 'sucesso');
                 });
@@ -543,7 +549,6 @@
             if (original) {
                 const indice = categorias.indexOf(original);
                 categorias[indice] = nome;
-                const mapeamentos = lerArmazenamento(chaveMapeamentoCategorias, {});
                 mapeamentos[normalizarTexto(original)] = nome;
                 localStorage.setItem(chaveMapeamentoCategorias, JSON.stringify(mapeamentos));
                 const pratos = lerArmazenamento(chavePratos, []);
