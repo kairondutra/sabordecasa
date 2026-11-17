@@ -19,22 +19,22 @@
 @import url("estilos/editar_prato.css");
 
 :root {
-  --cor-tomate: #e8792f;
-  --cor-tomate-escuro: #bd5120;
-  --cor-cafe: #f7f1e9;
-  --cor-creme: #0c0c0c;
-  --cor-erva: #7bc49b;
-  --cor-button-editar: #201d1b;
-  --cor-atencao: #f1b34b;
-  --cor-linha: #3a302a;
-  --cor-sucesso: #173328;
-  --cor-erro-fundo: #351e1c;
-  --cor-fonte-breadcumpb-inativo: #a79a90;
-  --cor-fonte-descricao: #c8bdb3;
-  --cor-fonte-badge: #f09a52;
-  --cor-fonte-verde-escuro: #8cd0aa;
-  --cor-fonte-erro: #f28a7f;
-  --sombra-suave: 0 18px 45px rgba(0, 0, 0, 0.28);
+  --cor-tomate: #e66c3a;
+  --cor-tomate-escuro: #c95428;
+  --cor-cafe: #20252d;
+  --cor-creme: #f7f8fa;
+  --cor-erva: #3ca878;
+  --cor-button-editar: #fff5ef;
+  --cor-atencao: #d99a2b;
+  --cor-linha: #e9ebef;
+  --cor-sucesso: #e9f8f0;
+  --cor-erro-fundo: #fff0ed;
+  --cor-fonte-breadcumpb-inativo: #89909d;
+  --cor-fonte-descricao: #68717d;
+  --cor-fonte-badge: #d85d2e;
+  --cor-fonte-verde-escuro: #2f8d63;
+  --cor-fonte-erro: #c94f43;
+  --sombra-suave: 0 10px 28px rgba(40, 47, 60, 0.06);
 }
 
 * {
@@ -69,8 +69,8 @@ body::before {
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(circle at 8% 0%, rgba(232, 121, 47, 0.1), transparent 28rem),
-    radial-gradient(circle at 92% 18%, rgba(123, 196, 155, 0.05), transparent 24rem);
+    radial-gradient(circle at 8% 0%, rgba(230, 108, 58, 0.06), transparent 28rem),
+    radial-gradient(circle at 92% 18%, rgba(60, 168, 120, 0.04), transparent 24rem);
   content: '';
   pointer-events: none;
 }
@@ -316,5 +316,173 @@ textarea {
 
   .notificacao-sucesso {
     border-color: var(--cor-erva);
+  }
+}
+
+header {
+  background: rgba(255, 255, 255, 0.96);
+  border-color: var(--cor-linha);
+}
+
+.cabecalho_titulo h1,
+.cabecalho_titulo_pagina,
+.card-header h3,
+.indicadores_item_numero,
+.categoria-textos h1,
+.card-formulario h2,
+.card-foto h3,
+.regras-titulo h3,
+.prato-textos h4,
+.col-preco {
+  color: var(--cor-cafe);
+}
+
+.cabecalho a,
+.btn-novo-prato,
+.btn-salvar {
+  background: var(--cor-tomate);
+}
+
+.indicadores_item,
+.card-categoria,
+.tabela-pratos-container,
+.card-formulario,
+.card-foto,
+.card-regras,
+.filtro_box,
+.busca_box,
+.filtro-busca-box {
+  background-color: #fff;
+  border-color: var(--cor-linha);
+  box-shadow: var(--sombra-suave);
+}
+
+.badge-pratos,
+.badge-quantidade {
+  background-color: var(--cor-button-editar);
+  color: var(--cor-fonte-badge);
+}
+
+.btn-editar,
+.btn-acao.btn-editar,
+.btn-cancelar,
+.btn-trocar-foto {
+  background-color: #fff;
+  color: var(--cor-cafe);
+  border-color: var(--cor-linha);
+}
+
+.input_busca,
+.select_filtro,
+.input-busca-prato,
+.form-grupo input[type="text"],
+.form-grupo input[type="number"],
+.form-grupo textarea,
+.select-wrapper select {
+  color: var(--cor-cafe);
+  background-color: #fff;
+  border-color: #d7dce2;
+}
+
+.input_busca::placeholder,
+.input-busca-prato::placeholder,
+.form-grupo input::placeholder,
+.form-grupo textarea::placeholder {
+  color: #a0a8b2;
+}
+
+.tabela-header,
+.prato-item,
+.form-divisor,
+.card-footer {
+  border-color: var(--cor-linha);
+}
+
+.prato-item:hover {
+  background-color: #fffaf7;
+}
+
+.toast-erro {
+  display: none;
+  background-color: var(--cor-erro-fundo);
+  border-color: #efb4aa;
+}
+
+.toast-erro.visivel {
+  display: flex;
+}
+
+.toast-conteudo h4,
+.toast-conteudo p,
+.toast-icone {
+  color: var(--cor-fonte-erro);
+}
+
+.card-formulario,
+.card-foto,
+.card-regras {
+  padding: 28px;
+}
+
+.prato-layout-container {
+  gap: 20px;
+}
+
+.form-grupo {
+  margin-bottom: 18px;
+}
+
+.form-grupo input[type="text"],
+.form-grupo input[type="number"],
+.form-grupo textarea,
+.select-wrapper select {
+  min-height: 44px;
+  border-radius: 9px;
+}
+
+.form-grupo textarea {
+  resize: vertical;
+}
+
+.form-grupo input:focus,
+.form-grupo textarea:focus,
+.select-wrapper select:focus {
+  border-color: var(--cor-tomate);
+  box-shadow: 0 0 0 3px rgba(230, 108, 58, 0.12);
+}
+
+.input-erro {
+  border-color: var(--cor-fonte-erro) !important;
+  background: var(--cor-erro-fundo) !important;
+}
+
+.input-erro-wrapper .icone-input-erro {
+  display: none;
+}
+
+.input-erro-wrapper.erro .icone-input-erro {
+  display: block;
+}
+
+.mensagem-erro[hidden] {
+  display: none;
+}
+
+.arquivo-selecionado {
+  color: var(--cor-fonte-breadcumpb-inativo);
+}
+
+.notificacao {
+  background: #fff;
+  color: var(--cor-cafe);
+}
+
+.modal-cartao {
+  background: #fff;
+}
+
+@media (max-width: 900px) {
+  .prato-layout-container {
+    grid-template-columns: 1fr;
   }
 }

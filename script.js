@@ -252,16 +252,49 @@
 
         formulario.addEventListener('submit', async (evento) => {
             evento.preventDefault();
-            const nome = document.querySelector('#nome-prato').value.trim();
-            const preco = document.querySelector('#preco-prato').value.trim();
-            const categoria = document.querySelector('#categoria-prato').value;
-            const quantidade = Number(document.querySelector('#quantidade-prato').value);
+            const nomeInput = document.querySelector('#nome-prato');
+            const precoInput = document.querySelector('#preco-prato');
+            const categoriaInput = document.querySelector('#categoria-prato');
+            const quantidadeInput = document.querySelector('#quantidade-prato');
             const imagem = document.querySelector('#imagem-prato');
+            const toast = document.querySelector('.toast-erro');
+            const nome = nomeInput.value.trim();
+            const preco = precoInput.value.trim();
+            const categoria = categoriaInput.value;
+            const quantidade = Number(quantidadeInput.value);
+            const precoNumerico = Number(preco.replace(/[^\d,.-]/g, '').replace(',', '.'));
+            const erros = [
+                [nomeInput, !nome],
+                [precoInput, !preco || !Number.isFinite(precoNumerico) || precoNumerico <= 0],
+                [categoriaInput, !categoria],
+                [quantidadeInput, !Number.isInteger(quantidade) || quantidade < 0],
+                [imagem, !imagem.files.length]
+            ];
 
-            if (!nome || !preco || !categoria || !Number.isInteger(quantidade) || quantidade < 0 || !imagem.files.length) {
-                mostrarNotificacao('Preencha nome, preço, categoria, quantidade e imagem.', 'erro');
+            formulario.querySelectorAll('.input-erro-wrapper').forEach((wrapper) => {
+                wrapper.classList.remove('erro');
+            });
+            formulario.querySelectorAll('.mensagem-erro').forEach((mensagem) => {
+                mensagem.hidden = true;
+            });
+
+            erros.forEach(([campo, invalido]) => {
+                campo.setAttribute('aria-invalid', String(invalido));
+                const wrapper = campo.closest('.input-erro-wrapper');
+                const mensagem = campo.closest('.form-grupo')?.querySelector('.mensagem-erro');
+                wrapper?.classList.toggle('erro', invalido);
+                mensagem?.toggleAttribute('hidden', !invalido);
+            });
+
+            if (erros.some(([, invalido]) => invalido)) {
+                toast?.classList.add('visivel');
+                toast?.querySelector('p')?.replaceChildren(
+                    document.createTextNode('Revise os campos destacados e tente novamente.')
+                );
+                formulario.querySelector('[aria-invalid="true"]')?.focus();
                 return;
             }
+            toast?.classList.remove('visivel');
 
             try {
                 const imagemBase64 = await lerImagem(imagem);
@@ -279,6 +312,10 @@
             } catch (erro) {
                 mostrarNotificacao(erro.message, 'erro');
             }
+        });
+
+        document.querySelector('.btn-cancelar')?.addEventListener('click', () => {
+            window.location.href = 'index.html';
         });
     }
 
