@@ -192,4 +192,94 @@ textarea {
       background: transparent;
     }
   }
+
+  .estado-vazio {
+    margin: 32px 0;
+    color: var(--cor-fonte-breadcumpb-inativo);
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .modal-aberto {
+    overflow: hidden;
+  }
+
+  .modal-exclusao {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    background: rgba(0, 0, 0, 0.72);
+  }
+
+  .modal-cartao {
+    width: min(100%, 420px);
+    padding: 32px;
+    border: 1px solid var(--cor-linha);
+    border-radius: 20px;
+    background: #171514;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+  }
+
+  .modal-icone {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    margin-bottom: 18px;
+    border-radius: 50%;
+    background: var(--cor-erro-fundo);
+    color: var(--cor-fonte-erro);
+    font-weight: 800;
+  }
+
+  .modal-cartao h2 {
+    margin-bottom: 8px;
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+  }
+
+  .modal-cartao p {
+    color: var(--cor-fonte-descricao);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .modal-acoes {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 28px;
+  }
+
+  .btn-excluir-confirmar {
+    padding: 10px 18px;
+    border: 1px solid var(--cor-fonte-erro);
+    border-radius: 10px;
+    background: var(--cor-fonte-erro);
+    color: #1b0c0a;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .notificacao {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 30;
+    max-width: min(360px, calc(100% - 48px));
+    padding: 14px 18px;
+    border: 1px solid var(--cor-linha);
+    border-radius: 12px;
+    background: #1b1918;
+    box-shadow: var(--sombra-suave);
+    color: var(--cor-cafe);
+    font-size: 13px;
+  }
+
+  .notificacao-sucesso {
+    border-color: var(--cor-erva);
+  }
 }
