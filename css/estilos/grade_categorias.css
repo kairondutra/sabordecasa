@@ -1,93 +1,92 @@
-/* Container da Grade: Organiza automaticamente novos itens */
 .categorias_container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 colunas no desktop */
-    gap: 24px; /* Espaçamento idêntico ao Figma (Gap: 24px) */
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
     width: 100%;
-    box-sizing: border-box;
 }
 
-/* Estilo Individual do Card */
 .card-categoria {
-    background-color: #FFFFFF;
-    border: 1px solid var(--cor-linha);
-    border-radius: 16px;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
-    box-shadow: 0px 4px 12px rgba(42, 26, 18, 0.03);
+    overflow: hidden;
+    background-color: #fff;
+    border: 1px solid var(--cor-linha);
+    border-radius: 16px;
+    box-shadow: var(--sombra-suave);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .card-categoria:hover {
-    box-shadow: 0px 6px 16px rgba(42, 26, 18, 0.06);
+    box-shadow: 0 16px 34px rgba(43, 33, 29, 0.1);
+    transform: translateY(-2px);
 }
 
-/* Imagem de Capa */
 .card-capa img {
+    display: block;
     width: 100%;
-    height: 180px;
+    height: 190px;
     object-fit: cover;
 }
 
-/* Conteúdo Textual do Card */
 .card-conteudo {
-    padding: 20px;
     display: flex;
-    flex-direction: column;
     flex: 1;
+    flex-direction: column;
+    padding: 22px;
 }
 
 .card-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
 }
 
 .card-header h3 {
-    font-family: 'Fraunces', serif;
-    font-size: 22px;
-    font-weight: 600;
     color: var(--cor-cafe);
-    margin: 0;
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 600;
 }
 
-/* Badge indicadora de quantidade de pratos */
 .badge-pratos {
-    background-color: var(--cor-creme);
+    flex-shrink: 0;
+    padding: 6px 10px;
+    border-radius: 20px;
+    background-color: #f7ebe2;
     color: var(--cor-tomate-escuro);
-    font-family: 'Plus Jakarta Sans', sans-serif;
     font-size: 12px;
     font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 20px;
 }
 
 .card-descricao {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 14px;
-    line-height: 20px;
+    flex: 1;
+    margin: 0 0 22px;
     color: var(--cor-fonte-descricao);
-    margin: 0 0 20px 0;
-    flex: 1; /* Garante que o rodapé alinhe na base mesmo com descrições curtas */
+    font-size: 14px;
+    line-height: 1.65;
 }
 
-/* Rodapé do Card (Link "Ver pratos" e botões de ação) */
 .card-footer {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    border-top: 1px solid #F5EBE1;
-    padding-top: 16px;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 18px;
+    border-top: 1px solid #f1e8df;
 }
 
 .btn-ver-pratos {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: var(--cor-tomate);
     font-size: 14px;
     font-weight: 700;
-    color: var(--cor-tomate);
     text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.btn-ver-pratos:hover {
+    color: var(--cor-tomate-escuro);
 }
 
 .card-acoes {
@@ -96,27 +95,38 @@
 }
 
 .btn-acao {
-    background: none;
-    border: none;
-    cursor: pointer;
     padding: 0;
-    opacity: 0.8;
-    transition: opacity 0.2s;
+    border: none;
+    background: none;
+    cursor: pointer;
+    opacity: 0.75;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.btn-acao img {
+    display: block;
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
 }
 
 .btn-acao:hover {
     opacity: 1;
+    transform: scale(1.08);
 }
 
-/* --- Responsividade Automática para Telas Menores --- */
 @media (max-width: 1024px) {
-    .grade-categorias {
-        grid-template-columns: repeat(2, 1fr); /* 2 colunas em tablets */
+    .categorias_container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
 @media (max-width: 768px) {
-    .grade-categorias {
-        grid-template-columns: 1fr; /* 1 coluna em celulares */
+    .categorias_container {
+        grid-template-columns: 1fr;
+    }
+
+    .card-capa img {
+        height: 210px;
     }
 }
