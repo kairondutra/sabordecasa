@@ -1,0 +1,213 @@
+:root {
+    --cor-fundo: #fffdf9;
+    --cor-superficie: #ffffff;
+    --cor-texto: #172019;
+    --cor-texto-suave: #69706a;
+    --cor-laranja: #e85d16;
+    --cor-laranja-clara: #fff0e5;
+    --cor-verde: #274c16;
+    --cor-linha: #ebe8e2;
+    --sombra: 0 16px 40px rgba(34, 30, 20, 0.1);
+    --fonte-titulo: 'Playfair Display', Georgia, serif;
+    --fonte-interface: 'DM Sans', Arial, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-width: 320px;
+    color: var(--cor-texto);
+    background: var(--cor-fundo);
+    font-family: var(--fonte-interface);
+    -webkit-font-smoothing: antialiased;
+}
+
+.container {
+    width: min(100% - 64px, 1180px);
+    margin: 0 auto;
+}
+
+.barra-superior {
+    border-bottom: 1px solid var(--cor-linha);
+    color: var(--cor-texto-suave);
+    font-size: 11px;
+}
+
+.barra-superior-conteudo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 32px;
+    gap: 20px;
+}
+
+.cabecalho-site {
+    position: relative;
+    z-index: 3;
+    background: var(--cor-superficie);
+    border-bottom: 1px solid var(--cor-linha);
+}
+
+.cabecalho-conteudo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 82px;
+    gap: 32px;
+}
+
+.marca {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--cor-texto);
+    text-decoration: none;
+}
+
+.marca-simbolo {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 2px solid var(--cor-laranja);
+    border-radius: 50%;
+    color: var(--cor-laranja);
+    font-size: 22px;
+}
+
+.marca strong {
+    display: block;
+    font-family: var(--fonte-titulo);
+    font-size: 25px;
+    font-style: italic;
+    line-height: 1;
+}
+
+.marca small {
+    display: block;
+    margin-top: 4px;
+    color: var(--cor-laranja);
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+}
+
+.navegacao-principal {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.navegacao-principal a {
+    position: relative;
+    color: var(--cor-texto);
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.navegacao-principal a:not(.botao)::after {
+    position: absolute;
+    right: 0;
+    bottom: -10px;
+    left: 0;
+    height: 2px;
+    background: var(--cor-laranja);
+    content: '';
+    transform: scaleX(0);
+    transition: transform 0.2s ease;
+}
+
+.navegacao-principal a:hover::after,
+.navegacao-principal a.ativo::after {
+    transform: scaleX(1);
+}
+
+.botao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 0 22px;
+    border-radius: 7px;
+    font-size: 11px !important;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.botao:hover {
+    transform: translateY(-2px);
+}
+
+.botao-contorno {
+    background: var(--cor-laranja);
+    color: #fff !important;
+}
+
+.menu-controle,
+.menu-botao {
+    display: none;
+}
+
+.hero {
+    min-height: 620px;
+}
+
+@media (max-width: 800px) {
+    .container {
+        width: min(100% - 40px, 1180px);
+    }
+
+    .barra-superior-conteudo {
+        justify-content: center;
+    }
+
+    .barra-superior-conteudo span:not(:first-child) {
+        display: none;
+    }
+
+    .menu-botao {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+    }
+
+    .menu-botao span {
+        width: 25px;
+        height: 2px;
+        background: var(--cor-texto);
+    }
+
+    .navegacao-principal {
+        position: absolute;
+        top: 100%;
+        right: 20px;
+        left: 20px;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: 10px;
+        background: var(--cor-superficie);
+        box-shadow: var(--sombra);
+    }
+
+    .navegacao-principal a {
+        padding: 14px;
+    }
+
+    .navegacao-principal a:not(.botao)::after {
+        display: none;
+    }
+
+    .menu-controle:checked ~ .navegacao-principal {
+        display: flex;
+    }
+}
