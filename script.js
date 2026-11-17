@@ -3,6 +3,25 @@
 
     const paginaAtual = window.location.pathname.split('/').pop() || 'index.html';
     const paginasDeCategorias = ['index.html', 'nova_categoria.html', 'editar_categoria.html'];
+    const chavePratos = 'sabor-de-casa-pratos';
+    const chaveRemovidos = 'sabor-de-casa-pratos-removidos';
+    const chaveDisponibilidade = 'sabor-de-casa-disponibilidade';
+
+    function lerArmazenamento(chave, valorPadrao) {
+        try {
+            return JSON.parse(localStorage.getItem(chave) || JSON.stringify(valorPadrao));
+        } catch {
+            return valorPadrao;
+        }
+    }
+
+    function criarIdPrato(nome) {
+        return nome.toLocaleLowerCase('pt-BR')
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-|-$/g, '');
+    }
 
     function configurarNavegacao() {
         const categoriaAtiva = paginasDeCategorias.includes(paginaAtual);
@@ -103,7 +122,7 @@
         document.body.classList.remove('modal-aberto');
     }
 
-    window.abrirModalExclusao = function (id) {
+    window.abrirModalExclusao = function (id, tipo = 'legado') {
         const modalExistente = document.querySelector('.modal-exclusao');
         if (modalExistente) {
             return;
@@ -127,10 +146,27 @@
 
         modal.querySelector('.modal-cancelar').addEventListener('click', () => fecharModal(modal));
         modal.querySelector('.btn-excluir-confirmar').addEventListener('click', () => {
-            const linha = document.querySelector(`.prato-item[data-id="${id}"]`);
+            const seletor = tipo === 'painel' ? '.prato-admin-card' : '.prato-item';
+            const atributo = tipo === 'painel' ? 'data-prato-id' : 'data-id';
+            const linha = [...document.querySelectorAll(seletor)]
+                .find((item) => item.getAttribute(atributo) === id);
             linha?.remove();
+            if (tipo === 'painel') {
+                const pratos = lerArmazenamento(chavePratos, [])
+                    .filter((prato) => prato.id !== id);
+                localStorage.setItem(chavePratos, JSON.stringify(pratos));
+                const removidos = lerArmazenamento(chaveRemovidos, []);
+                if (!removidos.includes(id)) {
+                    removidos.push(id);
+                    localStorage.setItem(chaveRemovidos, JSON.stringify(removidos));
+                }
+                const disponibilidade = lerArmazenamento(chaveDisponibilidade, {});
+                delete disponibilidade[id];
+                localStorage.setItem(chaveDisponibilidade, JSON.stringify(disponibilidade));
+                atualizarIndicadores();
+            }
             fecharModal(modal);
-            mostrarNotificacao('Item excluído com sucesso.', 'sucesso');
+            mostrarNotificacao('Prato excluído com sucesso.', 'sucesso');
         });
         modal.addEventListener('click', (evento) => {
             if (evento.target === modal) {
@@ -199,11 +235,54 @@
         status.innerHTML = `<i></i> ${disponivel ? 'Disponível' : 'Esgotado'}`;
     }
 
+    function atualizarIndicadores() {
+        const cartoes = [...document.querySelectorAll('.prato-admin-card')];
+        const disponiveis = cartoes.filter((cartao) => cartao.querySelector('.alternador input')?.checked).length;
+        const total = cartoes.length;
+        const indicadores = document.querySelectorAll('.indicador-painel strong');
+        if (indicadores[0]) indicadores[0].textContent = total;
+        if (indicadores[1]) indicadores[1].textContent = disponiveis;
+        if (indicadores[2]) indicadores[2].textContent = total - disponiveis;
+        document.querySelectorAll('.aba-status b').forEach((contador, indice) => {
+            contador.textContent = indice === 0 ? total : indice === 1 ? disponiveis : total - disponiveis;
+        });
+    }
+
     function configurarDisponibilidade() {
         document.querySelectorAll('.prato-admin-card .alternador input').forEach((controle) => {
+            const cartao = controle.closest('.prato-admin-card');
+            const id = cartao.dataset.pratoId;
+            const disponibilidade = lerArmazenamento(chaveDisponibilidade, {});
+            if (Object.prototype.hasOwnProperty.call(disponibilidade, id)) {
+                controle.checked = disponibilidade[id];
+                atualizarStatusCartao(cartao, controle.checked);
+            }
             controle.addEventListener('change', () => {
-                atualizarStatusCartao(controle.closest('.prato-admin-card'), controle.checked);
+                atualizarStatusCartao(cartao, controle.checked);
+                const estados = lerArmazenamento(chaveDisponibilidade, {});
+                estados[id] = controle.checked;
+                localStorage.setItem(chaveDisponibilidade, JSON.stringify(estados));
+                atualizarIndicadores();
             });
+        });
+        atualizarIndicadores();
+    }
+
+    function configurarExclusao() {
+        document.querySelectorAll('.botao-excluir-prato').forEach((botao) => {
+            botao.addEventListener('click', () => {
+                const cartao = botao.closest('.prato-admin-card');
+                window.abrirModalExclusao(cartao.dataset.pratoId, 'painel');
+            });
+        });
+    }
+
+    function removerPratosExcluidos() {
+        const removidos = lerArmazenamento(chaveRemovidos, []);
+        document.querySelectorAll('.prato-admin-card').forEach((cartao) => {
+            if (removidos.includes(cartao.dataset.pratoId)) {
+                cartao.remove();
+            }
         });
     }
 
@@ -298,8 +377,9 @@
 
             try {
                 const imagemBase64 = await lerImagem(imagem);
-                const pratos = JSON.parse(localStorage.getItem('sabor-de-casa-pratos') || '[]');
+                const pratos = lerArmazenamento(chavePratos, []);
                 pratos.push({
+                    id: `${criarIdPrato(nome)}-${Date.now()}`,
                     nome,
                     preco,
                     categoria,
@@ -307,7 +387,7 @@
                     imagem: imagemBase64,
                     disponivel: document.querySelector('#disponivel-prato').checked
                 });
-                localStorage.setItem('sabor-de-casa-pratos', JSON.stringify(pratos));
+                localStorage.setItem(chavePratos, JSON.stringify(pratos));
                 window.location.href = 'index.html';
             } catch (erro) {
                 mostrarNotificacao(erro.message, 'erro');
@@ -324,17 +404,20 @@
         if (!grade) {
             return;
         }
-        const pratos = JSON.parse(localStorage.getItem('sabor-de-casa-pratos') || '[]');
-        pratos.forEach((prato) => {
+        const pratos = lerArmazenamento(chavePratos, []);
+        pratos.forEach((prato, indice) => {
+            prato.id = prato.id || `${criarIdPrato(prato.nome)}-${indice}`;
             const cartao = document.createElement('article');
             cartao.className = 'prato-admin-card';
+            cartao.dataset.pratoId = prato.id;
             cartao.innerHTML = `
                 <div class="prato-admin-imagem"><img src="${prato.imagem}" alt="${prato.nome}"></div>
                 <div class="prato-admin-info"><div><span class="tag-categoria">${prato.categoria}</span><h3>${prato.nome}</h3></div><strong>${prato.preco}</strong></div>
-                <div class="prato-admin-rodape"><span class="status ${prato.disponivel ? 'disponivel' : 'esgotado'}"><i></i> ${prato.disponivel ? 'Disponível' : 'Esgotado'}</span><label class="alternador"><input type="checkbox" ${prato.disponivel ? 'checked' : ''}><span></span></label></div>
+                <div class="prato-admin-rodape"><span class="status ${prato.disponivel ? 'disponivel' : 'esgotado'}"><i></i> ${prato.disponivel ? 'Disponível' : 'Esgotado'}</span><label class="alternador"><input type="checkbox" ${prato.disponivel ? 'checked' : ''}><span></span></label><button class="botao-excluir-prato" type="button" aria-label="Excluir ${prato.nome}">Excluir</button></div>
             `;
             grade.append(cartao);
         });
+        localStorage.setItem(chavePratos, JSON.stringify(pratos));
     }
 
     configurarNavegacao();
@@ -347,5 +430,7 @@
     configurarPreviewImagem();
     configurarNovoPrato();
     carregarPratosNovos();
+    removerPratosExcluidos();
     configurarDisponibilidade();
+    configurarExclusao();
 })();
