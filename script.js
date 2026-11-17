@@ -45,6 +45,18 @@
                 tag.textContent = mapeamentos[nomeAtual];
             }
         });
+        document.querySelectorAll('.filtro-categoria option').forEach((option) => {
+            const nomeAtual = normalizarTexto(option.textContent);
+            if (mapeamentos[nomeAtual]) {
+                option.textContent = mapeamentos[nomeAtual];
+                option.value = mapeamentos[nomeAtual];
+            }
+        });
+    }
+
+    function nomeCategoriaAtual(nome) {
+        const mapeamentos = lerArmazenamento(chaveMapeamentoCategorias, {});
+        return mapeamentos[normalizarTexto(nome)] || nome;
     }
 
     function configurarNavegacao() {
@@ -139,6 +151,50 @@
                 });
             });
         });
+    }
+
+    function configurarFiltrosDoPainel() {
+        const grade = document.querySelector('.pratos-admin');
+        const abas = document.querySelectorAll('.aba-status');
+        const busca = document.querySelector('.busca-painel input');
+        const categoria = document.querySelector('.filtro-categoria');
+        if (!grade || !abas.length) {
+            return;
+        }
+
+        let filtroStatus = 'todos';
+        const atualizar = () => {
+            const termo = normalizarTexto(busca?.value || '');
+            const categoriaSelecionada = normalizarTexto(categoria?.value || 'todos os tipos');
+            const cartoes = [...grade.querySelectorAll('.prato-admin-card')];
+            cartoes.forEach((cartao) => {
+                const disponivel = cartao.querySelector('.alternador input')?.checked;
+                const nome = normalizarTexto(cartao.querySelector('h3')?.textContent || '');
+                const nomeCategoria = normalizarTexto(
+                    nomeCategoriaAtual(cartao.querySelector('.tag-categoria')?.textContent || '')
+                );
+                const correspondeStatus = filtroStatus === 'todos'
+                    || (filtroStatus === 'disponiveis' && disponivel)
+                    || (filtroStatus === 'esgotados' && !disponivel);
+                const correspondeBusca = !termo || nome.includes(termo);
+                const correspondeCategoria = categoriaSelecionada === 'todos os tipos'
+                    || nomeCategoria === categoriaSelecionada;
+                cartao.hidden = !(correspondeStatus && correspondeBusca && correspondeCategoria);
+            });
+        };
+
+        abas.forEach((aba) => {
+            aba.addEventListener('click', (evento) => {
+                evento.preventDefault();
+                abas.forEach((item) => item.classList.remove('ativa'));
+                aba.classList.add('ativa');
+                filtroStatus = aba.getAttribute('href')?.replace('#', '') || 'todos';
+                atualizar();
+            });
+        });
+        busca?.addEventListener('input', atualizar);
+        categoria?.addEventListener('change', atualizar);
+        atualizar();
     }
 
     function fecharModal(modal) {
@@ -269,6 +325,9 @@
         if (indicadores[2]) indicadores[2].textContent = total - disponiveis;
         document.querySelectorAll('.aba-status b').forEach((contador, indice) => {
             contador.textContent = indice === 0 ? total : indice === 1 ? disponiveis : total - disponiveis;
+        });
+        document.querySelectorAll('.aba-status').forEach((aba) => {
+            aba.setAttribute('aria-label', `${aba.textContent.trim()}`);
         });
     }
 
@@ -584,5 +643,6 @@
     removerPratosExcluidos();
     configurarDisponibilidade();
     configurarExclusao();
+    configurarFiltrosDoPainel();
     configurarCategorias();
 })();
