@@ -49,8 +49,10 @@
     transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-.cabecalho a::first-letter {
-    font-size: 18px;
+.cabecalho a img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
 }
 
 .cabecalho a:hover {
