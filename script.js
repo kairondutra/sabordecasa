@@ -6,6 +6,14 @@
     const chavePratos = 'sabor-de-casa-pratos';
     const chaveRemovidos = 'sabor-de-casa-pratos-removidos';
     const chaveDisponibilidade = 'sabor-de-casa-disponibilidade';
+    const chaveCategorias = 'sabor-de-casa-categorias';
+    const chaveMapeamentoCategorias = 'sabor-de-casa-mapeamento-categorias';
+    const categoriasComPratosBase = ['pratos executivos', 'carnes grelhadas', 'frangos'];
+    const nomesPratosBase = [
+        'Bife grelhado', 'Bife acebolado', 'Tiras de carne', 'Carne com legumes',
+        'Frango especial', 'Frango crocante', 'Frango ao molho', 'Executivo de carne',
+        'Executivo completo', 'Arroz com vegetais', 'Frango crocante da casa'
+    ];
 
     function lerArmazenamento(chave, valorPadrao) {
         try {
@@ -21,6 +29,22 @@
             .replace(/[\u0300-\u036f]/g, '')
             .replace(/[^a-z0-9]+/g, '-')
             .replace(/^-|-$/g, '');
+    }
+
+    function normalizarTexto(texto) {
+        return texto.trim().toLocaleLowerCase('pt-BR')
+            .normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '');
+    }
+
+    function aplicarNomesDeCategorias() {
+        const mapeamentos = lerArmazenamento(chaveMapeamentoCategorias, {});
+        document.querySelectorAll('.tag-categoria').forEach((tag) => {
+            const nomeAtual = normalizarTexto(tag.textContent);
+            if (mapeamentos[nomeAtual]) {
+                tag.textContent = mapeamentos[nomeAtual];
+            }
+        });
     }
 
     function configurarNavegacao() {
@@ -151,7 +175,7 @@
             const linha = [...document.querySelectorAll(seletor)]
                 .find((item) => item.getAttribute(atributo) === id);
             linha?.remove();
-            if (tipo === 'painel') {
+            if (tipo === 'painel' && linha) {
                 const pratos = lerArmazenamento(chavePratos, [])
                     .filter((prato) => prato.id !== id);
                 localStorage.setItem(chavePratos, JSON.stringify(pratos));
@@ -188,7 +212,7 @@
 
     function configurarFormularios() {
         document.querySelectorAll('form').forEach((formulario) => {
-            if (formulario.id === 'novo-prato-form') {
+            if (formulario.id === 'novo-prato-form' || formulario.id === 'form-categoria') {
                 return;
             }
             formulario.addEventListener('submit', (evento) => {
@@ -269,11 +293,19 @@
     }
 
     function configurarExclusao() {
-        document.querySelectorAll('.botao-excluir-prato').forEach((botao) => {
-            botao.addEventListener('click', () => {
-                const cartao = botao.closest('.prato-admin-card');
+        const grade = document.querySelector('.pratos-admin');
+        if (!grade) {
+            return;
+        }
+        grade.addEventListener('click', (evento) => {
+            const botao = evento.target.closest('.botao-excluir-prato');
+            if (!botao) {
+                return;
+            }
+            const cartao = botao.closest('.prato-admin-card');
+            if (cartao?.dataset.pratoId) {
                 window.abrirModalExclusao(cartao.dataset.pratoId, 'painel');
-            });
+            }
         });
     }
 
@@ -328,6 +360,14 @@
         if (!formulario) {
             return;
         }
+        const categoriaInput = document.querySelector('#categoria-prato');
+        const categoriasSalvas = lerArmazenamento(chaveCategorias, []);
+        if (categoriaInput && categoriasSalvas.length) {
+            categoriaInput.replaceChildren(
+                new Option('Selecione uma categoria', '', true, true),
+                ...categoriasSalvas.map((categoria) => new Option(categoria, categoria))
+            );
+        }
 
         formulario.addEventListener('submit', async (evento) => {
             evento.preventDefault();
@@ -342,8 +382,17 @@
             const categoria = categoriaInput.value;
             const quantidade = Number(quantidadeInput.value);
             const precoNumerico = Number(preco.replace(/[^\d,.-]/g, '').replace(',', '.'));
+            const nomesExistentes = [
+                ...nomesPratosBase,
+                ...[...document.querySelectorAll('.prato-admin-card h3')].map((titulo) => titulo.textContent),
+                ...lerArmazenamento(chavePratos, []).map((prato) => prato.nome)
+            ];
+            const nomeDuplicado = nomesExistentes.some((nomeExistente) =>
+                normalizarTexto(nomeExistente) === normalizarTexto(nome)
+            );
             const erros = [
                 [nomeInput, !nome],
+                [nomeInput, nomeDuplicado],
                 [precoInput, !preco || !Number.isFinite(precoNumerico) || precoNumerico <= 0],
                 [categoriaInput, !categoria],
                 [quantidadeInput, !Number.isInteger(quantidade) || quantidade < 0],
@@ -368,7 +417,9 @@
             if (erros.some(([, invalido]) => invalido)) {
                 toast?.classList.add('visivel');
                 toast?.querySelector('p')?.replaceChildren(
-                    document.createTextNode('Revise os campos destacados e tente novamente.')
+                    document.createTextNode(nomeDuplicado
+                        ? 'Já existe um prato com esse nome. Escolha outro nome.'
+                        : 'Revise os campos destacados e tente novamente.')
                 );
                 formulario.querySelector('[aria-invalid="true"]')?.focus();
                 return;
@@ -420,6 +471,100 @@
         localStorage.setItem(chavePratos, JSON.stringify(pratos));
     }
 
+    function configurarCategorias() {
+        const formulario = document.querySelector('#form-categoria');
+        const campoNome = document.querySelector('#nome-categoria');
+        const lista = document.querySelector('#lista-categorias');
+        if (!formulario || !campoNome || !lista) {
+            return;
+        }
+
+        const categoriasBase = ['Pratos executivos', 'Carnes grelhadas', 'Frangos'];
+        const categoriasSalvas = lerArmazenamento(chaveCategorias, []);
+        const categorias = categoriasSalvas.length
+        ? [...new Set(categoriasSalvas)]
+        : [...categoriasBase];
+        const renderizar = () => {
+            lista.replaceChildren();
+            categorias.forEach((categoria) => {
+                const item = document.createElement('li');
+                const possuiPratos = [...document.querySelectorAll('.prato-admin-card .tag-categoria')]
+                    .some((tag) => normalizarTexto(tag.textContent) === normalizarTexto(categoria))
+                    || lerArmazenamento(chavePratos, []).some((prato) =>
+                        normalizarTexto(prato.categoria) === normalizarTexto(categoria)
+                    )
+                    || categoriasComPratosBase.includes(normalizarTexto(categoria));
+                item.innerHTML = `<span>${categoria}</span><span class="acoes-categoria"></span>`;
+                const acoes = item.querySelector('.acoes-categoria');
+                const editar = document.createElement('button');
+                editar.type = 'button';
+                editar.textContent = 'Editar';
+                editar.addEventListener('click', () => {
+                    campoNome.value = categoria;
+                    campoNome.dataset.categoriaOriginal = categoria;
+                    campoNome.focus();
+                });
+                acoes.append(editar);
+                const excluir = document.createElement('button');
+                excluir.type = 'button';
+                excluir.textContent = 'Excluir';
+                excluir.disabled = possuiPratos;
+                excluir.title = possuiPratos
+                    ? 'Não é possível excluir uma categoria que possui pratos.'
+                    : 'Excluir categoria';
+                excluir.addEventListener('click', () => {
+                    const indice = categorias.findIndex((item) => item === categoria);
+                    categorias.splice(indice, 1);
+                    localStorage.setItem(chaveCategorias, JSON.stringify(categorias));
+                    renderizar();
+                    mostrarNotificacao('Categoria excluída com sucesso.', 'sucesso');
+                });
+                acoes.append(excluir);
+                lista.append(item);
+            });
+        };
+
+        formulario.addEventListener('submit', (evento) => {
+            evento.preventDefault();
+            const nome = campoNome.value.trim();
+            const original = campoNome.dataset.categoriaOriginal;
+            if (!nome) {
+                mostrarNotificacao('Informe o nome da categoria.', 'erro');
+                return;
+            }
+            const duplicada = categorias.some((categoria) =>
+                normalizarTexto(categoria) === normalizarTexto(nome)
+                && normalizarTexto(categoria) !== normalizarTexto(original || '')
+            );
+            if (duplicada) {
+                mostrarNotificacao('Já existe uma categoria com esse nome.', 'erro');
+                return;
+            }
+            if (original) {
+                const indice = categorias.indexOf(original);
+                categorias[indice] = nome;
+                const mapeamentos = lerArmazenamento(chaveMapeamentoCategorias, {});
+                mapeamentos[normalizarTexto(original)] = nome;
+                localStorage.setItem(chaveMapeamentoCategorias, JSON.stringify(mapeamentos));
+                const pratos = lerArmazenamento(chavePratos, []);
+                pratos.forEach((prato) => {
+                    if (normalizarTexto(prato.categoria) === normalizarTexto(original)) {
+                        prato.categoria = nome;
+                    }
+                });
+                localStorage.setItem(chavePratos, JSON.stringify(pratos));
+            } else {
+                categorias.push(nome);
+            }
+            localStorage.setItem(chaveCategorias, JSON.stringify(categorias));
+            campoNome.value = '';
+            delete campoNome.dataset.categoriaOriginal;
+            renderizar();
+            mostrarNotificacao('Categoria salva com sucesso.', 'sucesso');
+        });
+        renderizar();
+    }
+
     configurarNavegacao();
     configurarBuscaDeCategorias();
     configurarOrdenacao();
@@ -430,7 +575,9 @@
     configurarPreviewImagem();
     configurarNovoPrato();
     carregarPratosNovos();
+    aplicarNomesDeCategorias();
     removerPratosExcluidos();
     configurarDisponibilidade();
     configurarExclusao();
+    configurarCategorias();
 })();

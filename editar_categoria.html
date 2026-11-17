@@ -113,13 +113,20 @@
             <div class="card-formulario">
                 <h2>Informações da categoria</h2>
 
-                <form>
+                <form id="form-categoria">
+                    <div class="lista-categorias-gerenciamento">
+                        <div class="lista-categorias-cabecalho">
+                            <h3>Categorias existentes</h3>
+                            <span>Edite nomes ou exclua categorias sem pratos.</span>
+                        </div>
+                        <ul id="lista-categorias"></ul>
+                    </div>
                     <!-- Campo: Nome da Categoria -->
                     <div class="form-grupo">
                         <label for="nome-categoria">Nome da categoria <span>*</span></label>
                         <div class="input-erro-wrapper">
                             <input type="text" id="nome-categoria" placeholder="Ex: Massas, Bebidas, Sobremesas..."
-                                value="Executivos">
+                                value="">
                             <img src="assets/icon/icon_alert.png" alt="Erro" class="icone-input-erro" style="display: none;">
                         </div>
                         <small class="form-ajuda">Digite um nome claro e único para identificar esta categoria no
