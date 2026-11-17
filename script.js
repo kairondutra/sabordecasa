@@ -179,21 +179,27 @@
                 const correspondeBusca = !termo || nome.includes(termo);
                 const correspondeCategoria = categoriaSelecionada === 'todos os tipos'
                     || nomeCategoria === categoriaSelecionada;
-                cartao.hidden = !(correspondeStatus && correspondeBusca && correspondeCategoria);
+                const visivel = correspondeStatus && correspondeBusca && correspondeCategoria;
+                cartao.hidden = !visivel;
+                cartao.classList.toggle('cartao-oculto', !visivel);
             });
         };
 
-        abas.forEach((aba) => {
-            aba.addEventListener('click', (evento) => {
+        const abasContainer = document.querySelector('.abas-status');
+        abasContainer?.addEventListener('click', (evento) => {
+            const aba = evento.target.closest('.aba-status');
+            if (!aba) {
+                return;
+            }
                 evento.preventDefault();
                 abas.forEach((item) => item.classList.remove('ativa'));
                 aba.classList.add('ativa');
                 filtroStatus = aba.getAttribute('href')?.replace('#', '') || 'todos';
                 atualizar();
-            });
         });
         busca?.addEventListener('input', atualizar);
         categoria?.addEventListener('change', atualizar);
+        grade.addEventListener('change', atualizar);
         atualizar();
     }
 
