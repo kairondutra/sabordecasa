@@ -9,7 +9,7 @@
     border-radius: 16px;
     padding: 16px 20px;
     box-sizing: border-box;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     margin-bottom: 28px;
 }
 
@@ -81,7 +81,7 @@
 
 /* Títulos dos Cards */
 .card-formulario h2, .card-foto h3 {
-    font-family: 'Fraunces', serif;
+    font-family: 'DM Sans', serif;
     font-size: 20px;
     font-weight: 600;
     color: var(--cor-cafe);
@@ -102,7 +102,7 @@
 .select-wrapper select {
     width: 100%;
     padding: 12px 14px;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-size: 14px;
     color: var(--cor-cafe);
     background-color: #FFFFFF;
@@ -134,7 +134,7 @@
 }
 
 .toggle-label-sub {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-size: 12px;
     color: var(--cor-fonte-breadcumb-inativo);
 }
@@ -162,7 +162,7 @@
     gap: 8px;
     width: 100%;
     padding: 10px;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-size: 13px;
     font-weight: 600;
     color: var(--cor-cafe);

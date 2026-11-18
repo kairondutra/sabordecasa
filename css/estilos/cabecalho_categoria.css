@@ -16,7 +16,7 @@
 }
 
 .link-voltar {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-size: 14px;
     font-weight: 600;
     color: var(--cor-tomate);
@@ -42,7 +42,7 @@
 }
 
 .categoria-textos h1 {
-    font-family: 'Fraunces', serif;
+    font-family: 'DM Sans', serif;
     font-size: 40px;
     font-weight: 600;
     color: var(--cor-cafe);
@@ -61,7 +61,7 @@
 
 /* Badges (Contador e Status) */
 .badge {
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-size: 12px;
     font-weight: 600;
     padding: 4px 10px;
@@ -89,7 +89,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-size: 14px;
     font-weight: 600;
     padding: 10px 16px;
@@ -134,7 +134,7 @@ background-color: var(--cor-tomate);
 color: white;
 text-decoration: none;
 border-radius: 10px;
-font-family: 'Plus Jakarta Sans', sans-serif;
+font-family: 'DM Sans', sans-serif;
 font-size: 15px;
 font-weight: 600;
 } */
