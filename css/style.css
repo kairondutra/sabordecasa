@@ -111,8 +111,7 @@ main {
   gap: 8px;
 }
 
-.btn-nova-categoria,
-.btn-adicionar-prato {
+.btn-nova-categoria {
   display: inline-flex;
   align-items: center;
   min-height: 34px;
@@ -126,11 +125,6 @@ main {
   text-decoration: none;
 }
 
-.btn-adicionar-prato {
-  border-color: #d7dce2;
-  background: #fff;
-  color: var(--cor-cafe);
-}
 
 .lista-categorias-cabecalho span {
   max-width: 220px;
