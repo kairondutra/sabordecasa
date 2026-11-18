@@ -856,11 +856,6 @@
                     campoNome.focus();
                 });
                 acoes.append(editar);
-                const adicionarPrato = document.createElement('a');
-                adicionarPrato.href = `novo_prato.html?categoria=${encodeURIComponent(nomeExibido)}`;
-                adicionarPrato.textContent = 'Adicionar prato';
-                adicionarPrato.className = 'acao-adicionar-prato';
-                acoes.append(adicionarPrato);
                 const excluir = document.createElement('button');
                 excluir.type = 'button';
                 excluir.textContent = 'Excluir';
