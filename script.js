@@ -63,6 +63,9 @@
             }
             if (alteracao.nome) item.querySelector('.prato-textos h4').textContent = alteracao.nome;
             if (alteracao.preco) item.querySelector('.col-preco').textContent = alteracao.preco;
+            if (alteracao.categoria) {
+                item.dataset.categoria = alteracao.categoria;
+            }
         });
         document.querySelectorAll('.filtro-categoria option').forEach((option) => {
             const nomeAtual = normalizarTexto(option.textContent);
@@ -482,7 +485,8 @@
             const nomesExistentes = [
                 ...nomesPratosBase,
                 ...[...document.querySelectorAll('.prato-admin-card h3')].map((titulo) => titulo.textContent),
-                ...lerArmazenamento(chavePratos, []).map((prato) => prato.nome)
+                ...lerArmazenamento(chavePratos, []).map((prato) => prato.nome),
+                ...Object.values(lerArmazenamento(chaveAlteracoesPratos, {})).map((prato) => prato.nome)
             ];
             const nomeDuplicado = nomesExistentes.some((nomeExistente) =>
                 normalizarTexto(nomeExistente) === normalizarTexto(nome)
@@ -627,6 +631,19 @@
                 return;
             }
 
+            const nomesExistentes = [
+                ...nomesPratosBase,
+                ...lerArmazenamento(chavePratos, []).map((prato) => prato.nome),
+                ...Object.entries(lerArmazenamento(chaveAlteracoesPratos, {}))
+                    .filter(([id]) => id !== identificador)
+                    .map(([, prato]) => prato.nome)
+            ];
+            if (nomesExistentes.some((nomeExistente) => normalizarTexto(nomeExistente) === normalizarTexto(nome))) {
+                mostrarNotificacao('Já existe um prato com esse nome. Escolha outro nome.', 'erro');
+                nomeInput.focus();
+                return;
+            }
+
             const atualizadas = lerArmazenamento(chaveAlteracoesPratos, {});
             atualizadas[identificador] = { nome, preco, categoria };
             localStorage.setItem(chaveAlteracoesPratos, JSON.stringify(atualizadas));
@@ -675,6 +692,24 @@
         localStorage.setItem(chavePratos, JSON.stringify(pratos));
     }
 
+    function configurarLinksEdicaoPratos() {
+        document.querySelectorAll('.prato-admin-card').forEach((cartao) => {
+            const rodape = cartao.querySelector('.prato-admin-rodape');
+            if (!rodape || rodape.querySelector('.botao-editar-prato')) {
+                return;
+            }
+            const nome = cartao.querySelector('h3')?.textContent || '';
+            const preco = cartao.querySelector('.prato-admin-info > strong')?.textContent || '';
+            const categoria = cartao.querySelector('.tag-categoria')?.textContent || '';
+            const id = cartao.dataset.pratoId || `prato-legado-${nome}`;
+            const link = document.createElement('a');
+            link.className = 'botao-editar-prato';
+            link.href = `editar_prato.html?prato=${encodeURIComponent(id)}&nome=${encodeURIComponent(nome)}&preco=${encodeURIComponent(preco)}&categoria=${encodeURIComponent(categoria)}`;
+            link.textContent = 'Editar';
+            rodape.insertBefore(link, rodape.querySelector('.botao-excluir-prato'));
+        });
+    }
+
     function configurarCategorias() {
         const formulario = document.querySelector('#form-categoria');
         const campoNome = document.querySelector('#nome-categoria');
@@ -697,6 +732,8 @@
                     || lerArmazenamento(chavePratos, []).some((prato) =>
                         normalizarTexto(prato.categoria) === normalizarTexto(categoria)
                     )
+                    || Object.values(lerArmazenamento(chaveAlteracoesPratos, {}))
+                        .some((prato) => normalizarTexto(prato.categoria || '') === normalizarTexto(nomeExibido))
                     || categoriasComPratosBase.includes(normalizarTexto(categoria));
                 item.innerHTML = `<div class="categoria-lista-dados"><strong>${nomeExibido}</strong><small>${possuiPratos ? 'Possui pratos vinculados' : 'Sem pratos vinculados'}</small></div><span class="acoes-categoria"></span>`;
                 const acoes = item.querySelector('.acoes-categoria');
@@ -791,6 +828,7 @@
     configurarEdicaoPrato();
     carregarPratosNovos();
     aplicarNomesDeCategorias();
+    configurarLinksEdicaoPratos();
     removerPratosExcluidos();
     configurarDisponibilidade();
     configurarExclusao();
