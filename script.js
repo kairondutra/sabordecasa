@@ -578,11 +578,14 @@
                 const excluir = document.createElement('button');
                 excluir.type = 'button';
                 excluir.textContent = 'Excluir';
-                excluir.disabled = possuiPratos;
                 excluir.title = possuiPratos
                     ? 'Não é possível excluir uma categoria que possui pratos.'
                     : 'Excluir categoria';
                 excluir.addEventListener('click', () => {
+                    if (possuiPratos) {
+                        mostrarNotificacao('Erro ao excluir, contém itens na categoria.', 'erro');
+                        return;
+                    }
                     const indice = categorias.findIndex((item) => item === categoria);
                     categorias.splice(indice, 1);
                     const categoriasPersonalizadas = categorias.filter((item) => !categoriasBase.includes(item));
