@@ -150,29 +150,37 @@
 
     function configurarFiltrosDePratos() {
         const abas = document.querySelectorAll('.filtro-tab');
-        const linhas = document.querySelectorAll('.prato-item');
-        if (!abas.length || !linhas.length) {
+        const busca = document.querySelector('.input-busca-prato');
+        if (!abas.length) {
             return;
         }
+
+        let filtroStatus = 'todos';
+        const atualizar = () => {
+            const termo = normalizarTexto(busca?.value || '');
+            document.querySelectorAll('.prato-item').forEach((linha) => {
+                const status = normalizarTexto(linha.querySelector('.status-badge')?.textContent || '');
+                const nome = normalizarTexto(linha.querySelector('h4')?.textContent || '');
+                const correspondeStatus = filtroStatus === 'todos'
+                    || (filtroStatus === 'disponiveis' && status.includes('disponivel'))
+                    || (filtroStatus === 'esgotados' && status.includes('esgotado'));
+                linha.hidden = !(correspondeStatus && (!termo || nome.includes(termo)));
+            });
+        };
 
         abas.forEach((aba) => {
             aba.addEventListener('click', () => {
                 abas.forEach((item) => item.classList.remove('ativo'));
                 aba.classList.add('ativo');
                 const filtro = aba.textContent.toLocaleLowerCase('pt-BR');
-
-                linhas.forEach((linha) => {
-                    const status = linha.querySelector('.status-badge')?.textContent
-                        .trim()
-                        .toLocaleLowerCase('pt-BR');
-                    linha.hidden = filtro.startsWith('todos')
-                        || (filtro.startsWith('disponíveis') && status === 'disponível')
-                        || (filtro.startsWith('esgotados') && status === 'esgotado')
-                        ? false
-                        : true;
-                });
+                filtroStatus = filtro.startsWith('todos') ? 'todos'
+                    : filtro.startsWith('disponíveis') ? 'disponiveis'
+                    : 'esgotados';
+                atualizar();
             });
         });
+        busca?.addEventListener('input', atualizar);
+        atualizar();
     }
 
     function configurarFiltrosDoPainel() {
@@ -259,6 +267,19 @@
             const linha = [...document.querySelectorAll(seletor)]
                 .find((item) => item.getAttribute(atributo) === id);
             linha?.remove();
+            if (tipo === 'painel') {
+                document.querySelectorAll('#lista-completa-pratos .prato-item')
+                    .forEach((item) => {
+                        if (item.dataset.id === id) item.remove();
+                    });
+                const linhasRestantes = document.querySelectorAll('#lista-completa-pratos .prato-item');
+                const disponiveisRestantes = [...linhasRestantes]
+                    .filter((item) => item.querySelector('.status-badge')?.textContent.includes('Disponível')).length;
+                const abas = document.querySelectorAll('.filtro-tab');
+                if (abas[0]) abas[0].textContent = `Todos (${linhasRestantes.length})`;
+                if (abas[1]) abas[1].textContent = `Disponíveis (${disponiveisRestantes})`;
+                if (abas[2]) abas[2].textContent = `Esgotados (${linhasRestantes.length - disponiveisRestantes})`;
+            }
             if (tipo === 'painel' && linha) {
                 const pratos = lerArmazenamento(chavePratos, [])
                     .filter((prato) => prato.id !== id);
@@ -632,8 +653,13 @@
             }
 
             const nomesExistentes = [
-                ...nomesPratosBase,
-                ...lerArmazenamento(chavePratos, []).map((prato) => prato.nome),
+                ...nomesPratosBase.filter((nomeExistente) =>
+                    normalizarTexto(nomeExistente) !== normalizarTexto(parametros.get('nome') || alteracao.nome || '')
+                ),
+                ...lerArmazenamento(chavePratos, []).map((prato) => prato.nome)
+                    .filter((nomeExistente) =>
+                        normalizarTexto(nomeExistente) !== normalizarTexto(parametros.get('nome') || alteracao.nome || '')
+                    ),
                 ...Object.entries(lerArmazenamento(chaveAlteracoesPratos, {}))
                     .filter(([id]) => id !== identificador)
                     .map(([, prato]) => prato.nome)
@@ -690,6 +716,89 @@
             grade.append(cartao);
         });
         localStorage.setItem(chavePratos, JSON.stringify(pratos));
+    }
+
+    function configurarListaCompletaPratos() {
+        const lista = document.querySelector('#lista-completa-pratos');
+        if (!lista) {
+            return;
+        }
+
+        const pratosBase = [
+            ['bife-grelhado', 'Bife grelhado', 'R$ 29,90', 'Carnes grelhadas', 'assets/images/bife.jpg', true],
+            ['bife-acebolado', 'Bife acebolado', 'R$ 31,90', 'Carnes grelhadas', 'assets/images/prato2.jpg', true],
+            ['tiras-de-carne', 'Tiras de carne', 'R$ 28,90', 'Carnes grelhadas', 'assets/images/prato3.jpg', false],
+            ['carne-com-legumes', 'Carne com legumes', 'R$ 27,90', 'Carnes grelhadas', 'assets/images/prato4.jpg', true],
+            ['frango-especial', 'Frango especial', 'R$ 24,90', 'Frangos', 'assets/images/frango.jpg', true],
+            ['frango-crocante', 'Frango crocante', 'R$ 26,90', 'Frangos', 'assets/images/prato5.jpg', true],
+            ['frango-ao-molho', 'Frango ao molho', 'R$ 25,90', 'Frangos', 'assets/images/prato6.jpg', true],
+            ['executivo-de-carne', 'Executivo de carne', 'R$ 30,90', 'Pratos executivos', 'assets/images/prato7.jpg', false],
+            ['executivo-completo', 'Executivo completo', 'R$ 28,90', 'Pratos executivos', 'assets/images/prato8.jpg', true],
+            ['arroz-com-vegetais', 'Arroz com vegetais', 'R$ 23,90', 'Pratos executivos', 'assets/images/prato9.jpg', true],
+            ['frango-crocante-casa', 'Frango crocante da casa', 'R$ 27,90', 'Frangos', 'assets/images/prato10.jpg', false]
+        ].map(([id, nome, preco, categoria, imagem, disponivel]) =>
+            ({ id, nome, preco, categoria, imagem, disponivel })
+        );
+
+        const removidos = lerArmazenamento(chaveRemovidos, []);
+        const alteracoes = lerArmazenamento(chaveAlteracoesPratos, {});
+        const disponibilidade = lerArmazenamento(chaveDisponibilidade, {});
+        const criados = lerArmazenamento(chavePratos, []);
+        const catalogo = [
+            ...pratosBase.filter((prato) => !removidos.includes(prato.id)),
+            ...criados.filter((prato) => !removidos.includes(prato.id))
+        ];
+
+        lista.replaceChildren();
+        catalogo.forEach((prato) => {
+            const alteracao = alteracoes[prato.id];
+            const nome = alteracao?.nome || prato.nome;
+            const preco = alteracao?.preco || prato.preco;
+            const categoria = alteracao?.categoria || prato.categoria;
+            const disponivel = Object.prototype.hasOwnProperty.call(disponibilidade, prato.id)
+                ? disponibilidade[prato.id]
+                : prato.disponivel;
+            const item = document.createElement('div');
+            item.className = 'prato-item';
+            item.dataset.id = prato.id;
+            item.innerHTML = `
+                <div class="col-prato prato-info">
+                    <img src="${prato.imagem}" alt="${nome}" class="prato-foto">
+                    <div class="prato-textos"><h4>${nome}</h4><p>${categoria}</p></div>
+                </div>
+                <div class="col-preco">${preco}</div>
+                <div class="col-status">
+                    <span class="status-badge ${disponivel ? 'disponivel' : 'esgotado'}">
+                        <span class="status-dot"></span> ${disponivel ? 'Disponível' : 'Esgotado'}
+                    </span>
+                </div>
+                <div class="col-acoes">
+                    <a href="editar_prato.html?prato=${encodeURIComponent(prato.id)}&nome=${encodeURIComponent(nome)}&preco=${encodeURIComponent(preco)}&categoria=${encodeURIComponent(categoria)}" class="btn-acao btn-editar" title="Editar">
+                        <img src="assets/icon/icon_edit_pencil.png" alt="Editar">
+                    </a>
+                    <button type="button" class="btn-acao btn-excluir" title="Excluir" data-prato-id="${prato.id}">
+                        <img src="assets/icon/icon_trash.png" alt="Excluir">
+                    </button>
+                </div>
+            `;
+            lista.append(item);
+        });
+
+        const disponiveis = catalogo.filter((prato) =>
+            Object.prototype.hasOwnProperty.call(disponibilidade, prato.id)
+                ? disponibilidade[prato.id]
+                : prato.disponivel
+        ).length;
+        const abas = document.querySelectorAll('.filtro-tab');
+        if (abas[0]) abas[0].textContent = `Todos (${catalogo.length})`;
+        if (abas[1]) abas[1].textContent = `Disponíveis (${disponiveis})`;
+        if (abas[2]) abas[2].textContent = `Esgotados (${catalogo.length - disponiveis})`;
+
+        lista.addEventListener('click', (evento) => {
+            const botao = evento.target.closest('.btn-excluir');
+            if (!botao) return;
+            window.abrirModalExclusao(botao.dataset.pratoId, 'painel');
+        });
     }
 
     function configurarLinksEdicaoPratos() {
@@ -818,6 +927,7 @@
     configurarNavegacao();
     configurarBuscaDeCategorias();
     configurarOrdenacao();
+    configurarListaCompletaPratos();
     configurarFiltrosDePratos();
     configurarFormularios();
     configurarToasts();
