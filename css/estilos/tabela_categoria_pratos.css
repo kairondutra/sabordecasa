@@ -1,8 +1,8 @@
 /* Container Principal da Tabela */
 .tabela-pratos-container {
     width: 100%;
-    background-color: #FFFFFF;
-    border: 1px solid #EEDFCF;
+    background-color: #151413;
+    border: 1px solid var(--cor-linha);
     border-radius: 16px;
     overflow: hidden;
     box-sizing: border-box;
@@ -21,7 +21,7 @@
 /* Cabeçalho */
 .tabela-header {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    border-bottom: 1px solid #EEDFCF;
+    border-bottom: 1px solid var(--cor-linha);
     font-size: 11px;
     font-weight: 700;
     color: #8C7868;
@@ -30,7 +30,7 @@
 
 /* Linha de cada Prato */
 .prato-item {
-    border-bottom: 1px solid #F5EBE1;
+    border-bottom: 1px solid var(--cor-linha);
     transition: background-color 0.2s ease;
 }
 
@@ -67,7 +67,7 @@
 .prato-textos h4 {
     font-size: 14px;
     font-weight: 600;
-    color: #2A1A12;
+    color: var(--cor-cafe);
     margin: 0 0 2px 0;
 }
 

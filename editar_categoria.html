@@ -33,16 +33,16 @@
                     <ul>
                         <!-- Item: Categorias-->
                         <li>
-                            <a href="#" class="menu-item ativo">
-                                <span class="icone"><img src="assets/icon/categorias_icon_color.png" alt=""></span>
+                            <a href="index.html" class="menu-item">
+                                <span class="icone"><img src="assets/icon/categoria-icon.png" alt="Categorias"></span>
                                 <span class="texto">Categorias</span>
                             </a>
                         </li>
 
                         <!-- Item: Pratos-->
                         <li>
-                            <a href="#" class="menu-item">
-                                <span class="icone"><img src="assets/icon/pratos_icon.svg" alt=""></span>
+                            <a href="pratos_categoria.html" class="menu-item">
+                                <span class="icone"><img src="assets/icon/pratos-icon.png" alt="Pratos"></span>
                                 <span class="texto">Pratos</span>
                             </a>
                         </li>
@@ -97,8 +97,8 @@
                 <div class="categoria-detalhes">
                     <div class="categoria-textos">
                         <a href="index.html" class="link-voltar">&larr; Voltar para categorias</a>
-                        <h1>Editar categoria</h1>
-                        <p class="subtitulo-pagina">Use o formulário para editar.</p>
+                        <h1>Editar categorias</h1>
+                        <p class="subtitulo-pagina">Escolha uma categoria para editar ou cadastre uma nova.</p>
 
                     </div>
                 </div>
@@ -113,13 +113,20 @@
             <div class="card-formulario">
                 <h2>Informações da categoria</h2>
 
-                <form>
+                <form id="form-categoria">
+                    <div class="lista-categorias-gerenciamento">
+                        <div class="lista-categorias-cabecalho">
+                            <h3>Categorias existentes</h3>
+                            <span>Edite nomes ou exclua categorias sem pratos.</span>
+                        </div>
+                        <ul id="lista-categorias"></ul>
+                    </div>
                     <!-- Campo: Nome da Categoria -->
                     <div class="form-grupo">
                         <label for="nome-categoria">Nome da categoria <span>*</span></label>
                         <div class="input-erro-wrapper">
                             <input type="text" id="nome-categoria" placeholder="Ex: Massas, Bebidas, Sobremesas..."
-                                value="Executivos">
+                                value="">
                             <img src="assets/icon/icon_alert.png" alt="Erro" class="icone-input-erro" style="display: none;">
                         </div>
                         <small class="form-ajuda">Digite um nome claro e único para identificar esta categoria no
@@ -186,7 +193,7 @@
 
                 <!-- Card: Foto do Prato -->
                 <div class="card-foto">
-                    <h3>Foto do prato</h3>
+                    <h3>Imagem da categoria</h3>
                     <div class="preview-foto-container">
                         <img src="assets/images/categoria_pratos_executivos.jpg" alt="Foto do prato" class="foto-prato-img">
                     </div>
@@ -228,4 +235,5 @@
 
 
     </main>
+    <script src="script.js"></script>
 </body>
