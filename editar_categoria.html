@@ -69,27 +69,6 @@
             <p class="breadcrumb_item_ativo">Editar categoria</p>
         </div>
 
-        <!-- barra verde de sucesso -->
-        <div id="toastSucesso" class="toast-sucesso">
-            <div class="toast-conteudo">
-                <svg class="toast-icone" viewBox="0 0 24 24" fill="none">
-                    <path d="M20 6L9 17L4 12" stroke="#2D6A4F" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                </svg>
-                <span class="toast-mensagem">
-                    <strong>"Categoria"</strong> &nbsp; foi editada com sucesso.
-                </span>
-            </div>
-
-            <button class="toast-fechar" id="fecharToast" aria-label="Fechar notificação">
-                <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M18 6L6 18M6 6L18 18" stroke="#2D6A4F" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                </svg>
-            </button>
-        </div>
-        <!-- fim da barra verde de sucesso -->
-
         <!-- inicio do cabecalho da categoria -->
         <div class="cabecalho-categoria">
             <!-- Lado Esquerdo: Voltar, Foto, Título e Badges -->
@@ -117,7 +96,10 @@
                     <div class="lista-categorias-gerenciamento">
                         <div class="lista-categorias-cabecalho">
                             <h3>Categorias existentes</h3>
-                            <span>Edite nomes ou exclua categorias sem pratos.</span>
+                            <div class="categoria-acoes-criacao">
+                                <a href="nova_categoria.html" class="btn-nova-categoria">+ Nova categoria</a>
+                                <a href="novo_prato.html" class="btn-adicionar-prato">+ Adicionar prato</a>
+                            </div>
                         </div>
                         <ul id="lista-categorias"></ul>
                     </div>
