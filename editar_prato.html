@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
 
 </head>
@@ -20,34 +20,12 @@
         <div class="header_container">
             <div class="header_cabecalho">
                 <div class="header_cabecalho_logo">
-                    <img class="header_cabecalho_logo_img" src="assets/images/logo.svg" alt="">
+                    <span class="header_cabecalho_logo_img header_marca_simbolo" aria-hidden="true">♨</span>
                 </div>
                 <div class="cabecalho_titulo">
                     <h1>Sabor de casa</h1>
                     <p>Painel do cardápio</p>
                 </div>
-            </div>
-
-            <div class="header_navegacao">
-                <nav>
-                    <ul>
-                        <!-- Item: Categorias-->
-                        <li>
-                            <a href="index.html" class="menu-item">
-                                <span class="icone"><img src="assets/icon/categoria-icon.png" alt="Categorias"></span>
-                                <span class="texto">Categorias</span>
-                            </a>
-                        </li>
-
-                        <!-- Item: Pratos-->
-                        <li>
-                            <a href="pratos_categoria.html" class="menu-item">
-                                <span class="icone"><img src="assets/icon/pratos-icon.png" alt="Pratos"></span>
-                                <span class="texto">Pratos</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
             </div>
 
             <div class="header_usuario">
@@ -94,7 +72,7 @@
             <div class="card-formulario">
                 <h2>Dados do prato</h2>
 
-                <form>
+                <form id="editar-prato-form" novalidate>
                     <!-- Campo: Nome do prato -->
                     <div class="form-grupo">
                         <label for="nome-prato">Nome do prato <span>*</span></label>

@@ -8,6 +8,7 @@
     const chaveDisponibilidade = 'sabor-de-casa-disponibilidade';
     const chaveCategorias = 'sabor-de-casa-categorias';
     const chaveMapeamentoCategorias = 'sabor-de-casa-mapeamento-categorias';
+    const chaveAlteracoesPratos = 'sabor-de-casa-alteracoes-pratos';
     const categoriasComPratosBase = ['pratos executivos', 'carnes grelhadas', 'frangos'];
     const nomesPratosBase = [
         'Bife grelhado', 'Bife acebolado', 'Tiras de carne', 'Carne com legumes',
@@ -39,10 +40,31 @@
 
     function aplicarNomesDeCategorias() {
         const mapeamentos = lerArmazenamento(chaveMapeamentoCategorias, {});
+        const alteracoes = lerArmazenamento(chaveAlteracoesPratos, {});
         document.querySelectorAll('.tag-categoria').forEach((tag) => {
             const nomeAtual = normalizarTexto(tag.textContent);
             if (mapeamentos[nomeAtual]) {
                 tag.textContent = mapeamentos[nomeAtual];
+            }
+        });
+        document.querySelectorAll('.prato-admin-card').forEach((cartao) => {
+            const alteracao = alteracoes[cartao.dataset.pratoId];
+            if (!alteracao) {
+                return;
+            }
+            if (alteracao.nome) cartao.querySelector('h3').textContent = alteracao.nome;
+            if (alteracao.preco) cartao.querySelector('.prato-admin-info > strong').textContent = alteracao.preco;
+            if (alteracao.categoria) cartao.querySelector('.tag-categoria').textContent = alteracao.categoria;
+        });
+        document.querySelectorAll('.prato-item').forEach((item) => {
+            const alteracao = alteracoes[`prato-legado-${item.dataset.id}`];
+            if (!alteracao) {
+                return;
+            }
+            if (alteracao.nome) item.querySelector('.prato-textos h4').textContent = alteracao.nome;
+            if (alteracao.preco) item.querySelector('.col-preco').textContent = alteracao.preco;
+            if (alteracao.categoria) {
+                item.dataset.categoria = alteracao.categoria;
             }
         });
         document.querySelectorAll('.filtro-categoria option').forEach((option) => {
@@ -128,29 +150,37 @@
 
     function configurarFiltrosDePratos() {
         const abas = document.querySelectorAll('.filtro-tab');
-        const linhas = document.querySelectorAll('.prato-item');
-        if (!abas.length || !linhas.length) {
+        const busca = document.querySelector('.input-busca-prato');
+        if (!abas.length) {
             return;
         }
+
+        let filtroStatus = 'todos';
+        const atualizar = () => {
+            const termo = normalizarTexto(busca?.value || '');
+            document.querySelectorAll('.prato-item').forEach((linha) => {
+                const status = normalizarTexto(linha.querySelector('.status-badge')?.textContent || '');
+                const nome = normalizarTexto(linha.querySelector('h4')?.textContent || '');
+                const correspondeStatus = filtroStatus === 'todos'
+                    || (filtroStatus === 'disponiveis' && status.includes('disponivel'))
+                    || (filtroStatus === 'esgotados' && status.includes('esgotado'));
+                linha.hidden = !(correspondeStatus && (!termo || nome.includes(termo)));
+            });
+        };
 
         abas.forEach((aba) => {
             aba.addEventListener('click', () => {
                 abas.forEach((item) => item.classList.remove('ativo'));
                 aba.classList.add('ativo');
                 const filtro = aba.textContent.toLocaleLowerCase('pt-BR');
-
-                linhas.forEach((linha) => {
-                    const status = linha.querySelector('.status-badge')?.textContent
-                        .trim()
-                        .toLocaleLowerCase('pt-BR');
-                    linha.hidden = filtro.startsWith('todos')
-                        || (filtro.startsWith('disponíveis') && status === 'disponível')
-                        || (filtro.startsWith('esgotados') && status === 'esgotado')
-                        ? false
-                        : true;
-                });
+                filtroStatus = filtro.startsWith('todos') ? 'todos'
+                    : filtro.startsWith('disponíveis') ? 'disponiveis'
+                    : 'esgotados';
+                atualizar();
             });
         });
+        busca?.addEventListener('input', atualizar);
+        atualizar();
     }
 
     function configurarFiltrosDoPainel() {
@@ -237,6 +267,19 @@
             const linha = [...document.querySelectorAll(seletor)]
                 .find((item) => item.getAttribute(atributo) === id);
             linha?.remove();
+            if (tipo === 'painel') {
+                document.querySelectorAll('#lista-completa-pratos .prato-item')
+                    .forEach((item) => {
+                        if (item.dataset.id === id) item.remove();
+                    });
+                const linhasRestantes = document.querySelectorAll('#lista-completa-pratos .prato-item');
+                const disponiveisRestantes = [...linhasRestantes]
+                    .filter((item) => item.querySelector('.status-badge')?.textContent.includes('Disponível')).length;
+                const abas = document.querySelectorAll('.filtro-tab');
+                if (abas[0]) abas[0].textContent = `Todos (${linhasRestantes.length})`;
+                if (abas[1]) abas[1].textContent = `Disponíveis (${disponiveisRestantes})`;
+                if (abas[2]) abas[2].textContent = `Esgotados (${linhasRestantes.length - disponiveisRestantes})`;
+            }
             if (tipo === 'painel' && linha) {
                 const pratos = lerArmazenamento(chavePratos, [])
                     .filter((prato) => prato.id !== id);
@@ -436,6 +479,15 @@
                 new Option('Selecione uma categoria', '', true, true),
                 ...categoriasDisponiveis.map((categoria) => new Option(categoria, categoria))
             );
+            const categoriaSolicitada = new URLSearchParams(window.location.search).get('categoria');
+            if (categoriaSolicitada) {
+                const categoriaEncontrada = [...categoriaInput.options].find((opcao) =>
+                    normalizarTexto(opcao.value) === normalizarTexto(categoriaSolicitada)
+                );
+                if (categoriaEncontrada) {
+                    categoriaInput.value = categoriaEncontrada.value;
+                }
+            }
         }
 
         formulario.addEventListener('submit', async (evento) => {
@@ -454,7 +506,8 @@
             const nomesExistentes = [
                 ...nomesPratosBase,
                 ...[...document.querySelectorAll('.prato-admin-card h3')].map((titulo) => titulo.textContent),
-                ...lerArmazenamento(chavePratos, []).map((prato) => prato.nome)
+                ...lerArmazenamento(chavePratos, []).map((prato) => prato.nome),
+                ...Object.values(lerArmazenamento(chaveAlteracoesPratos, {})).map((prato) => prato.nome)
             ];
             const nomeDuplicado = nomesExistentes.some((nomeExistente) =>
                 normalizarTexto(nomeExistente) === normalizarTexto(nome)
@@ -519,6 +572,131 @@
         });
     }
 
+    function configurarNovaCategoria() {
+        const formulario = document.querySelector('#nova-categoria-form');
+        if (!formulario) {
+            return;
+        }
+
+        const campoNome = document.querySelector('#nome-categoria');
+        formulario.addEventListener('submit', (evento) => {
+            evento.preventDefault();
+            const nome = campoNome.value.trim();
+            if (!nome) {
+                mostrarNotificacao('Informe o nome da categoria.', 'erro');
+                campoNome.focus();
+                return;
+            }
+
+            const categoriasSalvas = lerArmazenamento(chaveCategorias, []);
+            const base = ['Pratos executivos', 'Carnes grelhadas', 'Frangos'];
+            const todas = [...base, ...categoriasSalvas];
+            if (todas.some((categoria) => normalizarTexto(categoria) === normalizarTexto(nome))) {
+                mostrarNotificacao('Já existe uma categoria com esse nome.', 'erro');
+                campoNome.focus();
+                return;
+            }
+
+            categoriasSalvas.push(nome);
+            localStorage.setItem(chaveCategorias, JSON.stringify(categoriasSalvas));
+            mostrarNotificacao('Categoria criada com sucesso.', 'sucesso');
+            window.setTimeout(() => window.location.href = 'editar_categoria.html', 300);
+        });
+    }
+
+    function configurarEdicaoPrato() {
+        const formulario = document.querySelector('#editar-prato-form');
+        if (!formulario) {
+            return;
+        }
+
+        const parametros = new URLSearchParams(window.location.search);
+        const identificador = parametros.get('prato') || 'prato-legado';
+        const nomeInput = document.querySelector('#nome-prato');
+        const precoInput = document.querySelector('#preco-prato');
+        const categoriaInput = document.querySelector('#categoria-prato');
+        const categoriasBase = ['Pratos executivos', 'Carnes grelhadas', 'Frangos'];
+        const categoriasSalvas = lerArmazenamento(chaveCategorias, []);
+        const mapeamentos = lerArmazenamento(chaveMapeamentoCategorias, {});
+        const categoriasDisponiveis = [...new Set([...categoriasBase, ...categoriasSalvas])]
+            .map((categoria) => mapeamentos[normalizarTexto(categoria)] || categoria);
+
+        categoriaInput.replaceChildren(
+            new Option('Selecione uma categoria', '', true, true),
+            ...categoriasDisponiveis.map((categoria) => new Option(categoria, categoria))
+        );
+
+        const alteracoes = lerArmazenamento(chaveAlteracoesPratos, {});
+        const alteracao = alteracoes[identificador] || {};
+        nomeInput.value = alteracao.nome || parametros.get('nome') || nomeInput.value;
+        precoInput.value = alteracao.preco || parametros.get('preco') || precoInput.value;
+        const categoriaAtual = alteracao.categoria || parametros.get('categoria');
+        if (categoriaAtual) {
+            const opcao = [...categoriaInput.options].find((item) =>
+                normalizarTexto(item.value) === normalizarTexto(categoriaAtual)
+            );
+            if (opcao) {
+                categoriaInput.value = opcao.value;
+            }
+        }
+
+        formulario.addEventListener('submit', (evento) => {
+            evento.preventDefault();
+            const nome = nomeInput.value.trim();
+            const preco = precoInput.value.trim();
+            const categoria = categoriaInput.value;
+            const precoNumerico = Number(preco.replace(/[^\d,.-]/g, '').replace(',', '.'));
+
+            if (!nome || !preco || precoNumerico <= 0 || !categoria) {
+                mostrarNotificacao('Preencha nome, preço e categoria do prato.', 'erro');
+                return;
+            }
+
+            const nomesExistentes = [
+                ...nomesPratosBase.filter((nomeExistente) =>
+                    normalizarTexto(nomeExistente) !== normalizarTexto(parametros.get('nome') || alteracao.nome || '')
+                ),
+                ...lerArmazenamento(chavePratos, []).map((prato) => prato.nome)
+                    .filter((nomeExistente) =>
+                        normalizarTexto(nomeExistente) !== normalizarTexto(parametros.get('nome') || alteracao.nome || '')
+                    ),
+                ...Object.entries(lerArmazenamento(chaveAlteracoesPratos, {}))
+                    .filter(([id]) => id !== identificador)
+                    .map(([, prato]) => prato.nome)
+            ];
+            if (nomesExistentes.some((nomeExistente) => normalizarTexto(nomeExistente) === normalizarTexto(nome))) {
+                mostrarNotificacao('Já existe um prato com esse nome. Escolha outro nome.', 'erro');
+                nomeInput.focus();
+                return;
+            }
+
+            const atualizadas = lerArmazenamento(chaveAlteracoesPratos, {});
+            atualizadas[identificador] = { nome, preco, categoria };
+            localStorage.setItem(chaveAlteracoesPratos, JSON.stringify(atualizadas));
+
+            const pratos = lerArmazenamento(chavePratos, []);
+            const nomeOriginal = parametros.get('nome');
+            const pratoEncontrado = pratos.find((prato) =>
+                nomeOriginal
+                    ? normalizarTexto(prato.nome) === normalizarTexto(nomeOriginal)
+                    : normalizarTexto(prato.nome) === normalizarTexto(alteracao.nome || nome)
+            );
+            if (pratoEncontrado) {
+                pratoEncontrado.nome = nome;
+                pratoEncontrado.preco = preco;
+                pratoEncontrado.categoria = categoria;
+                localStorage.setItem(chavePratos, JSON.stringify(pratos));
+            }
+
+            mostrarNotificacao('Prato salvo com sucesso.', 'sucesso');
+            window.setTimeout(() => window.location.href = 'index.html', 300);
+        });
+
+        document.querySelector('.btn-cancelar')?.addEventListener('click', () => {
+            window.location.href = 'pratos_categoria.html';
+        });
+    }
+
     function carregarPratosNovos() {
         const grade = document.querySelector('.pratos-admin');
         if (!grade) {
@@ -538,6 +716,107 @@
             grade.append(cartao);
         });
         localStorage.setItem(chavePratos, JSON.stringify(pratos));
+    }
+
+    function configurarListaCompletaPratos() {
+        const lista = document.querySelector('#lista-completa-pratos');
+        if (!lista) {
+            return;
+        }
+
+        const pratosBase = [
+            ['bife-grelhado', 'Bife grelhado', 'R$ 29,90', 'Carnes grelhadas', 'assets/images/bife.jpg', true],
+            ['bife-acebolado', 'Bife acebolado', 'R$ 31,90', 'Carnes grelhadas', 'assets/images/prato2.jpg', true],
+            ['tiras-de-carne', 'Tiras de carne', 'R$ 28,90', 'Carnes grelhadas', 'assets/images/prato3.jpg', false],
+            ['carne-com-legumes', 'Carne com legumes', 'R$ 27,90', 'Carnes grelhadas', 'assets/images/prato4.jpg', true],
+            ['frango-especial', 'Frango especial', 'R$ 24,90', 'Frangos', 'assets/images/frango.jpg', true],
+            ['frango-crocante', 'Frango crocante', 'R$ 26,90', 'Frangos', 'assets/images/prato5.jpg', true],
+            ['frango-ao-molho', 'Frango ao molho', 'R$ 25,90', 'Frangos', 'assets/images/prato6.jpg', true],
+            ['executivo-de-carne', 'Executivo de carne', 'R$ 30,90', 'Pratos executivos', 'assets/images/prato7.jpg', false],
+            ['executivo-completo', 'Executivo completo', 'R$ 28,90', 'Pratos executivos', 'assets/images/prato8.jpg', true],
+            ['arroz-com-vegetais', 'Arroz com vegetais', 'R$ 23,90', 'Pratos executivos', 'assets/images/prato9.jpg', true],
+            ['frango-crocante-casa', 'Frango crocante da casa', 'R$ 27,90', 'Frangos', 'assets/images/prato10.jpg', false]
+        ].map(([id, nome, preco, categoria, imagem, disponivel]) =>
+            ({ id, nome, preco, categoria, imagem, disponivel })
+        );
+
+        const removidos = lerArmazenamento(chaveRemovidos, []);
+        const alteracoes = lerArmazenamento(chaveAlteracoesPratos, {});
+        const disponibilidade = lerArmazenamento(chaveDisponibilidade, {});
+        const criados = lerArmazenamento(chavePratos, []);
+        const catalogo = [
+            ...pratosBase.filter((prato) => !removidos.includes(prato.id)),
+            ...criados.filter((prato) => !removidos.includes(prato.id))
+        ];
+
+        lista.replaceChildren();
+        catalogo.forEach((prato) => {
+            const alteracao = alteracoes[prato.id];
+            const nome = alteracao?.nome || prato.nome;
+            const preco = alteracao?.preco || prato.preco;
+            const categoria = alteracao?.categoria || prato.categoria;
+            const disponivel = Object.prototype.hasOwnProperty.call(disponibilidade, prato.id)
+                ? disponibilidade[prato.id]
+                : prato.disponivel;
+            const item = document.createElement('div');
+            item.className = 'prato-item';
+            item.dataset.id = prato.id;
+            item.innerHTML = `
+                <div class="col-prato prato-info">
+                    <img src="${prato.imagem}" alt="${nome}" class="prato-foto">
+                    <div class="prato-textos"><h4>${nome}</h4><p>${categoria}</p></div>
+                </div>
+                <div class="col-preco">${preco}</div>
+                <div class="col-status">
+                    <span class="status-badge ${disponivel ? 'disponivel' : 'esgotado'}">
+                        <span class="status-dot"></span> ${disponivel ? 'Disponível' : 'Esgotado'}
+                    </span>
+                </div>
+                <div class="col-acoes">
+                    <a href="editar_prato.html?prato=${encodeURIComponent(prato.id)}&nome=${encodeURIComponent(nome)}&preco=${encodeURIComponent(preco)}&categoria=${encodeURIComponent(categoria)}" class="btn-acao btn-editar" title="Editar">
+                        <img src="assets/icon/icon_edit_pencil.png" alt="Editar">
+                    </a>
+                    <button type="button" class="btn-acao btn-excluir" title="Excluir" data-prato-id="${prato.id}">
+                        <img src="assets/icon/icon_trash.png" alt="Excluir">
+                    </button>
+                </div>
+            `;
+            lista.append(item);
+        });
+
+        const disponiveis = catalogo.filter((prato) =>
+            Object.prototype.hasOwnProperty.call(disponibilidade, prato.id)
+                ? disponibilidade[prato.id]
+                : prato.disponivel
+        ).length;
+        const abas = document.querySelectorAll('.filtro-tab');
+        if (abas[0]) abas[0].textContent = `Todos (${catalogo.length})`;
+        if (abas[1]) abas[1].textContent = `Disponíveis (${disponiveis})`;
+        if (abas[2]) abas[2].textContent = `Esgotados (${catalogo.length - disponiveis})`;
+
+        lista.addEventListener('click', (evento) => {
+            const botao = evento.target.closest('.btn-excluir');
+            if (!botao) return;
+            window.abrirModalExclusao(botao.dataset.pratoId, 'painel');
+        });
+    }
+
+    function configurarLinksEdicaoPratos() {
+        document.querySelectorAll('.prato-admin-card').forEach((cartao) => {
+            const rodape = cartao.querySelector('.prato-admin-rodape');
+            if (!rodape || rodape.querySelector('.botao-editar-prato')) {
+                return;
+            }
+            const nome = cartao.querySelector('h3')?.textContent || '';
+            const preco = cartao.querySelector('.prato-admin-info > strong')?.textContent || '';
+            const categoria = cartao.querySelector('.tag-categoria')?.textContent || '';
+            const id = cartao.dataset.pratoId || `prato-legado-${nome}`;
+            const link = document.createElement('a');
+            link.className = 'botao-editar-prato';
+            link.href = `editar_prato.html?prato=${encodeURIComponent(id)}&nome=${encodeURIComponent(nome)}&preco=${encodeURIComponent(preco)}&categoria=${encodeURIComponent(categoria)}`;
+            link.textContent = 'Editar';
+            rodape.insertBefore(link, rodape.querySelector('.botao-excluir-prato'));
+        });
     }
 
     function configurarCategorias() {
@@ -562,6 +841,8 @@
                     || lerArmazenamento(chavePratos, []).some((prato) =>
                         normalizarTexto(prato.categoria) === normalizarTexto(categoria)
                     )
+                    || Object.values(lerArmazenamento(chaveAlteracoesPratos, {}))
+                        .some((prato) => normalizarTexto(prato.categoria || '') === normalizarTexto(nomeExibido))
                     || categoriasComPratosBase.includes(normalizarTexto(categoria));
                 item.innerHTML = `<div class="categoria-lista-dados"><strong>${nomeExibido}</strong><small>${possuiPratos ? 'Possui pratos vinculados' : 'Sem pratos vinculados'}</small></div><span class="acoes-categoria"></span>`;
                 const acoes = item.querySelector('.acoes-categoria');
@@ -578,11 +859,14 @@
                 const excluir = document.createElement('button');
                 excluir.type = 'button';
                 excluir.textContent = 'Excluir';
-                excluir.disabled = possuiPratos;
                 excluir.title = possuiPratos
                     ? 'Não é possível excluir uma categoria que possui pratos.'
                     : 'Excluir categoria';
                 excluir.addEventListener('click', () => {
+                    if (possuiPratos) {
+                        mostrarNotificacao('Erro ao excluir, contém itens na categoria.', 'erro');
+                        return;
+                    }
                     const indice = categorias.findIndex((item) => item === categoria);
                     categorias.splice(indice, 1);
                     const categoriasPersonalizadas = categorias.filter((item) => !categoriasBase.includes(item));
@@ -638,14 +922,18 @@
     configurarNavegacao();
     configurarBuscaDeCategorias();
     configurarOrdenacao();
+    configurarListaCompletaPratos();
     configurarFiltrosDePratos();
     configurarFormularios();
     configurarToasts();
     configurarMenuPerfil();
     configurarPreviewImagem();
     configurarNovoPrato();
+    configurarNovaCategoria();
+    configurarEdicaoPrato();
     carregarPratosNovos();
     aplicarNomesDeCategorias();
+    configurarLinksEdicaoPratos();
     removerPratosExcluidos();
     configurarDisponibilidade();
     configurarExclusao();

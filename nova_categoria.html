@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
 
 </head>
@@ -20,34 +20,12 @@
         <div class="header_container">
             <div class="header_cabecalho">
                 <div class="header_cabecalho_logo">
-                    <img class="header_cabecalho_logo_img" src="assets/images/logo.svg" alt="">
+                    <span class="header_cabecalho_logo_img header_marca_simbolo" aria-hidden="true">♨</span>
                 </div>
                 <div class="cabecalho_titulo">
                     <h1>Sabor de casa</h1>
                     <p>Painel do cardápio</p>
                 </div>
-            </div>
-
-            <div class="header_navegacao">
-                <nav>
-                    <ul>
-                        <!-- Item: Categorias-->
-                        <li>
-                            <a href="index.html" class="menu-item">
-                                <span class="icone"><img src="assets/icon/categoria-icon.png" alt="Categorias"></span>
-                                <span class="texto">Categorias</span>
-                            </a>
-                        </li>
-
-                        <!-- Item: Pratos-->
-                        <li>
-                            <a href="pratos_categoria.html" class="menu-item">
-                                <span class="icone"><img src="assets/icon/pratos-icon.png" alt="Pratos"></span>
-                                <span class="texto">Pratos</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
             </div>
 
             <div class="header_usuario">
@@ -68,27 +46,6 @@
             <p class="breadcrumb_divisor">></p>
             <p class="breadcrumb_item_ativo">Nova categoria</p>
         </div>
-
-        <!-- barra verde de sucesso -->
-        <div id="toastSucesso" class="toast-sucesso">
-            <div class="toast-conteudo">
-                <svg class="toast-icone" viewBox="0 0 24 24" fill="none">
-                    <path d="M20 6L9 17L4 12" stroke="#2D6A4F" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                </svg>
-                <span class="toast-mensagem">
-                    <strong>"Nova categoria"</strong> &nbsp; foi criada com sucesso.
-                </span>
-            </div>
-
-            <button class="toast-fechar" id="fecharToast" aria-label="Fechar notificação">
-                <svg viewBox="0 0 24 24" fill="none">
-                    <path d="M18 6L6 18M6 6L18 18" stroke="#2D6A4F" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                </svg>
-            </button>
-        </div>
-        <!-- fim da barra verde de sucesso -->
 
         <!-- inicio do cabecalho da categoria -->
         <div class="cabecalho-categoria">
@@ -114,25 +71,16 @@
             <div class="card-formulario">
                 <h2>Informações da categoria</h2>
 
-                <form>
+                <form id="nova-categoria-form" novalidate>
                     <!-- Campo: Nome da Categoria -->
                     <div class="form-grupo">
                         <label for="nome-categoria">Nome da categoria <span>*</span></label>
                         <div class="input-erro-wrapper">
-                            <input type="text" id="nome-categoria" placeholder="Ex: Massas, Bebidas, Sobremesas..."
-                                class="input-erro">
-                            <img src="assets/icon/icon_alert.png" alt="Erro" class="icone-input-erro">
+                            <input type="text" id="nome-categoria" placeholder="Ex: Massas, Bebidas, Sobremesas...">
                         </div>
                         <small class="form-ajuda">Digite um nome claro e único para identificar esta categoria no
                             cardápio.</small>
 
-                        <span id="mensagem-erro" class="mensagem-erro" style="display: on;">
-                            <img src="assets/icon/icon_alert.png" alt="Ícone de alerta" class="icone-mensagem-erro">
-                            Já existe uma categoria chamada “Massas”. Escolha outro nome.
-                        </span>
-
-
-                        <!-- <span class="mensagem-erro">Já existe uma categoria chamada “Massas”. Escolha outro nome.</span> -->
                     </div>
 
                     <!-- Campo: Descrição -->
