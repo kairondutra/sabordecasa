@@ -154,69 +154,7 @@
                 <span class="col-acoes">AÇÕES</span>
             </div>
 
-            <!-- Item 1: Prato Disponível -->
-            <div class="prato-item" data-id="1">
-                <div class="col-prato prato-info">
-                    <img src="assets/images/foto_prato_arroz_picadinho.png" alt="Arroz com picadinho de carne"
-                        class="prato-foto">
-                    <div class="prato-textos">
-                        <h4>Arroz com picadinho de carne</h4>
-                        <p>Picadinho ao molho, arroz branco, feijão e farofa.</p>
-                    </div>
-                </div>
-                <div class="col-preco">R$ 21,90</div>
-                <div class="col-status">
-                    <span class="status-badge disponivel">
-                        <span class="status-dot"></span> Disponível
-                    </span>
-                </div>
-
-
-                <!-- <div class="col-acoes">
-                    <button class="btn-acao btn-editar" title="Editar"><img src="img/icon_edit_pencil.png" alt="Editar"></button>
-                    <button class="btn-acao btn-excluir" title="Excluir"><img src="img/icon_trash.png" alt="Excluir"></button>
-                </div> -->
-
-                <div class="col-acoes">
-                    <!-- Botão de Editar transformado em Link (<a>) estilizado como botão -->
-                    <a href="editar_prato.html?prato=prato-legado-1&nome=Arroz%20com%20picadinho%20de%20carne&categoria=Pratos%20executivos&preco=R%24%2021%2C90" class="btn-acao btn-editar" title="Editar">
-                        <img src="assets/icon/icon_edit_pencil.png" alt="Editar">
-                    </a>
-
-                    <!-- Botão de Excluir mantido como <button> para disparar a ação -->
-                    <button type="button" class="btn-acao btn-excluir" title="Excluir" onclick="abrirModalExclusao(1)">
-                        <img src="assets/icon/icon_trash.png" alt="Excluir">
-                    </button>
-                </div>
-            </div>
-
-            <!-- Item 2: Prato Esgotado -->
-            <div class="prato-item" data-id="2">
-                <div class="col-prato prato-info">
-                    <img src="assets/images/foto_prato_espetinho.png" alt="Espetinho misto com farofa"
-                        class="prato-foto">
-                    <div class="prato-textos">
-                        <h4>Espetinho misto com farofa</h4>
-                        <p>Carne e frango, farofa de manteiga e vinagrete.</p>
-                    </div>
-                </div>
-                <div class="col-preco">R$ 24,90</div>
-                <div class="col-status">
-                    <span class="status-badge esgotado">
-                        <span class="status-dot"></span> Esgotado
-                    </span>
-                </div>
-                <div class="col-acoes">
-                    <!-- Botão de Editar transformado em Link (<a>) estilizado como botão -->
-                    <a href="editar_prato.html?prato=prato-legado-2&nome=Espetinho%20misto%20com%20farofa&categoria=Pratos%20executivos&preco=R%24%2024%2C90" class="btn-acao btn-editar" title="Editar">
-                        <img src="assets/icon/icon_edit_pencil.png" alt="Editar">
-                    </a>
-
-                    <button type="button" class="btn-acao btn-excluir" title="Excluir" onclick="abrirModalExclusao(1)">
-                        <img src="assets/icon/icon_trash.png" alt="Excluir">
-                    </button>
-                </div>
-            </div>
+            <div id="lista-completa-pratos"></div>
         </div>
         <!-- fim da tabela de precos -->
 
