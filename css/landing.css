@@ -155,6 +155,7 @@ body {
 .alternador input:checked + span::after { transform: translateX(14px); }
 .botao-excluir-prato { padding: 5px 8px; border: 0; border-radius: 6px; color: #c65e56; background: #fff1ef; font: inherit; font-size: 10px; font-weight: 700; cursor: pointer; }
 .botao-excluir-prato:hover { background: #fbded9; }
+.botao-editar-prato { padding: 5px 8px; border-radius: 6px; color: var(--laranja); background: var(--laranja-clara); font-size: 10px; font-weight: 700; text-decoration: none; }
 .prato-admin-card.removido { display: none; }
 .prato-admin-card.cartao-oculto { display: none; }
 .modal-aberto { overflow: hidden; }
