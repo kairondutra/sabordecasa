@@ -1,0 +1,11 @@
+# configuração para publicar a aplicação no Render
+services:
+  - type: web
+    name: sabor-de-casa
+    runtime: node
+    plan: free
+    buildCommand: cd backend && npm install --include=dev && npm run build
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 22.20.0
