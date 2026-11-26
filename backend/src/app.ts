@@ -1,5 +1,5 @@
 import express from "express"
-import categoriaRoutes from "./routes/categoriarRoutes"
+import categoriaRoutes from "./routes/categoriaRoutes"
 import pratoRoutes from "./routes/pratoRoutes"
 import paginasRoutes from "./routes/paginasRoutes"
 import { tratarErros } from "./middlewares/tratarErros"
