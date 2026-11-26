@@ -39,15 +39,28 @@
     </header>
     <main>
         <div class="breadcrumb">
-            <p class="breadcrumb_item_inativo"><a href="#">Painel</a></p>
+            <p class="breadcrumb_item_inativo"><a href="index.html">Painel</a></p>
             <p class="breadcrumb_divisor">></p>
             <p class="breadcrumb_item_inativo"><a href="index.html">Categorias</a></p>
             <p class="breadcrumb_divisor">></p>
-            <p class="breadcrumb_item_inativo"><a href="pratos_categoria.html">Executivos</a></p>
+            <p class="breadcrumb_item_inativo"><a href="pratos_categoria.html">Pratos</a></p>
             <p class="breadcrumb_divisor">></p>
             <p class="breadcrumb_item_ativo">Editar prato</p>
         </div>
 
+
+        <!-- barra vermelha, aparece quando o prato não pode ser salvo -->
+        <div class="toast-erro" role="alert" hidden>
+            <svg class="toast-icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            <div class="toast-conteudo">
+                <h4>Não foi possível salvar o prato</h4>
+                <p></p>
+            </div>
+        </div>
 
         <!-- inicio do cabecalho da categoria -->
         <div class="cabecalho-categoria">
@@ -55,7 +68,7 @@
             <div class="categoria-info-wrapper">
                 <div class="categoria-detalhes">
                     <div class="categoria-textos">
-                        <a href="pratos_categoria.html" class="link-voltar">&larr; Voltar para Executivos</a>
+                        <a href="pratos_categoria.html" class="link-voltar">&larr; Voltar</a>
                         <h1>Editar prato</h1>
                     </div>
                 </div>
@@ -72,23 +85,21 @@
             <div class="card-formulario">
                 <h2>Dados do prato</h2>
 
-                <form id="editar-prato-form" novalidate>
+                <form id="form-prato" data-modo="edicao" novalidate>
                     <!-- Campo: Nome do prato -->
                     <div class="form-grupo">
                         <label for="nome-prato">Nome do prato <span>*</span></label>
                         <div class="input-erro-wrapper">
                             <!-- Alterado de value para placeholder -->
-                            <input type="text" id="nome-prato" placeholder="Ex.: Peixe grelhado com legumes"
-                                 value="Arroz com picadinho de carne">
-                            <svg class="icone-input-erro" style="display: none;" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            <input type="text" id="nome-prato" placeholder="Ex.: Peixe grelhado com legumes" required>
+                            <svg class="icone-input-erro" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                 stroke-width="2">
                                 <circle cx="12" cy="12" r="10"></circle>
                                 <line x1="12" y1="8" x2="12" y2="12"></line>
                                 <line x1="12" y1="16" x2="12.01" y2="16"></line>
                             </svg>
                         </div>
-                        <span class="mensagem-erro" style="display: none;">
-                            <img src="img/icon_alert.png" alt="Alerta" class="icone-mensagem-erro">
+                        <span class="mensagem-erro" hidden>
                             Informe o nome do prato.
                         </span>
                     </div>
@@ -97,7 +108,7 @@
                     <div class="form-grupo">
                         <label for="descricao-prato">Descrição <span>(opcional)</span></label>
                         <textarea id="descricao-prato" rows="3"
-                            placeholder="Ex.: Filé de peixe, legumes salteados e arroz de coco.">Picadinho ao molho, arroz branco, feijão e farofa.</textarea>
+                            placeholder="Ex.: Filé de peixe, legumes salteados e arroz de coco."></textarea>
                     </div>
 
                     <!-- Linha Dupla: Preço e Categoria -->
@@ -107,17 +118,15 @@
                             <label for="preco-prato">Preço <span>*</span></label>
                             <div class="input-erro-wrapper">
                                 <!-- Alterado de value para placeholder -->
-                                <input type="text" id="preco-prato"
-                                    value="R$ 21,90">
-                                <svg class="icone-input-erro" style="display: none;"  viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                <input type="text" id="preco-prato" placeholder="R$ 0,00" required>
+                                <svg class="icone-input-erro" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2">
                                     <circle cx="12" cy="12" r="10"></circle>
                                     <line x1="12" y1="8" x2="12" y2="12"></line>
                                     <line x1="12" y1="16" x2="12.01" y2="16"></line>
                                 </svg>
                             </div>
-                            <span class="mensagem-erro" style="display: none;">
-                                <img src="img/icon_alert.png" alt="Alerta" class="icone-mensagem-erro">
+                            <span class="mensagem-erro" hidden>
                                 O preço deve ser maior que zero.
                             </span>
                         </div>
@@ -127,30 +136,33 @@
                             <label for="categoria-prato">Categoria <span>*</span></label>
                             <div class="select-wrapper">
                                 <select id="categoria-prato">
-                                    <option value="" disabled>Selecione uma categoria</option>
-                                    <option value="executivos" selected>Executivos</option>
-                                    <option value="massas">Massas</option>
-                                    <option value="sobremesas">Sobremesas</option>
+                                    <option value="">Selecione uma categoria</option>
                                 </select>
                                 <svg class="select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="2">
                                     <polyline points="6 9 12 15 18 9"></polyline>
                                 </svg>
                             </div>
+                            <span class="mensagem-erro" hidden></span>
                         </div>
                     </div>
 
-                    <!-- Campo: Disponível hoje -->
-                    <!-- <div class="form-grupo">
-            <label>Disponível hoje</label>
-            <div class="toggle-container-prato">
-                <label class="switch">
-                    <input type="checkbox" checked>
-                    <span class="slider round"></span>
-                </label>
-                <span class="toggle-label-sub">Desligue quando o prato acabar: ele aparece como “Esgotado”.</span>
-            </div>
-        </div> -->
+                    <!-- Quantidade e disponibilidade -->
+                    <div class="form-linha-dupla">
+                        <div class="form-grupo">
+                            <label for="quantidade-prato">Quantidade disponível <span>*</span></label>
+                            <input type="number" id="quantidade-prato" min="0" step="1" placeholder="Ex.: 20" required>
+                            <small class="form-ajuda">Informe quantas porções estão disponíveis hoje.</small>
+                            <span class="mensagem-erro" hidden></span>
+                        </div>
+                        <div class="form-grupo">
+                            <label>Disponibilidade</label>
+                            <label class="disponibilidade-formulario">
+                                <input type="checkbox" id="disponivel-prato" checked>
+                                <span>Disponível para venda</span>
+                            </label>
+                        </div>
+                    </div>
 
                     <hr class="form-divisor">
 
@@ -172,13 +184,14 @@
             <!-- COLUNA DIREITA: Foto do Prato e Regras -->
             <div class="coluna-lateral">
 
-                <!-- Card: Foto do Prato -->
-                <div class="card-foto">
+                <!-- Card: Foto -->
+                <div class="card-foto form-grupo">
                     <h3>Foto do prato</h3>
                     <div class="preview-foto-container">
-                        <img src="assets/images/foto_prato_arroz_G.png" alt="Foto do prato" class="foto-prato-img">
+                        <img src="assets/images/upload_image.jpeg" alt="Pré-visualização da foto" class="foto-prato-img">
                     </div>
-                    <button type="button" class="btn-trocar-foto">
+                    <input type="file" id="imagem-prato" class="entrada-imagem" accept="image/png,image/jpeg" hidden>
+                    <label for="imagem-prato" class="btn-trocar-foto">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             style="width:16px;height:16px;">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -186,7 +199,9 @@
                             <line x1="12" y1="3" x2="12" y2="15"></line>
                         </svg>
                         Trocar foto (JPG ou PNG, até 2 MB)
-                    </button>
+                    </label>
+                    <small class="arquivo-selecionado">Nenhuma imagem selecionada.</small>
+                    <span class="mensagem-erro" hidden></span>
                 </div>
 
                 <!-- Card: Regras desta tela -->
@@ -222,5 +237,8 @@
 
 
     </main>
-    <script src="script.js"></script>
+    <!-- comportamento da tela -->
+    <script type="module" src="js/paginas/formulario-prato.js"></script>
 </body>
+
+</html>

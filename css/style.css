@@ -400,3 +400,27 @@ main {
     flex: 1;
   }
 }
+
+/* garante que elementos com "hidden" fiquem escondidos */
+[hidden] { display: none !important; }
+
+/* mensagem quando a lista não tem itens */
+.estado-vazio { grid-column: 1 / -1; padding: 24px; color: #89909d; font-size: 13px; text-align: center; }
+
+/* aviso de erro */
+.notificacao-erro { border: 1px solid #c65e56; background: #fff1ef; color: #a8453d; }
+
+/* botão "+ Novo prato" (o link não usa a cor padrão) */
+a.btn-novo-prato { color: #fff; }
+
+/* link "Ver pratos" na lista de categorias */
+.acoes-categoria a { padding: 7px 9px; border-radius: 7px; background: var(--cor-erva); color: #fff; font-size: 10px; font-weight: 700; text-decoration: none; }
+
+/* destaque dos campos com erro */
+.input-erro-wrapper.erro input,
+.input-erro-wrapper.erro select,
+[aria-invalid="true"] { border-color: var(--cor-fonte-erro) !important; }
+
+/* campos dentro do cartão de foto */
+.card-foto.form-grupo { margin-bottom: 0; }
+.card-foto .btn-trocar-foto { box-sizing: border-box; }

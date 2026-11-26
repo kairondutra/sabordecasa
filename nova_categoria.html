@@ -40,7 +40,7 @@
 
     <main>
         <div class="breadcrumb">
-            <p class="breadcrumb_item_inativo"><a href="#">Painel</a></p>
+            <p class="breadcrumb_item_inativo"><a href="index.html">Painel</a></p>
             <p class="breadcrumb_divisor">></p>
             <p class="breadcrumb_item_inativo"><a href="index.html">Categorias</a></p>
             <p class="breadcrumb_divisor">></p>
@@ -55,7 +55,7 @@
                     <div class="categoria-textos">
                         <a href="index.html" class="link-voltar">&larr; Voltar para categorias</a>
                         <h1>Nova categoria</h1>
-                        <p class="subtitulo-pagina">Use o mesmo formulário para cadastrar ou editar. O nome precisa ser
+                        <p class="subtitulo-pagina">Preencha os dados da categoria. O nome precisa ser
                             único.</p>
 
                     </div>
@@ -69,9 +69,9 @@
 
             <!-- COLUNA ESQUERDA: Formulário de Informações da Categoria -->
             <div class="card-formulario">
-                <h2>Informações da categoria</h2>
+                <h2 id="titulo-formulario">Informações da categoria</h2>
 
-                <form id="nova-categoria-form" novalidate>
+                <form id="form-categoria" novalidate>
                     <!-- Campo: Nome da Categoria -->
                     <div class="form-grupo">
                         <label for="nome-categoria">Nome da categoria <span>*</span></label>
@@ -80,6 +80,7 @@
                         </div>
                         <small class="form-ajuda">Digite um nome claro e único para identificar esta categoria no
                             cardápio.</small>
+                        <span class="mensagem-erro" hidden></span>
 
                     </div>
 
@@ -96,15 +97,16 @@
                     <div class="form-linha-dupla">
                         <div class="form-grupo">
                             <label for="ordem-cardapio">Ordem no cardápio</label>
-                            <input type="number" id="ordem-cardapio" value="3">
+                            <input type="number" id="ordem-cardapio" min="0" step="1">
                             <small class="form-ajuda">Posição em que a categoria aparece.</small>
+                            <span class="mensagem-erro" hidden></span>
                         </div>
 
                         <div class="form-grupo">
                             <label>Visibilidade</label>
                             <div class="toggle-container">
                                 <label class="switch">
-                                    <input type="checkbox" checked>
+                                    <input type="checkbox" id="visivel-categoria" checked>
                                     <span class="slider round"></span>
                                 </label>
                                 <span class="toggle-label">Mostrar no cardápio público</span>
@@ -134,12 +136,13 @@
             <div class="coluna-lateral">
 
                 <!-- Card: Foto -->
-                <div class="card-foto">
-                    <h3>Foto do prato</h3>
+                <div class="card-foto form-grupo">
+                    <h3>Imagem da categoria</h3>
                     <div class="preview-foto-container">
-                        <img src="assets/images/upload_image.jpeg" alt="Foto do prato" class="foto-prato-img">
+                        <img src="assets/images/upload_image.jpeg" alt="Pré-visualização da foto" class="foto-prato-img">
                     </div>
-                    <button type="button" class="btn-trocar-foto">
+                    <input type="file" id="imagem-categoria" class="entrada-imagem" accept="image/png,image/jpeg" hidden>
+                    <label for="imagem-categoria" class="btn-trocar-foto">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                             style="width:16px;height:16px;">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
@@ -147,7 +150,9 @@
                             <line x1="12" y1="3" x2="12" y2="15"></line>
                         </svg>
                         Trocar foto (JPG ou PNG, até 2 MB)
-                    </button>
+                    </label>
+                    <small class="arquivo-selecionado">Nenhuma imagem selecionada.</small>
+                    <span class="mensagem-erro" hidden></span>
                 </div>
 
                 <!-- Card: Regras desta tela -->
@@ -160,8 +165,8 @@
                         <li class="regra-item valido">
                             <span class="regra-icone">✓</span> Nome é obrigatório.
                         </li>
-                        <li class="regra-item invalido">
-                            <span class="regra-icone">✕</span> O nome não pode repetir outra categoria.
+                        <li class="regra-item valido">
+                            <span class="regra-icone">✓</span> O nome não pode repetir outra categoria.
                         </li>
                         <li class="regra-item valido">
                             <span class="regra-icone">✓</span> Uma categoria com pratos não pode ser excluída.
@@ -174,5 +179,8 @@
         </div>
         <!-- fim do formulário -->
     </main>
-    <script src="script.js"></script>
+    <!-- comportamento da tela -->
+    <script type="module" src="js/paginas/formulario-categoria.js"></script>
 </body>
+
+</html>

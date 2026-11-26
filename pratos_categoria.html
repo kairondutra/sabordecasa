@@ -39,23 +39,21 @@
     </header>
     <main>
         <div class="breadcrumb">
-            <p class="breadcrumb_item_inativo"><a href="#">Painel</a></p>
+            <p class="breadcrumb_item_inativo"><a href="index.html">Painel</a></p>
             <p class="breadcrumb_divisor">></p>
             <p class="breadcrumb_item_inativo"><a href="index.html">Categorias</a></p>
             <p class="breadcrumb_divisor">></p>
             <p class="breadcrumb_item_ativo">Editar pratos</p>
         </div>
 
-        <!-- barra verde de sucesso -->
-        <div id="toastSucesso" class="toast-sucesso">
+        <!-- barra verde de sucesso, aparece depois de salvar um prato -->
+        <div id="toastSucesso" class="toast-sucesso" hidden>
             <div class="toast-pratos-categoria-conteudo">
                 <svg class="toast-icone" viewBox="0 0 24 24" fill="none">
                     <path d="M20 6L9 17L4 12" stroke="#2D6A4F" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" />
                 </svg>
-                <span class="toast-mensagem">
-                    <strong>"Peixe grelhado com legumes"</strong> foi atualizado com sucesso.
-                </span>
+                <span class="toast-mensagem"></span>
             </div>
 
             <button class="toast-fechar" id="fecharToast" aria-label="Fechar notificação">
@@ -75,9 +73,14 @@
                 <div class="categoria-detalhes">
                     <div class="categoria-textos">
                         <a href="index.html" class="link-voltar">&larr; Voltar para o painel</a>
-                        <h1>Editar pratos</h1>
+                        <h1 id="titulo-lista">Editar pratos</h1>
                     </div>
                 </div>
+            </div>
+
+            <!-- Lado Direito: botão para cadastrar um prato -->
+            <div class="categoria-acoes">
+                <a href="novo_prato.html" class="btn btn-novo-prato" id="botao-novo-prato">+ Novo prato</a>
             </div>
 
         </div>
@@ -87,9 +90,9 @@
         <div class="filtros-container">
             <!-- Lado Esquerdo: Abas de Filtro (Todos, Disponíveis, Esgotados) -->
             <div class="filtros-abas">
-                <button class="filtro-tab ativo">Todos (6)</button>
-                <button class="filtro-tab">Disponíveis (5)</button>
-                <button class="filtro-tab">Esgotados (1)</button>
+                <button class="filtro-tab ativo">Todos (0)</button>
+                <button class="filtro-tab">Disponíveis (0)</button>
+                <button class="filtro-tab">Esgotados (0)</button>
             </div>
 
             <!-- Lado Direito: Barra de Busca de Pratos -->
@@ -115,8 +118,11 @@
 
             <div id="lista-completa-pratos"></div>
         </div>
-        <!-- fim da tabela de precos -->
+        <!-- fim da tabela de pratos -->
 
     </main>
-    <script src="script.js"></script>
+    <!-- comportamento da tela -->
+    <script type="module" src="js/paginas/lista-pratos.js"></script>
 </body>
+
+</html>

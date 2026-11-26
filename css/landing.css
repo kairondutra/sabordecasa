@@ -203,3 +203,12 @@ body {
     .abas-status { justify-content: space-between; gap: 5px; }
     .busca-painel, .filtro-categoria { width: 100%; }
 }
+
+/* garante que elementos com "hidden" fiquem escondidos */
+[hidden] { display: none !important; }
+
+/* mensagem quando a lista não tem itens */
+.estado-vazio { grid-column: 1 / -1; padding: 24px; color: #89909d; font-size: 13px; text-align: center; }
+
+/* aviso de erro */
+.notificacao-erro { border: 1px solid #c65e56; background: #fff1ef; color: #a8453d; }
