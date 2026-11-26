@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel | Sabor de Casa</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/landing.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="painel">
+        <aside class="barra-lateral">
+            <a class="marca" href="index.html">
+                <span class="marca-simbolo">♨</span>
+                <span><strong>Sabor de Casa</strong><small>Painel administrativo</small></span>
+            </a>
+
+            <nav class="menu-painel" aria-label="Menu administrativo">
+                <a class="menu-painel-item ativo" href="#visao-geral"><span>▦</span> Visão geral</a>
+                <a class="menu-painel-item" href="#cardapio"><span>☷</span> Cardápio</a>
+                <a class="menu-painel-item" href="pratos_categoria.html"><span>✎</span> Editar pratos</a>
+                <a class="menu-painel-item" href="editar_categoria.html"><span>▤</span> Editar categorias</a>
+            </nav>
+
+            <div class="perfil-painel">
+                <span class="avatar">MS</span>
+                <span><strong>Márcia Souza</strong><small>Proprietária</small></span>
+                <button class="perfil-menu" type="button" aria-expanded="false" aria-controls="menu-perfil">•••</button>
+                <div class="menu-perfil" id="menu-perfil" hidden>
+                    <a href="index.html">Sair do painel</a>
+                </div>
+            </div>
+        </aside>
+
+        <main class="conteudo-painel">
+            <header class="topo-painel">
+                <div class="topo-titulo">
+                    <h1>Olá, Márcia <span>👋</span></h1>
+                    <p>Acompanhe o cardápio e atualize a disponibilidade dos pratos.</p>
+                </div>
+            </header>
+
+            <section class="indicadores-painel" id="visao-geral" aria-label="Resumo do cardápio">
+                <article class="indicador-painel">
+                    <span class="indicador-icone laranja">▦</span>
+                    <span><small>Total de pratos</small><strong>0</strong><em id="resumo-total"></em></span>
+                </article>
+                <article class="indicador-painel">
+                    <span class="indicador-icone verde">✓</span>
+                    <span><small>Disponíveis agora</small><strong>0</strong><em id="resumo-disponiveis"></em></span>
+                </article>
+                <article class="indicador-painel">
+                    <span class="indicador-icone amarelo">!</span>
+                    <span><small>Esgotados</small><strong>0</strong><em class="alerta">Precisam de atenção</em></span>
+                </article>
+            </section>
+
+            <section class="painel-secao" id="cardapio">
+                <div class="secao-cabecalho">
+                    <div><h2>Pratos do cardápio</h2><p>Gerencie o que aparece para seus clientes.</p></div>
+                    <a class="link-ver-tudo" href="pratos_categoria.html">Ver todos <span>→</span></a>
+                </div>
+                <div class="filtros-painel" id="estoque">
+                    <div class="abas-status">
+                        <a class="aba-status ativa" href="#todos">Todos <b>0</b></a>
+                        <a class="aba-status" href="#disponiveis">Disponíveis <b>0</b></a>
+                        <a class="aba-status" href="#esgotados">Esgotados <b>0</b></a>
+                    </div>
+                    <label class="busca-painel">
+                        <span>⌕</span>
+                        <input type="search" placeholder="Buscar prato...">
+                    </label>
+                    <select class="filtro-categoria" aria-label="Filtrar por categoria">
+                        <option value="">Todos os tipos</option>
+                    </select>
+                </div>
+
+                <!-- os cartões são montados com os dados vindos do servidor -->
+                <div class="pratos-admin"></div>
+            </section>
+        </main>
+    </div>
+    <!-- comportamento da tela -->
+    <script type="module" src="../js/paginas/painel.js"></script>
+</body>
+</html>

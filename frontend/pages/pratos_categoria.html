@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabor de casa</title>
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+    <header>
+        <div class="header_container">
+            <div class="header_cabecalho">
+                <div class="header_cabecalho_logo">
+                    <span class="header_cabecalho_logo_img header_marca_simbolo" aria-hidden="true">♨</span>
+                </div>
+                <div class="cabecalho_titulo">
+                    <h1>Sabor de casa</h1>
+                    <p>Painel do cardápio</p>
+                </div>
+            </div>
+
+            <div class="header_usuario">
+                <div>
+                    <p class="usuario_nome">Márcia Souza</p>
+                    <p class="usuario_cargo">Proprietária</p>
+                </div>
+                <p class="usuario_foto">MS</p>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="breadcrumb">
+            <p class="breadcrumb_item_inativo"><a href="index.html">Painel</a></p>
+            <p class="breadcrumb_divisor">></p>
+            <p class="breadcrumb_item_inativo"><a href="index.html">Categorias</a></p>
+            <p class="breadcrumb_divisor">></p>
+            <p class="breadcrumb_item_ativo">Editar pratos</p>
+        </div>
+
+        <!-- barra verde de sucesso, aparece depois de salvar um prato -->
+        <div id="toastSucesso" class="toast-sucesso" hidden>
+            <div class="toast-pratos-categoria-conteudo">
+                <svg class="toast-icone" viewBox="0 0 24 24" fill="none">
+                    <path d="M20 6L9 17L4 12" stroke="#2D6A4F" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <span class="toast-mensagem"></span>
+            </div>
+
+            <button class="toast-fechar" id="fecharToast" aria-label="Fechar notificação">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M18 6L6 18M6 6L18 18" stroke="#2D6A4F" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+        </div>
+        <!-- fim da barra verde de sucesso -->
+
+        <!-- inicio do cabecalho da categoria -->
+        <div class="cabecalho-categoria">
+            <!-- Lado Esquerdo: Voltar, Foto, Título e Badges -->
+            <div class="categoria-info-wrapper">
+
+                <div class="categoria-detalhes">
+                    <div class="categoria-textos">
+                        <a href="index.html" class="link-voltar">&larr; Voltar para o painel</a>
+                        <h1 id="titulo-lista">Editar pratos</h1>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lado Direito: botão para cadastrar um prato -->
+            <div class="categoria-acoes">
+                <a href="novo_prato.html" class="btn btn-novo-prato" id="botao-novo-prato">+ Novo prato</a>
+            </div>
+
+        </div>
+        <!-- fim do cabecalho da categoria -->
+
+        <!-- inicio do container de filtros  -->
+        <div class="filtros-container">
+            <!-- Lado Esquerdo: Abas de Filtro (Todos, Disponíveis, Esgotados) -->
+            <div class="filtros-abas">
+                <button class="filtro-tab ativo">Todos (0)</button>
+                <button class="filtro-tab">Disponíveis (0)</button>
+                <button class="filtro-tab">Esgotados (0)</button>
+            </div>
+
+            <!-- Lado Direito: Barra de Busca de Pratos -->
+            <div class="filtro-busca-box">
+                <svg class="icone-lupa" viewBox="0 0 24 24" fill="none">
+                    <circle cx="11" cy="11" r="8" stroke="#8C7868" stroke-width="2" />
+                    <path d="M21 21L16.65 16.65" stroke="#8C7868" stroke-width="2" stroke-linecap="round" />
+                </svg>
+                <input type="text" placeholder="Buscar prato..." class="input-busca-prato">
+            </div>
+        </div>
+        <!-- fim do container de filtros  -->
+
+        <!-- inicio da tabela de pratos -->
+        <div class="tabela-pratos-container">
+            <!-- Cabeçalho da Tabela -->
+            <div class="tabela-header">
+                <span class="col-prato">PRATO</span>
+                <span class="col-preco" id="col-preco-header">PREÇO</span>
+                <span class="col-status">STATUS</span>
+                <span class="col-acoes">AÇÕES</span>
+            </div>
+
+            <div id="lista-completa-pratos"></div>
+        </div>
+        <!-- fim da tabela de pratos -->
+
+    </main>
+    <!-- comportamento da tela -->
+    <script type="module" src="../js/paginas/lista-pratos.js"></script>
+</body>
+
+</html>
