@@ -1,6 +1,6 @@
 // funções para formatar e converter valores
 
-const IMAGEM_PADRAO = 'assets/images/upload_image.jpeg';
+const IMAGEM_PADRAO = '../assets/images/upload_image.jpeg';
 const moeda = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
 
 export function formatarPreco(valor) {

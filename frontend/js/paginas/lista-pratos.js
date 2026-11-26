@@ -32,10 +32,10 @@ function montarLinha(prato) {
             </div>
             <div class="col-acoes">
                 <a href="editar_prato.html?id=${prato.id}${origem}" class="btn-acao btn-editar" title="Editar">
-                    <img src="assets/icon/icon_edit_pencil.png" alt="Editar">
+                    <img src="../assets/icon/icon_edit_pencil.png" alt="Editar">
                 </a>
                 <button type="button" class="btn-acao btn-excluir" title="Excluir">
-                    <img src="assets/icon/icon_trash.png" alt="Excluir">
+                    <img src="../assets/icon/icon_trash.png" alt="Excluir">
                 </button>
             </div>
         </div>`;

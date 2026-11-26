@@ -2,8 +2,8 @@
 import express, { Router } from "express";
 import path from "node:path";
 
-// pasta principal do projeto, onde ficam os arquivos HTML
-const pastaDoSite = path.resolve(__dirname, "../../..");
+const pastaDoSite = path.resolve(__dirname, "../../../frontend");
+const pastaDasPaginas = path.join(pastaDoSite, "pages")
 
 const paginas = [
   "index.html",
@@ -16,15 +16,15 @@ const paginas = [
 
 const router = Router();
 
-// liberamos só as pastas do site, para o código do back-end não ficar exposto
+// liberamos só as pastas do site
 ["css", "js", "assets"].forEach((pasta) => {
   router.use(`/${pasta}`, express.static(path.join(pastaDoSite, pasta)));
 });
 
-router.get("/", (req, res) => res.sendFile(path.join(pastaDoSite, "index.html")));
+router.get("/", (req, res) => res.sendFile(path.join(pastaDasPaginas, "index.html")));
 
 paginas.forEach((pagina) => {
-  router.get(`/${pagina}`, (req, res) => res.sendFile(path.join(pastaDoSite, pagina)));
+  router.get(`/${pagina}`, (req, res) => res.sendFile(path.join(pastaDasPaginas, pagina)));
 });
 
 export default router;

@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sabor de casa</title>
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -44,7 +44,7 @@
             <p class="breadcrumb_divisor">></p>
             <p class="breadcrumb_item_inativo"><a href="index.html">Categorias</a></p>
             <p class="breadcrumb_divisor">></p>
-            <p class="breadcrumb_item_ativo">Nova categoria</p>
+            <p class="breadcrumb_item_ativo">Editar categoria</p>
         </div>
 
         <!-- inicio do cabecalho da categoria -->
@@ -54,9 +54,8 @@
                 <div class="categoria-detalhes">
                     <div class="categoria-textos">
                         <a href="index.html" class="link-voltar">&larr; Voltar para categorias</a>
-                        <h1>Nova categoria</h1>
-                        <p class="subtitulo-pagina">Preencha os dados da categoria. O nome precisa ser
-                            único.</p>
+                        <h1>Editar categorias</h1>
+                        <p class="subtitulo-pagina">Escolha uma categoria para editar ou cadastre uma nova.</p>
 
                     </div>
                 </div>
@@ -72,6 +71,15 @@
                 <h2 id="titulo-formulario">Informações da categoria</h2>
 
                 <form id="form-categoria" novalidate>
+                    <div class="lista-categorias-gerenciamento">
+                        <div class="lista-categorias-cabecalho">
+                            <h3>Categorias existentes</h3>
+                            <div class="categoria-acoes-criacao">
+                                <a href="nova_categoria.html" class="btn-nova-categoria">+ Nova categoria</a>
+                            </div>
+                        </div>
+                        <ul id="lista-categorias"></ul>
+                    </div>
                     <!-- Campo: Nome da Categoria -->
                     <div class="form-grupo">
                         <label for="nome-categoria">Nome da categoria <span>*</span></label>
@@ -139,7 +147,7 @@
                 <div class="card-foto form-grupo">
                     <h3>Imagem da categoria</h3>
                     <div class="preview-foto-container">
-                        <img src="assets/images/upload_image.jpeg" alt="Pré-visualização da foto" class="foto-prato-img">
+                        <img src="../assets/images/upload_image.jpeg" alt="Pré-visualização da foto" class="foto-prato-img">
                     </div>
                     <input type="file" id="imagem-categoria" class="entrada-imagem" accept="image/png,image/jpeg" hidden>
                     <label for="imagem-categoria" class="btn-trocar-foto">
@@ -158,7 +166,7 @@
                 <!-- Card: Regras desta tela -->
                 <div class="card-regras">
                     <div class="regras-titulo">
-                        <img src="assets/icon/icon_alert.png" alt="Ícone de informação">
+                        <img src="../assets/icon/icon_alert.png" alt="Ícone de informação">
                         <h3>Regras desta tela</h3>
                     </div>
                     <ul class="regras-lista">
@@ -173,14 +181,17 @@
                         </li>
                     </ul>
                 </div>
-
             </div>
 
         </div>
         <!-- fim do formulário -->
+
+
+
+
     </main>
     <!-- comportamento da tela -->
-    <script type="module" src="js/paginas/formulario-categoria.js"></script>
+    <script type="module" src="../js/paginas/formulario-categoria.js"></script>
 </body>
 
 </html>
