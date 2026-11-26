@@ -1,3 +1,4 @@
+// rotas de pratos
 import { Router } from "express";
 import * as controller from "../controllers/pratoController";
 

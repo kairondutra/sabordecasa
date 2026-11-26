@@ -1,22 +1,36 @@
+// regras de negócio das categorias
 import { AppError } from "../errors/AppError";
 import * as repo from "../repositories/categoriaRepository";
+import { listarPratosPorCategoria } from "../repositories/pratoRepository";
+import { normalizarTexto } from "../utils/normalizarTexto";
+import * as validar from "./validacoes";
 
-interface DadosCategoria {
+interface EntradaCategoria {
   nome?: unknown;
-  descricao?: string;
+  descricao?: unknown;
+  ordem?: unknown;
+  visivel?: unknown;
+  imagem_url?: unknown;
 }
 
-function validarNome(nome: unknown): string {
-  if (typeof nome !== "string" || nome.trim() === "") {
-    throw new AppError("O nome da categoria é obrigatório.", 400);
-  }
-  return nome.trim();
+function validarDados(entrada: EntradaCategoria): repo.DadosCategoria {
+  return {
+    nome: validar.validarTextoObrigatorio(entrada.nome, "O nome da categoria é obrigatório."),
+    descricao: validar.validarTextoOpcional(entrada.descricao, "descrição"),
+    ordem: validar.validarInteiroNaoNegativo(entrada.ordem, "A ordem deve ser um número inteiro, de zero para cima."),
+    visivel: validar.validarSimNao(entrada.visivel, "visível"),
+    imagem_url: validar.validarImagem(entrada.imagem_url),
+  };
 }
 
+// não deixa repetir o nome, mesmo mudando acentos ou letras maiúsculas
 function garantirNomeDisponivel(nome: string, idAtual?: number): void {
-  const existente = repo.buscarCategoriaPorNome(nome);
   // ao atualizar, a própria categoria pode manter o mesmo nome
-  if (existente && existente.id !== idAtual) {
+  const repetida = repo
+    .listarCategorias()
+    .some((categoria) => categoria.id !== idAtual && normalizarTexto(categoria.nome) === normalizarTexto(nome));
+
+  if (repetida) {
     throw new AppError("Já existe uma categoria com esse nome.", 409);
   }
 }
@@ -33,18 +47,23 @@ export function listar() {
   return repo.listarCategorias();
 }
 
-export function criar(dados: DadosCategoria) {
-  const nome = validarNome(dados.nome);
-  garantirNomeDisponivel(nome);
-  const id = repo.inserirCategoria(nome, dados.descricao ?? null);
+export function listarPratos(id: number) {
+  buscarOuFalhar(id);
+  return listarPratosPorCategoria(id);
+}
+
+export function criar(entrada: EntradaCategoria) {
+  const dados = validarDados(entrada);
+  garantirNomeDisponivel(dados.nome);
+  const id = repo.inserirCategoria(dados);
   return repo.buscarCategoriaPorId(id);
 }
 
-export function atualizar(id: number, dados: DadosCategoria) {
+export function atualizar(id: number, entrada: EntradaCategoria) {
   buscarOuFalhar(id);
-  const nome = validarNome(dados.nome);
-  garantirNomeDisponivel(nome, id);
-  repo.atualizarCategoria(id, nome, dados.descricao ?? null);
+  const dados = validarDados(entrada);
+  garantirNomeDisponivel(dados.nome, id);
+  repo.atualizarCategoria(id, dados);
   return repo.buscarCategoriaPorId(id);
 }
 

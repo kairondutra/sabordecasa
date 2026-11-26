@@ -1,14 +1,7 @@
+// recebe a requisição, chama o serviço e devolve a resposta
 import { Request, Response } from "express";
-import { AppError } from "../errors/AppError";
 import * as service from "../services/categoriaService";
-
-function lerId(req: Request): number {
-  const id = Number(req.params.id);
-  if (!Number.isInteger(id) || id <= 0) {
-    throw new AppError("O id informado é inválido.", 400);
-  }
-  return id;
-}
+import { lerId } from "../utils/lerId";
 
 export function listar(req: Request, res: Response) {
   res.json(service.listar());
@@ -16,6 +9,10 @@ export function listar(req: Request, res: Response) {
 
 export function buscarPorId(req: Request, res: Response) {
   res.json(service.buscarOuFalhar(lerId(req)));
+}
+
+export function listarPratos(req: Request, res: Response) {
+  res.json(service.listarPratos(lerId(req)));
 }
 
 export function criar(req: Request, res: Response) {
