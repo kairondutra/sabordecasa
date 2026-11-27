@@ -138,51 +138,48 @@ Durante o desenvolvimento, foram aplicadas práticas de clean code, como:
 - Redução da duplicação de código.
 - Padronização do tratamento de erros.
 
-## Como executar
+## Como Executar o Projeto
 
-É preciso ter o Node.js 22.13 ou mais novo.
+### Pré-requisitos
+
+- Node.js 22.13.0 ou superior.
+- Git.
+- Navegador atualizado.
+
+### 1. Clonar o repositório
 
 ```bash
 git clone https://github.com/kairondutra/sabordecasa.git
-cd sabordecasa/backend
-npm install
+cd sabordecasa
+```
+
+### 2. Instalar as dependências
+
+```bash
+cd backend
+npm ci
+```
+
+### 3. Iniciar o servidor
+
+```bash
 npm run dev
 ```
 
-Depois, acesse **http://localhost:3000**. O mesmo servidor entrega as telas e a API, por isso não abra os arquivos HTML direto no navegador.
+### 4. Acessar a aplicação
 
-Na primeira execução, o banco `marmitaria.db` é criado com um cardápio de exemplo.
+Abra o seguinte endereço no navegador:
 
-## API
-
-| Método | Endereço | O que faz |
-|---|---|---|
-| GET | `/categorias` | Lista as categorias |
-| GET | `/categorias/:id` | Busca uma categoria |
-| GET | `/categorias/:id/pratos` | Lista os pratos de uma categoria |
-| POST | `/categorias` | Cria uma categoria |
-| PUT | `/categorias/:id` | Atualiza uma categoria |
-| DELETE | `/categorias/:id` | Exclui uma categoria |
-| GET | `/pratos` | Lista os pratos |
-| GET | `/pratos/:id` | Busca um prato |
-| POST | `/pratos` | Cria um prato |
-| PUT | `/pratos/:id` | Atualiza um prato |
-| DELETE | `/pratos/:id` | Exclui um prato |
-
-Exemplo de criação de prato:
-
-```json
-{
-  "nome": "Peixe grelhado",
-  "descricao": "Acompanha arroz e legumes",
-  "preco": 29.9,
-  "quantidade": 15,
-  "disponivel": true,
-  "categoria_id": 1
-}
+```text
+http://localhost:3000
 ```
 
-Os erros voltam no formato `{ "erro": "mensagem" }`.
+O Express é responsável por disponibilizar tanto a interface web quanto a API REST. Portanto, não é necessário executar o frontend separadamente ou utilizar a extensão Live Server.
+
+O banco de dados SQLite (`marmitaria.db`) é inicializado automaticamente durante a execução da aplicação.
+
+Para utilizar outro caminho de armazenamento, defina a variável de ambiente `DB_PATH`.
+
 
 ## Organização do código
 
