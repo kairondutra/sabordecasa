@@ -181,23 +181,118 @@ O banco de dados SQLite (`marmitaria.db`) é inicializado automaticamente durant
 Para utilizar outro caminho de armazenamento, defina a variável de ambiente `DB_PATH`.
 
 
-## Organização do código
+### Executar em modo de produção
 
+A partir da pasta `backend`, execute:
+
+```bash
+npm run build
+npm start
 ```
-├── *.html                 telas
-├── css/                   estilos
-├── js/
-│   ├── api.js             comunicação com o serviço
-│   ├── formatos.js        formatação de valores
-│   ├── interface.js       avisos, confirmação e campo de foto
-│   └── paginas/           comportamento de cada tela
-└── backend/src/
-    ├── routes/            endereços
-    ├── controllers/       recebem a requisição e respondem
-    ├── services/          regras de negócio e validações
-    ├── repositories/      acesso aos dados
-    └── database/          conexão, tabelas e dados iniciais
+
+## API REST
+
+A comunicação entre o frontend e o backend é realizada por meio de uma API REST, utilizando o protocolo HTTP e o formato JSON.
+
+**URL base:**
+
+```text
+http://localhost:3000
 ```
+
+**URL base em produção:** `https://sabor-de-casa-zr7w.onrender.com`
+
+### Categorias
+
+| Método | Rota | Descrição |
+|---|---|---|
+| GET | `/categorias` | Lista todas as categorias |
+| GET | `/categorias/:id` | Busca uma categoria pelo ID |
+| GET | `/categorias/:id/pratos` | Lista os pratos de uma categoria |
+| POST | `/categorias` | Cria uma categoria |
+| PUT | `/categorias/:id` | Atualiza uma categoria |
+| DELETE | `/categorias/:id` | Exclui uma categoria |
+
+#### Exemplo de corpo da requisição
+
+```json
+{
+  "nome": "Marmitas",
+  "descricao": "Pratos do dia"
+}
+```
+
+### Pratos
+
+| Método | Rota | Descrição |
+|---|---|---|
+| GET | `/pratos` | Lista todos os pratos |
+| GET | `/pratos/:id` | Busca um prato pelo ID |
+| POST | `/pratos` | Cria um prato |
+| PUT | `/pratos/:id` | Atualiza um prato |
+| DELETE | `/pratos/:id` | Exclui um prato |
+
+#### Exemplo de corpo da requisição
+
+```json
+{
+  "nome": "Frango grelhado",
+  "descricao": "Acompanha arroz e legumes",
+  "preco": 22.90,
+  "quantidade": 15,
+  "disponivel": true,
+  "categoria_id": 1
+}
+```
+
+O campo `categoria_id` deve corresponder ao ID de uma categoria existente.
+
+O método `PUT` realiza a atualização dos dados editáveis do registro. Recomenda-se enviar todos os campos para preservar os valores existentes.
+
+### Respostas de erro
+
+Os erros da API são padronizados e retornados no formato JSON:
+
+```json
+{
+  "erro": "Mensagem explicando o problema"
+}
+```
+
+| Código HTTP | Descrição |
+|---|---|
+| 400 | Dados inválidos ou campos obrigatórios ausentes |
+| 404 | Recurso não encontrado |
+| 409 | Conflito com uma regra de negócio |
+| 413 | Requisição acima do tamanho permitido |
+| 500 | Erro interno do servidor |
+
+## Persistência dos Dados
+
+A aplicação utiliza o SQLite como sistema de gerenciamento de banco de dados relacional, por meio do módulo nativo `node:sqlite` do Node.js.
+
+Os dados são armazenados em um arquivo local, preservando o relacionamento entre categorias e pratos.
+
+O acesso ao banco de dados é realizado pela camada de repositories, utilizando consultas SQL parametrizadas e mecanismos de integridade referencial.
+
+Essa abordagem permite manter as informações armazenadas entre execuções locais da aplicação, sem a necessidade de instalar ou configurar um servidor de banco de dados externo.
+
+## Fluxo de Trabalho da Equipe
+
+O desenvolvimento colaborativo do projeto utiliza Git e GitHub para versionamento e organização das funcionalidades.
+
+- Desenvolvimento de funcionalidades em branches específicas.
+- Organização do desenvolvimento nas branches `front-end` e `back-end`.
+- Integração das funcionalidades na branch `pré-main`.
+- Realização de testes e revisão do código na `pré-main`.
+- Integração da versão final à branch `main` por meio do Pull Request #7.
+- Publicação da aplicação no Render a partir da branch `main`.
+- Utilização de mensagens de commit descritivas e padronizadas.
+
+
+
+
+
 
 ## Publicação
 
