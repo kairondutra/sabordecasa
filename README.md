@@ -14,6 +14,24 @@ A solução permite que a proprietária cadastre categorias e pratos, gerencie p
 
 O projeto foi desenvolvido como trabalho acadêmico da disciplina **N695 - Desenvolvimento de Plataformas Web**, da **Universidade de Fortaleza (UNIFOR)**, com base no **Cenário 3: Marmitaria com cardápio digital**.
 
+## Objetivo
+
+Desenvolver um MVP (Produto Mínimo Viável) voltado à organização do cardápio de marmitas e ao gerenciamento de informações, auxiliando pequenos empreendedores do ramo alimentício.
+
+O projeto busca contribuir com o **Objetivo de Desenvolvimento Sustentável (ODS) 8 – Trabalho Decente e Crescimento Econômico**, por meio da digitalização e da melhoria dos processos de pequenos negócios.
+
+## Entidades
+
+- **Categoria:** agrupa os pratos do cardápio (ex.: Marmitas, Bebidas e Sobremesas).
+- **Prato:** representa um item do cardápio, contendo informações como nome, descrição, preço, quantidade e disponibilidade.
+
+### Relacionamento
+
+As entidades possuem um relacionamento de um para muitos (1:N):
+
+- Uma categoria pode possuir vários pratos.
+- Cada prato pertence a exatamente uma categoria.
+
 ## Funcionalidades
 
 - Cadastrar, listar, editar e excluir categorias
