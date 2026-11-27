@@ -4,6 +4,8 @@ Sistema web para manter o cardápio de uma marmitaria organizado por categorias.
 
 Trabalho da disciplina N695 - Desenvolvimento de Plataformas Web (Cenário 3: marmitaria com cardápio digital).
 
+**Acesse a aplicação:** [Sabor de Casa](https://sabor-de-casa-zr7w.onrender.com)
+
 ## Sobre o projeto
 
 A **Sabor de Casa** enviava o cardápio como foto de um quadro escrito à mão. Quando um prato acabava ou mudava de preço, a foto antiga continuava circulando e gerava pedidos errados. Com o sistema, a proprietária mantém categorias e pratos sempre atualizados em um painel.
