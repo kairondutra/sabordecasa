@@ -344,11 +344,11 @@ A aplicação está hospedada no Render, utilizando a configuração definida no
 
 ## Uso de IA Generativa
 
-O ChatGPT foi utilizado como ferramenta de apoio na revisão do código, identificação de possíveis problemas, esclarecimento de dúvidas técnicas e aprimoramento da documentação.
-
+O ChatGPT foi utilizado como ferramenta de apoio na revisão do código, identificação de possíveis problemas, esclarecimento de dúvidas técnicas e aprimoramento da documentação. O Copilot foi utilizado integralmente para esclarecer dúvidas sobre o uso do GitHub de modo geral. A maior parte das alterações atribuídas a ele foi, na verdade, realizada pelos integrantes da equipe. Provavelmente, ao realizar o commit, o Copilot registrou a autoria como sua. Também foi utilizada para correções de textos e frases, visando uma maior compreensão e adequação às normas do português.
 A equipe é responsável pela compreensão, implementação e validação das soluções adotadas no projeto.
 
 ## Equipe
+Projeto desenvolvido pelos acadêmicos da Universidade de Fortaleza:
 
  - Isabelle Martins de Moraes Ramalho - Matrícula: 2524835
  - Janailson Alves Santos - Matrícula: 2524944 
@@ -356,3 +356,9 @@ A equipe é responsável pela compreensão, implementação e validação das so
  - Marcos Aurélio Ribeiro de Sousa  - Matrícula: 2524906
  - Nícolas Marques Lima - Matrícula: 2524025
  - Raylan da Rocha Araújo - Matrícula: 2526723
+
+---
+
+Projeto acadêmico desenvolvido para a disciplina **N695 - Desenvolvimento de Plataformas Web**.
+
+**Universidade de Fortaleza (UNIFOR) — 2026.2**
