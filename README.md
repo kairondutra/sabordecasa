@@ -60,10 +60,28 @@ As entidades possuem um relacionamento de um para muitos (1:N):
 
 ## Tecnologias
 
-- **Interface:** HTML5, CSS3 e JavaScript
-- **Serviço Web:** Node.js, TypeScript e Express
-- **Banco de dados:** SQLite (módulo `node:sqlite`)
+## Tecnologias Utilizadas
 
+  ### Frontend
+  - HTML5
+  - CSS3
+  - JavaScript
+  
+  ### Backend
+  - Node.js (versão 22.13.0 ou superior)
+  - TypeScript
+  - Express 5
+  
+  ### Banco de Dados
+  - SQLite (módulo nativo `node:sqlite`)
+  
+  ### Versionamento
+    - Git
+    - GitHub
+  
+  ### Hospedagem
+    - Render
+    
 ## Como executar
 
 É preciso ter o Node.js 22.13 ou mais novo.
