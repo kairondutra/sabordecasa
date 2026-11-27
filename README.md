@@ -8,7 +8,11 @@ Trabalho da disciplina N695 - Desenvolvimento de Plataformas Web (Cenário 3: ma
 
 ## Sobre o projeto
 
-A **Sabor de Casa** enviava o cardápio como foto de um quadro escrito à mão. Quando um prato acabava ou mudava de preço, a foto antiga continuava circulando e gerava pedidos errados. Com o sistema, a proprietária mantém categorias e pratos sempre atualizados em um painel.
+O **Sabor de Casa** nasceu de um problema comum em pequenos negócios do ramo alimentício: o cardápio é enviado como foto de um quadro escrito à mão e, quando um prato acaba ou muda de preço, a foto antiga continua circulando e gera pedidos errados.
+
+A solução permite que a proprietária cadastre categorias e pratos, gerencie preços, quantidades e disponibilidade, mantendo as informações atualizadas em um único lugar.
+
+O projeto foi desenvolvido como trabalho acadêmico da disciplina **N695 - Desenvolvimento de Plataformas Web**, da **Universidade de Fortaleza (UNIFOR)**, com base no **Cenário 3: Marmitaria com cardápio digital**.
 
 ## Funcionalidades
 
