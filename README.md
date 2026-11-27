@@ -82,6 +82,35 @@ As entidades possuem um relacionamento de um para muitos (1:N):
   ### Hospedagem
     - Render
     
+## Estrutura do Projeto
+
+```
+sabordecasa/
+├── backend/
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── database/
+│   │   ├── errors/
+│   │   ├── middlewares/
+│   │   ├── repositories/
+│   │   ├── routes/
+│   │   ├── services/
+│   │   ├── utils/
+│   │   ├── app.ts
+│   │   └── server.ts
+│   ├── package.json
+│   ├── package-lock.json
+│   └── tsconfig.json
+├── frontend/
+│   ├── assets/
+│   ├── css/
+│   ├── js/
+│   └── pages/
+├── .gitignore
+├── README.md
+└── render.yaml
+```
+
 ## Como executar
 
 É preciso ter o Node.js 22.13 ou mais novo.
