@@ -289,8 +289,51 @@ O desenvolvimento colaborativo do projeto utiliza Git e GitHub para versionament
 - Publicação da aplicação no Render a partir da branch `main`.
 - Utilização de mensagens de commit descritivas e padronizadas.
 
+## Fluxo de Trabalho da Equipe
 
+O desenvolvimento colaborativo do projeto utiliza Git e GitHub para versionamento e organização das funcionalidades.
 
+- Desenvolvimento de funcionalidades em branches específicas.
+- Organização do desenvolvimento nas branches `front-end` e `back-end`.
+- Integração das funcionalidades na branch `pré-main`.
+- Realização de testes e revisão do código na `pré-main`.
+- Integração da versão final à branch `main` por meio do Pull Request #7.
+- Publicação da aplicação no Render a partir da branch `main`.
+- Utilização de mensagens de commit descritivas e padronizadas.
+
+### Exemplos de commits
+
+```text
+feat: adiciona CRUD de categorias
+fix: corrige validação de preços
+refactor: centraliza funções de validação
+docs: atualiza documentação do projeto
+style: ajusta layout do formulário
+```
+
+## Testes Realizados
+
+A aplicação foi submetida a testes manuais em ambiente local:
+
+- Testes dos endpoints da API REST utilizando o Postman.
+- Testes de cadastro, listagem, edição e exclusão.
+- Testes de validação das regras de negócio.
+- Testes de integração entre frontend e backend.
+- Testes de interface e navegação.
+- Testes de compilação e execução do servidor.
+
+Foram organizadas 26 capturas de tela como evidências dos testes locais: 15 do Postman, 6 do frontend e 5 de validação.
+
+O primeiro deploy foi concluído com sucesso. Os testes funcionais em produção ainda estão pendentes de confirmação.
+
+## Aplicação Publicada
+
+A aplicação está hospedada no Render, utilizando a configuração definida no arquivo `render.yaml`.
+
+- **Aplicação:** [Sabor de Casa](https://sabor-de-casa-zr7w.onrender.com)
+- **Repositório:** [GitHub](https://github.com/kairondutra/sabordecasa)
+- **Branch de publicação:** `main`
+- **Plano de hospedagem:** Free
 
 
 
