@@ -335,13 +335,18 @@ A aplicação está hospedada no Render, utilizando a configuração definida no
 - **Branch de publicação:** `main`
 - **Plano de hospedagem:** Free
 
+### Limitações da hospedagem
 
+- O servidor pode entrar em suspensão após períodos de inatividade.
+- O primeiro acesso após a suspensão poderá demorar 50 segundos ou mais.
+- O armazenamento do SQLite é temporário no plano gratuito. Os dados podem ser perdidos durante reinicializações ou novas implantações.
+- O painel administrativo não possui autenticação e destina-se exclusivamente à demonstração acadêmica, com dados fictícios.
 
-## Publicação
+## Uso de IA Generativa
 
-O arquivo `render.yaml` deixa o projeto pronto para o [Render](https://render.com): crie um **Blueprint** apontando para este repositório.
+O ChatGPT foi utilizado como ferramenta de apoio na revisão do código, identificação de possíveis problemas, esclarecimento de dúvidas técnicas e aprimoramento da documentação.
 
-No plano gratuito, o disco é temporário: ao reiniciar o servidor, o banco volta ao cardápio de exemplo.
+A equipe é responsável pela compreensão, implementação e validação das soluções adotadas no projeto.
 
 ## Equipe
 
