@@ -58,29 +58,27 @@ As entidades possuem um relacionamento de um para muitos (1:N):
 - Associação de pratos a categorias existentes.
 - Impedimento da exclusão de categorias que ainda possuem pratos cadastrados.
 
-## Tecnologias
-
 ## Tecnologias Utilizadas
 
-  ### Frontend
-  - HTML5
-  - CSS3
-  - JavaScript
-  
-  ### Backend
-  - Node.js (versão 22.13.0 ou superior)
-  - TypeScript
-  - Express 5
-  
-  ### Banco de Dados
-  - SQLite (módulo nativo `node:sqlite`)
-  
-  ### Versionamento
-    - Git
-    - GitHub
-  
-  ### Hospedagem
-    - Render
+### Frontend
+- HTML5
+- CSS3
+- JavaScript
+
+### Backend
+- Node.js (versão 22.13.0 ou superior)
+- TypeScript
+- Express 5
+
+### Banco de Dados
+- SQLite (módulo nativo `node:sqlite`)
+
+### Versionamento
+- Git
+- GitHub
+
+### Hospedagem
+- Render
     
 ## Estrutura do Projeto
 
@@ -289,18 +287,6 @@ O desenvolvimento colaborativo do projeto utiliza Git e GitHub para versionament
 - Publicação da aplicação no Render a partir da branch `main`.
 - Utilização de mensagens de commit descritivas e padronizadas.
 
-## Fluxo de Trabalho da Equipe
-
-O desenvolvimento colaborativo do projeto utiliza Git e GitHub para versionamento e organização das funcionalidades.
-
-- Desenvolvimento de funcionalidades em branches específicas.
-- Organização do desenvolvimento nas branches `front-end` e `back-end`.
-- Integração das funcionalidades na branch `pré-main`.
-- Realização de testes e revisão do código na `pré-main`.
-- Integração da versão final à branch `main` por meio do Pull Request #7.
-- Publicação da aplicação no Render a partir da branch `main`.
-- Utilização de mensagens de commit descritivas e padronizadas.
-
 ### Exemplos de commits
 
 ```text
@@ -313,7 +299,7 @@ style: ajusta layout do formulário
 
 ## Testes Realizados
 
-A aplicação foi submetida a testes manuais em ambiente local:
+A aplicação foi submetida a testes manuais em ambientes local e de produção, com o objetivo de verificar o funcionamento das funcionalidades implementadas.
 
 - Testes dos endpoints da API REST utilizando o Postman.
 - Testes de cadastro, listagem, edição e exclusão.
@@ -322,9 +308,9 @@ A aplicação foi submetida a testes manuais em ambiente local:
 - Testes de interface e navegação.
 - Testes de compilação e execução do servidor.
 
-Foram organizadas 26 capturas de tela como evidências dos testes locais: 15 do Postman, 6 do frontend e 5 de validação.
+Foram organizadas 27 capturas de tela como evidências dos testes locais: 15 do Postman, 7 do frontend e 5 de validação.
 
-O primeiro deploy foi concluído com sucesso. Os testes funcionais em produção ainda estão pendentes de confirmação.
+O deploy da aplicação no Render foi concluído com sucesso. Após a publicação, foram realizados testes funcionais em ambiente de produção para verificar o funcionamento da aplicação hospedada.
 
 ## Aplicação Publicada
 
@@ -340,6 +326,9 @@ A aplicação está hospedada no Render, utilizando a configuração definida no
 - O servidor pode entrar em suspensão após períodos de inatividade.
 - O primeiro acesso após a suspensão poderá demorar 50 segundos ou mais.
 - O armazenamento do SQLite é temporário no plano gratuito. Os dados podem ser perdidos durante reinicializações ou novas implantações.
+
+### Limitações do MVP
+
 - O painel administrativo não possui autenticação e destina-se exclusivamente à demonstração acadêmica, com dados fictícios.
 
 ## Uso de IA Generativa
