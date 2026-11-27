@@ -111,6 +111,33 @@ sabordecasa/
 └── render.yaml
 ```
 
+### Arquitetura
+
+O projeto adota uma arquitetura em camadas, promovendo a separação de responsabilidades, a reutilização de código e a facilidade de manutenção.
+
+| Camada          | Responsabilidade                                        |
+|-----------------|---------------------------------------------------------|
+| Frontend        | Interface, interação com o usuário e consumo da API     |
+| Routes          | Definição das rotas e endpoints da aplicação            |
+| Controllers     | Recebimento de requisições e envio de respostas HTTP    |
+| Services        | Regras de negócio e validações                          |
+| Repositories    | Consultas e operações no banco de dados                 |
+| Database        | Conexão, estrutura e inicialização do banco de dados    |
+| Middlewares     | Processamento intermediário e tratamento de erros       |
+| Errors          | Padronização dos erros da aplicação                     |
+| Utils           | Funções auxiliares reutilizáveis                        |
+
+### Clean Code
+
+Durante o desenvolvimento, foram aplicadas práticas de clean code, como:
+
+- Utilização de nomes significativos para variáveis, funções e arquivos.
+- Separação de responsabilidades entre funções e módulos.
+- Organização da aplicação em camadas.
+- Centralização de validações e funções reutilizáveis.
+- Redução da duplicação de código.
+- Padronização do tratamento de erros.
+
 ## Como executar
 
 É preciso ter o Node.js 22.13 ou mais novo.
