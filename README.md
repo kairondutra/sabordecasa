@@ -32,21 +32,31 @@ As entidades possuem um relacionamento de um para muitos (1:N):
 - Uma categoria pode possuir vários pratos.
 - Cada prato pertence a exatamente uma categoria.
 
-## Funcionalidades
+## Funcionalidades do MVP
 
-- Cadastrar, listar, editar e excluir categorias
-- Cadastrar, listar, editar e excluir pratos, com foto
-- Ver os pratos de uma categoria
-- Marcar um prato como disponível ou esgotado
-- Buscar e filtrar pratos
+- Cadastro, listagem, edição e exclusão de categorias.
+- Cadastro, listagem, edição e exclusão de pratos.
+- Listagem de pratos por categoria.
+- Pesquisa de pratos por nome.
+- Filtros por disponibilidade.
+- Controle de quantidade e disponibilidade dos pratos.
+- Upload de imagens de categorias e pratos.
+- Indicadores no painel administrativo.
+- Navegação entre telas e formulários.
+- Validação de entrada e tratamento de erros.
+- Persistência dos dados em banco de dados SQLite.
 
-## Regras de validação
+### Regras de validação
 
-- Nome, preço e categoria do prato são obrigatórios
-- O preço precisa ser maior que zero
-- Não é permitido repetir nome de categoria nem de prato
-- Uma categoria com pratos não pode ser excluída
-- Fotos em JPG ou PNG, com até 2 MB
+- Preenchimento dos campos obrigatórios.
+- Preço do prato maior que zero.
+- Nome de categoria sem repetição.
+- Impedimento do cadastro de pratos com nomes duplicados.
+- Validação do formato e tamanho das imagens enviadas (JPG ou PNG, até 2 MB).
+- Normalização de nomes para comparação.
+- Quantidades e ordens representadas por números inteiros não negativos.
+- Associação de pratos a categorias existentes.
+- Impedimento da exclusão de categorias que ainda possuem pratos cadastrados.
 
 ## Tecnologias
 
